@@ -1,0 +1,313 @@
+rn,order_id,purchase_date,supplier,ingredient_name,unit_price,quantity,unit,location,"total ($)"
+1,10,2025-10-05,"Tuscan Olive Growers Co-op","Extra Virgin Olive Oil",11.82,20.000,l,"Eataly Flatiron",236.40
+1,22,2025-10-08,"Tuscan Olive Growers Co-op","Extra Virgin Olive Oil",11.82,20.000,l,"Eataly Downtown NYC",236.40
+1,48,2025-12-15,"Tuscan Olive Growers Co-op","Extra Virgin Olive Oil",12.12,20.000,l,"Eataly Chicago",242.40
+1,60,2025-12-20,"Tuscan Olive Growers Co-op","Extra Virgin Olive Oil",12.12,20.000,l,"Eataly Los Angeles",242.40
+1,319,2025-07-18,"Tuscan Olive Growers Co-op","Extra Virgin Olive Oil",10.88,20.000,l,"Eataly Las Vegas",217.60
+1,343,2025-07-18,"Tuscan Olive Growers Co-op","Extra Virgin Olive Oil",10.88,20.000,l,"Eataly Dallas",217.60
+1,367,2025-07-18,"Tuscan Olive Growers Co-op","Extra Virgin Olive Oil",10.88,20.000,l,"Eataly San Jose",217.60
+1,420,2025-11-10,"Tuscan Olive Growers Co-op","San Marzano Tomatoes (Canned)",4.12,6.000,"#10 can","Eataly Flatiron",24.72
+1,424,2025-11-10,"Tuscan Olive Growers Co-op","San Marzano Tomatoes (Canned)",4.12,6.000,"#10 can","Eataly Downtown NYC",24.72
+1,428,2025-11-10,"Tuscan Olive Growers Co-op","San Marzano Tomatoes (Canned)",4.12,6.000,"#10 can","Eataly Boston",24.72
+1,432,2025-11-10,"Tuscan Olive Growers Co-op","San Marzano Tomatoes (Canned)",4.12,6.000,"#10 can","Eataly Chicago",24.72
+1,436,2025-11-10,"Tuscan Olive Growers Co-op","San Marzano Tomatoes (Canned)",4.12,6.000,"#10 can","Eataly Los Angeles",24.72
+1,440,2025-11-10,"Tuscan Olive Growers Co-op","San Marzano Tomatoes (Canned)",4.12,6.000,"#10 can","Eataly Las Vegas",24.72
+1,444,2025-11-10,"Tuscan Olive Growers Co-op","San Marzano Tomatoes (Canned)",4.12,6.000,"#10 can","Eataly Dallas",24.72
+1,448,2025-11-10,"Tuscan Olive Growers Co-op","San Marzano Tomatoes (Canned)",4.12,6.000,"#10 can","Eataly San Jose",24.72
+1,10,2025-10-05,"Tuscan Olive Growers Co-op","Balsamic Vinegar",18.45,5.000,l,"Eataly Flatiron",92.25
+1,22,2025-10-08,"Tuscan Olive Growers Co-op","Balsamic Vinegar",18.45,5.000,l,"Eataly Downtown NYC",92.25
+1,48,2025-12-15,"Tuscan Olive Growers Co-op","Balsamic Vinegar",18.66,5.000,l,"Eataly Chicago",93.30
+1,60,2025-12-20,"Tuscan Olive Growers Co-op","Balsamic Vinegar",18.66,5.000,l,"Eataly Los Angeles",93.30
+1,319,2025-07-18,"Tuscan Olive Growers Co-op","Balsamic Vinegar",18.13,5.000,l,"Eataly Las Vegas",90.65
+1,343,2025-07-18,"Tuscan Olive Growers Co-op","Balsamic Vinegar",18.13,5.000,l,"Eataly Dallas",90.65
+1,367,2025-07-18,"Tuscan Olive Growers Co-op","Balsamic Vinegar",18.13,5.000,l,"Eataly San Jose",90.65
+1,64,2025-11-10,"Tuscan Olive Growers Co-op","Saffron Threads",9.79,50.000,g,"Eataly Flatiron",489.50
+1,96,2025-11-10,"Tuscan Olive Growers Co-op","Saffron Threads",9.79,50.000,g,"Eataly Downtown NYC",489.50
+1,160,2025-11-10,"Tuscan Olive Growers Co-op","Saffron Threads",9.79,50.000,g,"Eataly Chicago",489.50
+1,188,2025-11-10,"Tuscan Olive Growers Co-op","Saffron Threads",9.79,50.000,g,"Eataly Los Angeles",489.50
+1,220,2025-11-10,"Tuscan Olive Growers Co-op","Saffron Threads",9.79,50.000,g,"Eataly Las Vegas",489.50
+1,252,2025-11-10,"Tuscan Olive Growers Co-op","Saffron Threads",9.79,50.000,g,"Eataly Dallas",489.50
+1,284,2025-11-10,"Tuscan Olive Growers Co-op","Saffron Threads",9.79,50.000,g,"Eataly San Jose",489.50
+1,96,2025-11-10,"Tuscan Olive Growers Co-op","Red Wine Vinegar",6.70,8.000,l,"Eataly Downtown NYC",53.60
+1,160,2025-11-10,"Tuscan Olive Growers Co-op","Red Wine Vinegar",6.70,8.000,l,"Eataly Chicago",53.60
+1,188,2025-11-10,"Tuscan Olive Growers Co-op","Red Wine Vinegar",6.70,8.000,l,"Eataly Los Angeles",53.60
+1,220,2025-11-10,"Tuscan Olive Growers Co-op","Red Wine Vinegar",6.70,8.000,l,"Eataly Las Vegas",53.60
+1,252,2025-11-10,"Tuscan Olive Growers Co-op","Red Wine Vinegar",6.70,8.000,l,"Eataly Dallas",53.60
+1,284,2025-11-10,"Tuscan Olive Growers Co-op","Red Wine Vinegar",6.70,8.000,l,"Eataly San Jose",53.60
+1,64,2025-11-10,"Tuscan Olive Growers Co-op","Pine Nuts",1.29,32.000,oz,"Eataly Flatiron",41.28
+1,96,2025-11-10,"Tuscan Olive Growers Co-op","Pine Nuts",1.29,32.000,oz,"Eataly Downtown NYC",41.28
+1,128,2025-11-10,"Tuscan Olive Growers Co-op","Pine Nuts",1.29,32.000,oz,"Eataly Boston",41.28
+1,160,2025-11-10,"Tuscan Olive Growers Co-op","Pine Nuts",1.29,32.000,oz,"Eataly Chicago",41.28
+1,188,2025-11-10,"Tuscan Olive Growers Co-op","Pine Nuts",1.29,32.000,oz,"Eataly Los Angeles",41.28
+1,220,2025-11-10,"Tuscan Olive Growers Co-op","Pine Nuts",1.29,32.000,oz,"Eataly Las Vegas",41.28
+1,252,2025-11-10,"Tuscan Olive Growers Co-op","Pine Nuts",1.29,32.000,oz,"Eataly Dallas",41.28
+1,284,2025-11-10,"Tuscan Olive Growers Co-op","Pine Nuts",1.29,32.000,oz,"Eataly San Jose",41.28
+1,64,2025-11-10,"Tuscan Olive Growers Co-op","Fennel Seeds",0.57,16.000,oz,"Eataly Flatiron",9.12
+1,96,2025-11-10,"Tuscan Olive Growers Co-op","Fennel Seeds",0.57,16.000,oz,"Eataly Downtown NYC",9.12
+1,128,2025-11-10,"Tuscan Olive Growers Co-op","Fennel Seeds",0.57,16.000,oz,"Eataly Boston",9.12
+1,160,2025-11-10,"Tuscan Olive Growers Co-op","Fennel Seeds",0.57,16.000,oz,"Eataly Chicago",9.12
+1,188,2025-11-10,"Tuscan Olive Growers Co-op","Fennel Seeds",0.57,16.000,oz,"Eataly Los Angeles",9.12
+1,220,2025-11-10,"Tuscan Olive Growers Co-op","Fennel Seeds",0.57,16.000,oz,"Eataly Las Vegas",9.12
+1,252,2025-11-10,"Tuscan Olive Growers Co-op","Fennel Seeds",0.57,16.000,oz,"Eataly Dallas",9.12
+1,284,2025-11-10,"Tuscan Olive Growers Co-op","Fennel Seeds",0.57,16.000,oz,"Eataly San Jose",9.12
+1,64,2025-11-10,"Tuscan Olive Growers Co-op",Pistachios,9.27,15.000,lb,"Eataly Flatiron",139.05
+1,96,2025-11-10,"Tuscan Olive Growers Co-op",Pistachios,9.27,15.000,lb,"Eataly Downtown NYC",139.05
+1,128,2025-11-10,"Tuscan Olive Growers Co-op",Pistachios,9.27,15.000,lb,"Eataly Boston",139.05
+1,160,2025-11-10,"Tuscan Olive Growers Co-op",Pistachios,9.27,15.000,lb,"Eataly Chicago",139.05
+1,188,2025-11-10,"Tuscan Olive Growers Co-op",Pistachios,9.27,15.000,lb,"Eataly Los Angeles",139.05
+1,220,2025-11-10,"Tuscan Olive Growers Co-op",Pistachios,9.27,15.000,lb,"Eataly Las Vegas",139.05
+1,252,2025-11-10,"Tuscan Olive Growers Co-op",Pistachios,9.27,15.000,lb,"Eataly Dallas",139.05
+1,284,2025-11-10,"Tuscan Olive Growers Co-op",Pistachios,9.27,15.000,lb,"Eataly San Jose",139.05
+1,64,2025-11-10,"Tuscan Olive Growers Co-op","Black Pepper",2.16,16.000,oz,"Eataly Flatiron",34.56
+1,96,2025-11-10,"Tuscan Olive Growers Co-op","Black Pepper",2.16,16.000,oz,"Eataly Downtown NYC",34.56
+1,128,2025-11-10,"Tuscan Olive Growers Co-op","Black Pepper",2.16,16.000,oz,"Eataly Boston",34.56
+1,160,2025-11-10,"Tuscan Olive Growers Co-op","Black Pepper",2.16,16.000,oz,"Eataly Chicago",34.56
+1,188,2025-11-10,"Tuscan Olive Growers Co-op","Black Pepper",2.16,16.000,oz,"Eataly Los Angeles",34.56
+1,220,2025-11-10,"Tuscan Olive Growers Co-op","Black Pepper",2.16,16.000,oz,"Eataly Las Vegas",34.56
+1,252,2025-11-10,"Tuscan Olive Growers Co-op","Black Pepper",2.16,16.000,oz,"Eataly Dallas",34.56
+1,284,2025-11-10,"Tuscan Olive Growers Co-op","Black Pepper",2.16,16.000,oz,"Eataly San Jose",34.56
+1,11,2025-11-05,"Emilia Romagna Dairy Imports","Parmigiano Reggiano",14.31,25.000,lb,"Eataly Flatiron",357.75
+1,23,2025-11-08,"Emilia Romagna Dairy Imports","Parmigiano Reggiano",14.31,25.000,lb,"Eataly Downtown NYC",357.75
+1,34,2025-10-12,"Emilia Romagna Dairy Imports","Parmigiano Reggiano",14.23,25.000,lb,"Eataly Boston",355.75
+1,320,2025-08-18,"Emilia Romagna Dairy Imports","Parmigiano Reggiano",14.07,25.000,lb,"Eataly Las Vegas",351.75
+1,344,2025-08-18,"Emilia Romagna Dairy Imports","Parmigiano Reggiano",14.07,25.000,lb,"Eataly Dallas",351.75
+1,368,2025-08-18,"Emilia Romagna Dairy Imports","Parmigiano Reggiano",14.07,25.000,lb,"Eataly San Jose",351.75
+1,11,2025-11-05,"Emilia Romagna Dairy Imports","Mozzarella di Bufala",9.28,20.000,lb,"Eataly Flatiron",185.60
+1,23,2025-11-08,"Emilia Romagna Dairy Imports","Mozzarella di Bufala",9.28,20.000,lb,"Eataly Downtown NYC",185.60
+1,34,2025-10-12,"Emilia Romagna Dairy Imports","Mozzarella di Bufala",9.22,20.000,lb,"Eataly Boston",184.40
+1,320,2025-08-18,"Emilia Romagna Dairy Imports","Mozzarella di Bufala",9.12,20.000,lb,"Eataly Las Vegas",182.40
+1,344,2025-08-18,"Emilia Romagna Dairy Imports","Mozzarella di Bufala",9.12,20.000,lb,"Eataly Dallas",182.40
+1,368,2025-08-18,"Emilia Romagna Dairy Imports","Mozzarella di Bufala",9.12,20.000,lb,"Eataly San Jose",182.40
+1,68,2025-11-10,"Emilia Romagna Dairy Imports","Pecorino Romano",12.88,20.000,lb,"Eataly Flatiron",257.60
+1,100,2025-11-10,"Emilia Romagna Dairy Imports","Pecorino Romano",12.88,20.000,lb,"Eataly Downtown NYC",257.60
+1,132,2025-11-10,"Emilia Romagna Dairy Imports","Pecorino Romano",12.88,20.000,lb,"Eataly Boston",257.60
+1,164,2025-11-10,"Emilia Romagna Dairy Imports","Pecorino Romano",12.88,20.000,lb,"Eataly Chicago",257.60
+1,192,2025-11-10,"Emilia Romagna Dairy Imports","Pecorino Romano",12.88,20.000,lb,"Eataly Los Angeles",257.60
+1,224,2025-11-10,"Emilia Romagna Dairy Imports","Pecorino Romano",12.88,20.000,lb,"Eataly Las Vegas",257.60
+1,256,2025-11-10,"Emilia Romagna Dairy Imports","Pecorino Romano",12.88,20.000,lb,"Eataly Dallas",257.60
+1,288,2025-11-10,"Emilia Romagna Dairy Imports","Pecorino Romano",12.88,20.000,lb,"Eataly San Jose",257.60
+1,68,2025-11-10,"Emilia Romagna Dairy Imports",Gorgonzola,11.33,15.000,lb,"Eataly Flatiron",169.95
+1,100,2025-11-10,"Emilia Romagna Dairy Imports",Gorgonzola,11.33,15.000,lb,"Eataly Downtown NYC",169.95
+1,132,2025-11-10,"Emilia Romagna Dairy Imports",Gorgonzola,11.33,15.000,lb,"Eataly Boston",169.95
+1,164,2025-11-10,"Emilia Romagna Dairy Imports",Gorgonzola,11.33,15.000,lb,"Eataly Chicago",169.95
+1,192,2025-11-10,"Emilia Romagna Dairy Imports",Gorgonzola,11.33,15.000,lb,"Eataly Los Angeles",169.95
+1,224,2025-11-10,"Emilia Romagna Dairy Imports",Gorgonzola,11.33,15.000,lb,"Eataly Las Vegas",169.95
+1,256,2025-11-10,"Emilia Romagna Dairy Imports",Gorgonzola,11.33,15.000,lb,"Eataly Dallas",169.95
+1,288,2025-11-10,"Emilia Romagna Dairy Imports",Gorgonzola,11.33,15.000,lb,"Eataly San Jose",169.95
+1,68,2025-11-10,"Emilia Romagna Dairy Imports",Ricotta,5.41,20.000,lb,"Eataly Flatiron",108.20
+1,100,2025-11-10,"Emilia Romagna Dairy Imports",Ricotta,5.41,20.000,lb,"Eataly Downtown NYC",108.20
+1,132,2025-11-10,"Emilia Romagna Dairy Imports",Ricotta,5.41,20.000,lb,"Eataly Boston",108.20
+1,164,2025-11-10,"Emilia Romagna Dairy Imports",Ricotta,5.41,20.000,lb,"Eataly Chicago",108.20
+1,192,2025-11-10,"Emilia Romagna Dairy Imports",Ricotta,5.41,20.000,lb,"Eataly Los Angeles",108.20
+1,224,2025-11-10,"Emilia Romagna Dairy Imports",Ricotta,5.41,20.000,lb,"Eataly Las Vegas",108.20
+1,256,2025-11-10,"Emilia Romagna Dairy Imports",Ricotta,5.41,20.000,lb,"Eataly Dallas",108.20
+1,288,2025-11-10,"Emilia Romagna Dairy Imports",Ricotta,5.41,20.000,lb,"Eataly San Jose",108.20
+1,46,2025-10-15,"Golden Wheat Milling","All-Purpose Flour",0.65,100.000,lb,"Eataly Chicago",65.00
+1,321,2025-09-18,"Golden Wheat Milling","All-Purpose Flour",0.65,100.000,lb,"Eataly Las Vegas",65.00
+1,345,2025-09-18,"Golden Wheat Milling","All-Purpose Flour",0.65,100.000,lb,"Eataly Dallas",65.00
+1,369,2025-09-18,"Golden Wheat Milling","All-Purpose Flour",0.65,100.000,lb,"Eataly San Jose",65.00
+1,46,2025-10-15,"Golden Wheat Milling","Arborio Rice",3.27,40.000,lb,"Eataly Chicago",130.80
+1,321,2025-09-18,"Golden Wheat Milling","Arborio Rice",3.25,40.000,lb,"Eataly Las Vegas",130.00
+1,345,2025-09-18,"Golden Wheat Milling","Arborio Rice",3.25,40.000,lb,"Eataly Dallas",130.00
+1,369,2025-09-18,"Golden Wheat Milling","Arborio Rice",3.25,40.000,lb,"Eataly San Jose",130.00
+1,72,2025-11-10,"Golden Wheat Milling","Active Dry Yeast",0.88,16.000,oz,"Eataly Flatiron",14.08
+1,104,2025-11-10,"Golden Wheat Milling","Active Dry Yeast",0.88,16.000,oz,"Eataly Downtown NYC",14.08
+1,136,2025-11-10,"Golden Wheat Milling","Active Dry Yeast",0.88,16.000,oz,"Eataly Boston",14.08
+1,168,2025-11-10,"Golden Wheat Milling","Active Dry Yeast",0.88,16.000,oz,"Eataly Chicago",14.08
+1,196,2025-11-10,"Golden Wheat Milling","Active Dry Yeast",0.88,16.000,oz,"Eataly Los Angeles",14.08
+1,228,2025-11-10,"Golden Wheat Milling","Active Dry Yeast",0.88,16.000,oz,"Eataly Las Vegas",14.08
+1,260,2025-11-10,"Golden Wheat Milling","Active Dry Yeast",0.88,16.000,oz,"Eataly Dallas",14.08
+1,292,2025-11-10,"Golden Wheat Milling","Active Dry Yeast",0.88,16.000,oz,"Eataly San Jose",14.08
+1,72,2025-11-10,"Golden Wheat Milling","Cocoa Powder",6.18,10.000,lb,"Eataly Flatiron",61.80
+1,136,2025-11-10,"Golden Wheat Milling","Cocoa Powder",6.18,10.000,lb,"Eataly Boston",61.80
+1,196,2025-11-10,"Golden Wheat Milling","Cocoa Powder",6.18,10.000,lb,"Eataly Los Angeles",61.80
+1,228,2025-11-10,"Golden Wheat Milling","Cocoa Powder",6.18,10.000,lb,"Eataly Las Vegas",61.80
+1,260,2025-11-10,"Golden Wheat Milling","Cocoa Powder",6.18,10.000,lb,"Eataly Dallas",61.80
+1,292,2025-11-10,"Golden Wheat Milling","Cocoa Powder",6.18,10.000,lb,"Eataly San Jose",61.80
+1,72,2025-11-10,"Golden Wheat Milling","Granulated Sugar",0.77,50.000,lb,"Eataly Flatiron",38.50
+1,104,2025-11-10,"Golden Wheat Milling","Granulated Sugar",0.77,50.000,lb,"Eataly Downtown NYC",38.50
+1,136,2025-11-10,"Golden Wheat Milling","Granulated Sugar",0.77,50.000,lb,"Eataly Boston",38.50
+1,168,2025-11-10,"Golden Wheat Milling","Granulated Sugar",0.77,50.000,lb,"Eataly Chicago",38.50
+1,196,2025-11-10,"Golden Wheat Milling","Granulated Sugar",0.77,50.000,lb,"Eataly Los Angeles",38.50
+1,228,2025-11-10,"Golden Wheat Milling","Granulated Sugar",0.77,50.000,lb,"Eataly Las Vegas",38.50
+1,260,2025-11-10,"Golden Wheat Milling","Granulated Sugar",0.77,50.000,lb,"Eataly Dallas",38.50
+1,292,2025-11-10,"Golden Wheat Milling","Granulated Sugar",0.77,50.000,lb,"Eataly San Jose",38.50
+1,72,2025-11-10,"Golden Wheat Milling","Powdered Sugar",1.13,25.000,lb,"Eataly Flatiron",28.25
+1,104,2025-11-10,"Golden Wheat Milling","Powdered Sugar",1.13,25.000,lb,"Eataly Downtown NYC",28.25
+1,136,2025-11-10,"Golden Wheat Milling","Powdered Sugar",1.13,25.000,lb,"Eataly Boston",28.25
+1,168,2025-11-10,"Golden Wheat Milling","Powdered Sugar",1.13,25.000,lb,"Eataly Chicago",28.25
+1,196,2025-11-10,"Golden Wheat Milling","Powdered Sugar",1.13,25.000,lb,"Eataly Los Angeles",28.25
+1,228,2025-11-10,"Golden Wheat Milling","Powdered Sugar",1.13,25.000,lb,"Eataly Las Vegas",28.25
+1,260,2025-11-10,"Golden Wheat Milling","Powdered Sugar",1.13,25.000,lb,"Eataly Dallas",28.25
+1,292,2025-11-10,"Golden Wheat Milling","Powdered Sugar",1.13,25.000,lb,"Eataly San Jose",28.25
+1,24,2025-12-08,"Fresh Atlantic Seafood","Fresh Salmon",12.79,30.000,lb,"Eataly Downtown NYC",383.70
+1,35,2025-11-12,"Fresh Atlantic Seafood","Fresh Salmon",12.72,30.000,lb,"Eataly Boston",381.60
+1,12,2025-12-05,"Heritage Pasta Works","Dried Spaghetti",2.13,60.000,lb,"Eataly Flatiron",127.80
+1,36,2025-12-12,"Heritage Pasta Works","Dried Spaghetti",2.13,60.000,lb,"Eataly Boston",127.80
+1,322,2025-10-18,"Heritage Pasta Works","Dried Spaghetti",2.11,60.000,lb,"Eataly Las Vegas",126.60
+1,346,2025-10-18,"Heritage Pasta Works","Dried Spaghetti",2.11,60.000,lb,"Eataly Dallas",126.60
+1,370,2025-10-18,"Heritage Pasta Works","Dried Spaghetti",2.11,60.000,lb,"Eataly San Jose",126.60
+1,76,2025-11-10,"Heritage Pasta Works",Ladyfingers,0.23,200.000,each,"Eataly Flatiron",46.00
+1,140,2025-11-10,"Heritage Pasta Works",Ladyfingers,0.23,200.000,each,"Eataly Boston",46.00
+1,200,2025-11-10,"Heritage Pasta Works",Ladyfingers,0.23,200.000,each,"Eataly Los Angeles",46.00
+1,232,2025-11-10,"Heritage Pasta Works",Ladyfingers,0.23,200.000,each,"Eataly Las Vegas",46.00
+1,264,2025-11-10,"Heritage Pasta Works",Ladyfingers,0.23,200.000,each,"Eataly Dallas",46.00
+1,296,2025-11-10,"Heritage Pasta Works",Ladyfingers,0.23,200.000,each,"Eataly San Jose",46.00
+1,108,2025-11-10,"Heritage Pasta Works","Rustic Bread",2.83,25.000,lb,"Eataly Downtown NYC",70.75
+1,172,2025-11-10,"Heritage Pasta Works","Rustic Bread",2.83,25.000,lb,"Eataly Chicago",70.75
+1,200,2025-11-10,"Heritage Pasta Works","Rustic Bread",2.83,25.000,lb,"Eataly Los Angeles",70.75
+1,232,2025-11-10,"Heritage Pasta Works","Rustic Bread",2.83,25.000,lb,"Eataly Las Vegas",70.75
+1,264,2025-11-10,"Heritage Pasta Works","Rustic Bread",2.83,25.000,lb,"Eataly Dallas",70.75
+1,296,2025-11-10,"Heritage Pasta Works","Rustic Bread",2.83,25.000,lb,"Eataly San Jose",70.75
+1,76,2025-11-10,"Heritage Pasta Works","Dried Bucatini",2.21,20.000,lb,"Eataly Flatiron",44.20
+1,108,2025-11-10,"Heritage Pasta Works","Dried Bucatini",2.21,20.000,lb,"Eataly Downtown NYC",44.20
+1,140,2025-11-10,"Heritage Pasta Works","Dried Bucatini",2.21,20.000,lb,"Eataly Boston",44.20
+1,172,2025-11-10,"Heritage Pasta Works","Dried Bucatini",2.21,20.000,lb,"Eataly Chicago",44.20
+1,232,2025-11-10,"Heritage Pasta Works","Dried Bucatini",2.21,20.000,lb,"Eataly Las Vegas",44.20
+1,264,2025-11-10,"Heritage Pasta Works","Dried Bucatini",2.21,20.000,lb,"Eataly Dallas",44.20
+1,296,2025-11-10,"Heritage Pasta Works","Dried Bucatini",2.21,20.000,lb,"Eataly San Jose",44.20
+1,204,2025-11-10,"Napa Valley Produce","Fresh Basil",0.62,32.000,oz,"Eataly Los Angeles",19.84
+1,236,2025-11-10,"Napa Valley Produce","Fresh Basil",0.62,32.000,oz,"Eataly Las Vegas",19.84
+1,300,2025-11-10,"Napa Valley Produce","Fresh Basil",0.62,32.000,oz,"Eataly San Jose",19.84
+1,204,2025-11-10,"Napa Valley Produce",Garlic,0.21,100.000,each,"Eataly Los Angeles",21.00
+1,236,2025-11-10,"Napa Valley Produce",Garlic,0.21,100.000,each,"Eataly Las Vegas",21.00
+1,300,2025-11-10,"Napa Valley Produce",Garlic,0.21,100.000,each,"Eataly San Jose",21.00
+1,58,2025-10-20,"Napa Valley Produce","Yellow Onion",0.55,40.000,lb,"Eataly Los Angeles",22.00
+1,336,2025-12-22,"Napa Valley Produce","Yellow Onion",0.55,40.000,lb,"Eataly Las Vegas",22.00
+1,384,2025-12-22,"Napa Valley Produce","Yellow Onion",0.55,40.000,lb,"Eataly San Jose",22.00
+1,236,2025-11-10,"Napa Valley Produce",Cantaloupe,3.60,24.000,each,"Eataly Las Vegas",86.40
+1,300,2025-11-10,"Napa Valley Produce",Cantaloupe,3.60,24.000,each,"Eataly San Jose",86.40
+1,204,2025-11-10,"Napa Valley Produce","Fresh Rosemary",1.13,16.000,oz,"Eataly Los Angeles",18.08
+1,236,2025-11-10,"Napa Valley Produce","Fresh Rosemary",1.13,16.000,oz,"Eataly Las Vegas",18.08
+1,300,2025-11-10,"Napa Valley Produce","Fresh Rosemary",1.13,16.000,oz,"Eataly San Jose",18.08
+1,236,2025-11-10,"Napa Valley Produce",Carrots,0.62,40.000,lb,"Eataly Las Vegas",24.80
+1,300,2025-11-10,"Napa Valley Produce",Carrots,0.62,40.000,lb,"Eataly San Jose",24.80
+1,236,2025-11-10,"Napa Valley Produce",Celery,0.93,25.000,lb,"Eataly Las Vegas",23.25
+1,300,2025-11-10,"Napa Valley Produce",Celery,0.93,25.000,lb,"Eataly San Jose",23.25
+1,204,2025-11-10,"Napa Valley Produce","Fresh Parsley",0.46,16.000,oz,"Eataly Los Angeles",7.36
+1,236,2025-11-10,"Napa Valley Produce","Fresh Parsley",0.46,16.000,oz,"Eataly Las Vegas",7.36
+1,300,2025-11-10,"Napa Valley Produce","Fresh Parsley",0.46,16.000,oz,"Eataly San Jose",7.36
+1,204,2025-11-10,"Napa Valley Produce",Lemon,0.67,60.000,each,"Eataly Los Angeles",40.20
+1,236,2025-11-10,"Napa Valley Produce",Lemon,0.67,60.000,each,"Eataly Las Vegas",40.20
+1,300,2025-11-10,"Napa Valley Produce",Lemon,0.67,60.000,each,"Eataly San Jose",40.20
+1,404,2025-11-10,"Napa Valley Produce","Fresh Tomatoes",3.50,45.000,lb,"Eataly Los Angeles",157.50
+1,408,2025-11-10,"Napa Valley Produce","Fresh Tomatoes",3.50,45.000,lb,"Eataly Las Vegas",157.50
+1,416,2025-11-10,"Napa Valley Produce","Fresh Tomatoes",3.50,45.000,lb,"Eataly San Jose",157.50
+1,47,2025-11-15,"Artisan Meats & Charcuterie",Guanciale,16.43,15.000,lb,"Eataly Chicago",246.45
+1,323,2025-11-18,"Artisan Meats & Charcuterie",Guanciale,16.43,15.000,lb,"Eataly Las Vegas",246.45
+1,347,2025-11-18,"Artisan Meats & Charcuterie",Guanciale,16.43,15.000,lb,"Eataly Dallas",246.45
+1,371,2025-11-18,"Artisan Meats & Charcuterie",Guanciale,16.43,15.000,lb,"Eataly San Jose",246.45
+1,47,2025-11-15,"Artisan Meats & Charcuterie","Prosciutto di Parma",22.26,12.000,lb,"Eataly Chicago",267.12
+1,323,2025-11-18,"Artisan Meats & Charcuterie","Prosciutto di Parma",22.26,12.000,lb,"Eataly Las Vegas",267.12
+1,347,2025-11-18,"Artisan Meats & Charcuterie","Prosciutto di Parma",22.26,12.000,lb,"Eataly Dallas",267.12
+1,371,2025-11-18,"Artisan Meats & Charcuterie","Prosciutto di Parma",22.26,12.000,lb,"Eataly San Jose",267.12
+1,80,2025-11-10,"Artisan Meats & Charcuterie","Chicken Stock",3.19,20.000,l,"Eataly Flatiron",63.80
+1,112,2025-11-10,"Artisan Meats & Charcuterie","Chicken Stock",3.19,20.000,l,"Eataly Downtown NYC",63.80
+1,144,2025-11-10,"Artisan Meats & Charcuterie","Chicken Stock",3.19,20.000,l,"Eataly Boston",63.80
+1,176,2025-11-10,"Artisan Meats & Charcuterie","Chicken Stock",3.19,20.000,l,"Eataly Chicago",63.80
+1,208,2025-11-10,"Artisan Meats & Charcuterie","Chicken Stock",3.19,20.000,l,"Eataly Los Angeles",63.80
+1,240,2025-11-10,"Artisan Meats & Charcuterie","Chicken Stock",3.19,20.000,l,"Eataly Las Vegas",63.80
+1,268,2025-11-10,"Artisan Meats & Charcuterie","Chicken Stock",3.19,20.000,l,"Eataly Dallas",63.80
+1,304,2025-11-10,"Artisan Meats & Charcuterie","Chicken Stock",3.19,20.000,l,"Eataly San Jose",63.80
+1,176,2025-11-10,"Artisan Meats & Charcuterie","Veal Shank",13.91,30.000,lb,"Eataly Chicago",417.30
+1,176,2025-11-10,"Artisan Meats & Charcuterie","Pork Belly",6.70,40.000,lb,"Eataly Chicago",268.00
+1,176,2025-11-10,"Artisan Meats & Charcuterie","Chicken Breast",3.86,50.000,lb,"Eataly Chicago",193.00
+1,59,2025-11-20,"Pacific Coast Beverage Distributors","Chianti Wine",9.54,24.000,l,"Eataly Los Angeles",228.96
+1,324,2025-12-18,"Pacific Coast Beverage Distributors","Chianti Wine",9.59,24.000,l,"Eataly Las Vegas",230.16
+1,348,2025-12-18,"Pacific Coast Beverage Distributors","Chianti Wine",9.59,24.000,l,"Eataly Dallas",230.16
+1,372,2025-12-18,"Pacific Coast Beverage Distributors","Chianti Wine",9.59,24.000,l,"Eataly San Jose",230.16
+1,59,2025-11-20,"Pacific Coast Beverage Distributors","Espresso Beans",8.75,20.000,lb,"Eataly Los Angeles",175.00
+1,324,2025-12-18,"Pacific Coast Beverage Distributors","Espresso Beans",8.79,20.000,lb,"Eataly Las Vegas",175.80
+1,348,2025-12-18,"Pacific Coast Beverage Distributors","Espresso Beans",8.79,20.000,lb,"Eataly Dallas",175.80
+1,372,2025-12-18,"Pacific Coast Beverage Distributors","Espresso Beans",8.79,20.000,lb,"Eataly San Jose",175.80
+1,84,2025-11-10,"Hudson Valley Creamery","Fresh Eggs",0.36,360.000,each,"Eataly Flatiron",129.60
+1,116,2025-11-10,"Hudson Valley Creamery","Fresh Eggs",0.36,360.000,each,"Eataly Downtown NYC",129.60
+1,148,2025-11-10,"Hudson Valley Creamery","Fresh Eggs",0.36,360.000,each,"Eataly Boston",129.60
+1,84,2025-11-10,"Hudson Valley Creamery","Unsalted Butter",4.38,40.000,lb,"Eataly Flatiron",175.20
+1,116,2025-11-10,"Hudson Valley Creamery","Unsalted Butter",4.38,40.000,lb,"Eataly Downtown NYC",175.20
+1,148,2025-11-10,"Hudson Valley Creamery","Unsalted Butter",4.38,40.000,lb,"Eataly Boston",175.20
+1,84,2025-11-10,"Hudson Valley Creamery","Mascarpone Cheese",7.98,20.000,lb,"Eataly Flatiron",159.60
+1,148,2025-11-10,"Hudson Valley Creamery","Mascarpone Cheese",7.98,20.000,lb,"Eataly Boston",159.60
+1,84,2025-11-10,"Hudson Valley Creamery","Whole Milk",1.08,40.000,l,"Eataly Flatiron",43.20
+1,116,2025-11-10,"Hudson Valley Creamery","Whole Milk",1.08,40.000,l,"Eataly Downtown NYC",43.20
+1,148,2025-11-10,"Hudson Valley Creamery","Whole Milk",1.08,40.000,l,"Eataly Boston",43.20
+1,180,2025-11-10,"Heartland Dairy Co-op","Fresh Eggs",0.36,360.000,each,"Eataly Chicago",129.60
+1,180,2025-11-10,"Heartland Dairy Co-op","Unsalted Butter",4.38,40.000,lb,"Eataly Chicago",175.20
+1,180,2025-11-10,"Heartland Dairy Co-op","Whole Milk",1.08,40.000,l,"Eataly Chicago",43.20
+1,212,2025-11-10,"Sonoma Valley Dairy","Fresh Eggs",0.36,360.000,each,"Eataly Los Angeles",129.60
+1,244,2025-11-10,"Sonoma Valley Dairy","Fresh Eggs",0.36,360.000,each,"Eataly Las Vegas",129.60
+1,308,2025-11-10,"Sonoma Valley Dairy","Fresh Eggs",0.36,360.000,each,"Eataly San Jose",129.60
+1,212,2025-11-10,"Sonoma Valley Dairy","Unsalted Butter",4.38,40.000,lb,"Eataly Los Angeles",175.20
+1,244,2025-11-10,"Sonoma Valley Dairy","Unsalted Butter",4.38,40.000,lb,"Eataly Las Vegas",175.20
+1,308,2025-11-10,"Sonoma Valley Dairy","Unsalted Butter",4.38,40.000,lb,"Eataly San Jose",175.20
+1,212,2025-11-10,"Sonoma Valley Dairy","Mascarpone Cheese",7.98,20.000,lb,"Eataly Los Angeles",159.60
+1,244,2025-11-10,"Sonoma Valley Dairy","Mascarpone Cheese",7.98,20.000,lb,"Eataly Las Vegas",159.60
+1,308,2025-11-10,"Sonoma Valley Dairy","Mascarpone Cheese",7.98,20.000,lb,"Eataly San Jose",159.60
+1,212,2025-11-10,"Sonoma Valley Dairy","Whole Milk",1.08,40.000,l,"Eataly Los Angeles",43.20
+1,244,2025-11-10,"Sonoma Valley Dairy","Whole Milk",1.08,40.000,l,"Eataly Las Vegas",43.20
+1,308,2025-11-10,"Sonoma Valley Dairy","Whole Milk",1.08,40.000,l,"Eataly San Jose",43.20
+1,272,2025-11-10,"Texas Hill Country Creamery","Fresh Eggs",0.36,360.000,each,"Eataly Dallas",129.60
+1,272,2025-11-10,"Texas Hill Country Creamery","Unsalted Butter",4.38,40.000,lb,"Eataly Dallas",175.20
+1,272,2025-11-10,"Texas Hill Country Creamery","Mascarpone Cheese",7.98,20.000,lb,"Eataly Dallas",159.60
+1,272,2025-11-10,"Texas Hill Country Creamery","Whole Milk",1.08,40.000,l,"Eataly Dallas",43.20
+1,88,2025-11-10,"Northeast Meat & Poultry","Veal Shank",13.91,30.000,lb,"Eataly Flatiron",417.30
+1,152,2025-11-10,"Northeast Meat & Poultry","Veal Shank",13.91,30.000,lb,"Eataly Boston",417.30
+1,88,2025-11-10,"Northeast Meat & Poultry","Pork Belly",6.70,40.000,lb,"Eataly Flatiron",268.00
+1,120,2025-11-10,"Northeast Meat & Poultry","Pork Belly",6.70,40.000,lb,"Eataly Downtown NYC",268.00
+1,152,2025-11-10,"Northeast Meat & Poultry","Pork Belly",6.70,40.000,lb,"Eataly Boston",268.00
+1,88,2025-11-10,"Northeast Meat & Poultry","Chicken Breast",3.86,50.000,lb,"Eataly Flatiron",193.00
+1,120,2025-11-10,"Northeast Meat & Poultry","Chicken Breast",3.86,50.000,lb,"Eataly Downtown NYC",193.00
+1,152,2025-11-10,"Northeast Meat & Poultry","Chicken Breast",3.86,50.000,lb,"Eataly Boston",193.00
+1,248,2025-11-10,"Golden State Meat Purveyors","Veal Shank",13.91,30.000,lb,"Eataly Las Vegas",417.30
+1,312,2025-11-10,"Golden State Meat Purveyors","Veal Shank",13.91,30.000,lb,"Eataly San Jose",417.30
+1,216,2025-11-10,"Golden State Meat Purveyors","Pork Belly",6.70,40.000,lb,"Eataly Los Angeles",268.00
+1,248,2025-11-10,"Golden State Meat Purveyors","Pork Belly",6.70,40.000,lb,"Eataly Las Vegas",268.00
+1,312,2025-11-10,"Golden State Meat Purveyors","Pork Belly",6.70,40.000,lb,"Eataly San Jose",268.00
+1,216,2025-11-10,"Golden State Meat Purveyors","Chicken Breast",3.86,50.000,lb,"Eataly Los Angeles",193.00
+1,248,2025-11-10,"Golden State Meat Purveyors","Chicken Breast",3.86,50.000,lb,"Eataly Las Vegas",193.00
+1,312,2025-11-10,"Golden State Meat Purveyors","Chicken Breast",3.86,50.000,lb,"Eataly San Jose",193.00
+1,276,2025-11-10,"Texas Ranch Meats","Veal Shank",13.91,30.000,lb,"Eataly Dallas",417.30
+1,276,2025-11-10,"Texas Ranch Meats","Pork Belly",6.70,40.000,lb,"Eataly Dallas",268.00
+1,276,2025-11-10,"Texas Ranch Meats","Chicken Breast",3.86,50.000,lb,"Eataly Dallas",193.00
+1,92,2025-11-10,"Hudson Valley Farms","Fresh Basil",0.62,32.000,oz,"Eataly Flatiron",19.84
+1,124,2025-11-10,"Hudson Valley Farms","Fresh Basil",0.62,32.000,oz,"Eataly Downtown NYC",19.84
+1,156,2025-11-10,"Hudson Valley Farms","Fresh Basil",0.62,32.000,oz,"Eataly Boston",19.84
+1,92,2025-11-10,"Hudson Valley Farms",Garlic,0.21,100.000,each,"Eataly Flatiron",21.00
+1,124,2025-11-10,"Hudson Valley Farms",Garlic,0.21,100.000,each,"Eataly Downtown NYC",21.00
+1,156,2025-11-10,"Hudson Valley Farms",Garlic,0.21,100.000,each,"Eataly Boston",21.00
+1,92,2025-11-10,"Hudson Valley Farms",Cantaloupe,3.60,24.000,each,"Eataly Flatiron",86.40
+1,92,2025-11-10,"Hudson Valley Farms","Fresh Rosemary",1.13,16.000,oz,"Eataly Flatiron",18.08
+1,124,2025-11-10,"Hudson Valley Farms","Fresh Rosemary",1.13,16.000,oz,"Eataly Downtown NYC",18.08
+1,156,2025-11-10,"Hudson Valley Farms","Fresh Rosemary",1.13,16.000,oz,"Eataly Boston",18.08
+1,92,2025-11-10,"Hudson Valley Farms",Carrots,0.62,40.000,lb,"Eataly Flatiron",24.80
+1,156,2025-11-10,"Hudson Valley Farms",Carrots,0.62,40.000,lb,"Eataly Boston",24.80
+1,92,2025-11-10,"Hudson Valley Farms",Celery,0.93,25.000,lb,"Eataly Flatiron",23.25
+1,156,2025-11-10,"Hudson Valley Farms",Celery,0.93,25.000,lb,"Eataly Boston",23.25
+1,92,2025-11-10,"Hudson Valley Farms","Fresh Parsley",0.46,16.000,oz,"Eataly Flatiron",7.36
+1,124,2025-11-10,"Hudson Valley Farms","Fresh Parsley",0.46,16.000,oz,"Eataly Downtown NYC",7.36
+1,156,2025-11-10,"Hudson Valley Farms","Fresh Parsley",0.46,16.000,oz,"Eataly Boston",7.36
+1,92,2025-11-10,"Hudson Valley Farms",Lemon,0.67,60.000,each,"Eataly Flatiron",40.20
+1,124,2025-11-10,"Hudson Valley Farms",Lemon,0.67,60.000,each,"Eataly Downtown NYC",40.20
+1,156,2025-11-10,"Hudson Valley Farms",Lemon,0.67,60.000,each,"Eataly Boston",40.20
+1,388,2025-11-10,"Hudson Valley Farms","Fresh Tomatoes",3.50,45.000,lb,"Eataly Flatiron",157.50
+1,392,2025-11-10,"Hudson Valley Farms","Fresh Tomatoes",3.50,45.000,lb,"Eataly Downtown NYC",157.50
+1,396,2025-11-10,"Hudson Valley Farms","Fresh Tomatoes",3.50,45.000,lb,"Eataly Boston",157.50
+1,184,2025-11-10,"Midwest Fresh Produce Co","Fresh Basil",0.62,32.000,oz,"Eataly Chicago",19.84
+1,184,2025-11-10,"Midwest Fresh Produce Co",Garlic,0.21,100.000,each,"Eataly Chicago",21.00
+1,184,2025-11-10,"Midwest Fresh Produce Co",Cantaloupe,3.60,24.000,each,"Eataly Chicago",86.40
+1,184,2025-11-10,"Midwest Fresh Produce Co","Fresh Rosemary",1.13,16.000,oz,"Eataly Chicago",18.08
+1,184,2025-11-10,"Midwest Fresh Produce Co",Carrots,0.62,40.000,lb,"Eataly Chicago",24.80
+1,184,2025-11-10,"Midwest Fresh Produce Co",Celery,0.93,25.000,lb,"Eataly Chicago",23.25
+1,184,2025-11-10,"Midwest Fresh Produce Co","Fresh Parsley",0.46,16.000,oz,"Eataly Chicago",7.36
+1,184,2025-11-10,"Midwest Fresh Produce Co",Lemon,0.67,60.000,each,"Eataly Chicago",40.20
+1,400,2025-11-10,"Midwest Fresh Produce Co","Fresh Tomatoes",3.50,45.000,lb,"Eataly Chicago",157.50
+1,280,2025-11-10,"Rio Grande Valley Produce","Fresh Basil",0.62,32.000,oz,"Eataly Dallas",19.84
+1,280,2025-11-10,"Rio Grande Valley Produce",Garlic,0.21,100.000,each,"Eataly Dallas",21.00
+1,360,2025-12-22,"Rio Grande Valley Produce","Yellow Onion",0.55,40.000,lb,"Eataly Dallas",22.00
+1,280,2025-11-10,"Rio Grande Valley Produce",Cantaloupe,3.60,24.000,each,"Eataly Dallas",86.40
+1,280,2025-11-10,"Rio Grande Valley Produce","Fresh Rosemary",1.13,16.000,oz,"Eataly Dallas",18.08
+1,280,2025-11-10,"Rio Grande Valley Produce",Carrots,0.62,40.000,lb,"Eataly Dallas",24.80
+1,280,2025-11-10,"Rio Grande Valley Produce",Celery,0.93,25.000,lb,"Eataly Dallas",23.25
+1,280,2025-11-10,"Rio Grande Valley Produce","Fresh Parsley",0.46,16.000,oz,"Eataly Dallas",7.36
+1,280,2025-11-10,"Rio Grande Valley Produce",Lemon,0.67,60.000,each,"Eataly Dallas",40.20
+1,412,2025-11-10,"Rio Grande Valley Produce","Fresh Tomatoes",3.50,45.000,lb,"Eataly Dallas",157.50

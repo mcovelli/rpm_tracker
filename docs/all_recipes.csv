@@ -1,0 +1,92 @@
+recipe_name,ingredient_name,ingredient_quantity,unit_name,num_servings
+"Spaghetti alla Carbonara",Guanciale,8.000,oz,4
+"Spaghetti alla Carbonara","Fresh Eggs",4.000,each,4
+"Spaghetti alla Carbonara","Pecorino Romano",1.000,cup,4
+"Spaghetti alla Carbonara","Dried Spaghetti",1.000,lb,4
+"Margherita Pizza","Extra Virgin Olive Oil",2.000,tbsp,2
+"Margherita Pizza","All-Purpose Flour",1.000,lb,2
+"Margherita Pizza","San Marzano Tomatoes (Canned)",0.531,lb,2
+"Margherita Pizza","Fresh Basil",0.500,oz,2
+"Margherita Pizza","Mozzarella di Bufala",8.000,oz,2
+"Margherita Pizza","Active Dry Yeast",0.250,oz,2
+"Risotto alla Milanese","Extra Virgin Olive Oil",2.000,tbsp,4
+"Risotto alla Milanese","Parmigiano Reggiano",0.500,cup,4
+"Risotto alla Milanese","Arborio Rice",2.000,cup,4
+"Risotto alla Milanese","Yellow Onion",1.000,each,4
+"Risotto alla Milanese","Saffron Threads",0.125,tsp,4
+"Risotto alla Milanese","Unsalted Butter",2.000,tbsp,4
+"Risotto alla Milanese","Chicken Stock",4.000,cup,4
+"Caprese Salad","Extra Virgin Olive Oil",2.000,tbsp,2
+"Caprese Salad","Fresh Basil",0.250,oz,2
+"Caprese Salad","Mozzarella di Bufala",8.000,oz,2
+"Caprese Salad","Balsamic Vinegar",1.000,tbsp,2
+"Caprese Salad","Fresh Tomatoes",1.000,cup,2
+"Prosciutto e Melone","Prosciutto di Parma",6.000,oz,2
+"Prosciutto e Melone",Cantaloupe,1.000,each,2
+"Bucatini all'Amatriciana",Guanciale,36.000,oz,24
+"Bucatini all'Amatriciana","San Marzano Tomatoes (Canned)",6.375,lb,24
+"Bucatini all'Amatriciana","Pecorino Romano",10.500,oz,24
+"Bucatini all'Amatriciana","Dried Bucatini",6.000,lb,24
+Tiramisu,"Fresh Eggs",6.000,each,8
+Tiramisu,"Espresso Beans",4.000,oz,8
+Tiramisu,"Mascarpone Cheese",16.000,oz,8
+Tiramisu,Ladyfingers,24.000,each,8
+Tiramisu,"Cocoa Powder",2.000,oz,8
+Tiramisu,"Granulated Sugar",0.500,cup,8
+"Focaccia Genovese","Extra Virgin Olive Oil",4.000,tbsp,6
+"Focaccia Genovese","All-Purpose Flour",2.000,lb,6
+"Focaccia Genovese",Garlic,3.000,each,6
+"Focaccia Genovese","Active Dry Yeast",0.250,oz,6
+"Focaccia Genovese","Fresh Rosemary",0.250,oz,6
+"Osso Buco",Garlic,2.000,each,4
+"Osso Buco","Yellow Onion",2.000,each,4
+"Osso Buco","Chianti Wine",1.000,cup,4
+"Osso Buco","Chicken Stock",3.000,cup,4
+"Osso Buco","Veal Shank",4.000,each,4
+"Osso Buco",Carrots,2.000,each,4
+"Osso Buco",Celery,2.000,each,4
+"Osso Buco","Fresh Parsley",0.250,oz,4
+"Osso Buco",Lemon,1.000,each,4
+Panzanella,"Extra Virgin Olive Oil",3.000,tbsp,4
+Panzanella,"Fresh Basil",0.500,oz,4
+Panzanella,"Yellow Onion",1.000,each,4
+Panzanella,"Rustic Bread",0.500,lb,4
+Panzanella,"Red Wine Vinegar",2.000,tbsp,4
+Panzanella,"Fresh Tomatoes",2.000,cup,4
+"Cacio e Pepe","Pecorino Romano",1.500,cup,4
+"Cacio e Pepe","Dried Spaghetti",1.000,lb,4
+"Cacio e Pepe","Unsalted Butter",2.000,tbsp,4
+"Cacio e Pepe","Black Pepper",1.000,tbsp,4
+"Pesto alla Genovese","Extra Virgin Olive Oil",0.500,cup,4
+"Pesto alla Genovese","Parmigiano Reggiano",0.500,cup,4
+"Pesto alla Genovese","Fresh Basil",2.000,oz,4
+"Pesto alla Genovese","Dried Spaghetti",1.000,lb,4
+"Pesto alla Genovese",Garlic,2.000,each,4
+"Pesto alla Genovese","Pine Nuts",2.000,oz,4
+"Quattro Formaggi Pizza","Parmigiano Reggiano",2.000,oz,2
+"Quattro Formaggi Pizza","All-Purpose Flour",1.000,lb,2
+"Quattro Formaggi Pizza","Mozzarella di Bufala",4.000,oz,2
+"Quattro Formaggi Pizza","Pecorino Romano",2.000,oz,2
+"Quattro Formaggi Pizza","Active Dry Yeast",0.250,oz,2
+"Quattro Formaggi Pizza",Gorgonzola,4.000,oz,2
+Porchetta,Garlic,4.000,each,6
+Porchetta,"Fresh Rosemary",0.500,oz,6
+Porchetta,"Pork Belly",3.000,lb,6
+Porchetta,"Fennel Seeds",1.000,tbsp,6
+"Pollo alla Griglia","Extra Virgin Olive Oil",3.000,tbsp,4
+"Pollo alla Griglia","Fresh Rosemary",0.250,oz,4
+"Pollo alla Griglia",Lemon,1.000,each,4
+"Pollo alla Griglia","Chicken Breast",2.000,lb,4
+Cannoli,"All-Purpose Flour",1.000,lb,12
+Cannoli,"Granulated Sugar",0.500,cup,12
+Cannoli,Ricotta,2.000,lb,12
+Cannoli,"Powdered Sugar",0.250,cup,12
+"Pistachio Gelato","Fresh Eggs",6.000,each,8
+"Pistachio Gelato","Granulated Sugar",1.000,cup,8
+"Pistachio Gelato",Pistachios,1.000,cup,8
+"Pistachio Gelato","Whole Milk",4.000,cup,8
+"Insalata di Mare","Extra Virgin Olive Oil",3.000,tbsp,4
+"Insalata di Mare","Fresh Salmon",1.500,lb,4
+"Insalata di Mare",Garlic,2.000,each,4
+"Insalata di Mare","Fresh Parsley",0.500,oz,4
+"Insalata di Mare",Lemon,2.000,each,4

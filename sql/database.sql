@@ -23,7 +23,38 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- GTID state at the beginning of the backup 
 --
 
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'b148c0c6-f31b-11f0-b1b4-1cfa94f50f6a:1-92172';
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'b148c0c6-f31b-11f0-b1b4-1cfa94f50f6a:1-92562';
+
+--
+-- Temporary view structure for view `all_recipes`
+--
+
+DROP TABLE IF EXISTS `all_recipes`;
+/*!50001 DROP VIEW IF EXISTS `all_recipes`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `all_recipes` AS SELECT 
+ 1 AS `recipe_name`,
+ 1 AS `ingredient_name`,
+ 1 AS `ingredient_quantity`,
+ 1 AS `unit_name`,
+ 1 AS `num_servings`*/;
+SET character_set_client = @saved_cs_client;
+
+--
+-- Temporary view structure for view `convert_ingred`
+--
+
+DROP TABLE IF EXISTS `convert_ingred`;
+/*!50001 DROP VIEW IF EXISTS `convert_ingred`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `convert_ingred` AS SELECT 
+ 1 AS `ingredient_name`,
+ 1 AS `from_unit`,
+ 1 AS `to_unit`,
+ 1 AS `rate`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `ingredient`
@@ -61,13 +92,14 @@ CREATE TABLE `ingredient_conversion` (
   `ingredient_id` smallint unsigned NOT NULL,
   `from_unit` tinyint unsigned NOT NULL,
   `to_unit` tinyint unsigned NOT NULL,
-  `rate` decimal(10,7) DEFAULT NULL,
+  `rate` decimal(15,9) NOT NULL,
   PRIMARY KEY (`ingredient_id`,`from_unit`,`to_unit`),
   KEY `fk_ingconv_from` (`from_unit`),
   KEY `fk_ingconv_to` (`to_unit`),
   CONSTRAINT `fk_ingconv_from` FOREIGN KEY (`from_unit`) REFERENCES `unit` (`unit_id`),
   CONSTRAINT `fk_ingconv_ingredient` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredient` (`ingredient_id`),
-  CONSTRAINT `fk_ingconv_to` FOREIGN KEY (`to_unit`) REFERENCES `unit` (`unit_id`)
+  CONSTRAINT `fk_ingconv_to` FOREIGN KEY (`to_unit`) REFERENCES `unit` (`unit_id`),
+  CONSTRAINT `ingredient_conversion_chk_1` CHECK ((`rate` > 0))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -77,9 +109,29 @@ CREATE TABLE `ingredient_conversion` (
 
 LOCK TABLES `ingredient_conversion` WRITE;
 /*!40000 ALTER TABLE `ingredient_conversion` DISABLE KEYS */;
-INSERT INTO `ingredient_conversion` VALUES (1,10,2,0.4730000),(2,9,2,3.5000000),(3,9,2,4.2500000),(6,14,1,6.3750000),(6,15,1,1.7500000),(9,9,2,6.7500000),(10,9,2,3.5000000),(43,9,2,4.2000000),(44,9,2,4.5000000);
+INSERT INTO `ingredient_conversion` VALUES (1,10,2,0.473000000),(2,1,9,4.500000000),(2,9,2,3.500000000),(3,1,9,3.620000000),(3,9,2,4.250000000),(6,14,1,6.375000000),(6,15,1,1.750000000),(9,1,9,2.500000000),(9,9,2,6.750000000),(10,1,9,4.750000000),(10,9,2,3.500000000),(16,1,13,2.272727273),(16,3,11,2.000000000),(20,3,11,2.000000000),(21,1,10,32.000000000),(27,1,9,2.250000000),(29,1,13,1.000000000),(30,1,9,3.250000000),(31,1,9,4.000000000),(40,2,10,4.750000000),(43,1,9,3.750000000),(43,9,2,4.200000000),(44,1,9,3.630000000),(44,9,2,4.500000000),(46,2,10,3.750000000),(47,1,9,2.500000000);
 /*!40000 ALTER TABLE `ingredient_conversion` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary view structure for view `ingredient_conversion_rate`
+--
+
+DROP TABLE IF EXISTS `ingredient_conversion_rate`;
+/*!50001 DROP VIEW IF EXISTS `ingredient_conversion_rate`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `ingredient_conversion_rate` AS SELECT 
+ 1 AS `ingredient_id`,
+ 1 AS `purchase_unit`,
+ 1 AS `recipe_unit`,
+ 1 AS `uc_from_unit`,
+ 1 AS `uc_to_unit`,
+ 1 AS `uc_rate`,
+ 1 AS `ic_from_unit`,
+ 1 AS `ic_to_unit`,
+ 1 AS `ic_rate`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `inventory`
@@ -112,6 +164,31 @@ LOCK TABLES `inventory` WRITE;
 INSERT INTO `inventory` VALUES (1,'2025-03-31 18:00:00',1,60.000,5),(1,'2025-03-31 18:00:00',2,50.000,5),(1,'2025-03-31 18:00:00',4,40.000,5),(1,'2025-03-31 18:00:00',5,35.000,5),(1,'2025-03-31 18:00:00',6,40.000,5),(1,'2025-03-31 18:00:00',7,40.000,5),(1,'2025-03-31 18:00:00',8,40.000,5),(1,'2025-06-30 18:00:00',1,58.800,5),(1,'2025-06-30 18:00:00',2,49.000,5),(1,'2025-06-30 18:00:00',4,39.200,5),(1,'2025-06-30 18:00:00',5,34.300,5),(1,'2025-06-30 18:00:00',6,38.800,5),(1,'2025-06-30 18:00:00',7,38.800,5),(1,'2025-06-30 18:00:00',8,38.800,5),(1,'2025-09-30 18:00:00',1,56.400,5),(1,'2025-09-30 18:00:00',2,47.000,5),(1,'2025-09-30 18:00:00',4,37.600,5),(1,'2025-09-30 18:00:00',5,32.900,5),(1,'2025-09-30 18:00:00',6,37.600,5),(1,'2025-09-30 18:00:00',7,37.600,5),(1,'2025-09-30 18:00:00',8,37.600,5),(1,'2025-12-31 18:00:00',1,55.200,5),(1,'2025-12-31 18:00:00',2,46.000,5),(1,'2025-12-31 18:00:00',4,36.800,5),(1,'2025-12-31 18:00:00',5,32.200,5),(1,'2025-12-31 18:00:00',6,36.400,5),(1,'2025-12-31 18:00:00',7,36.400,5),(1,'2025-12-31 18:00:00',8,36.400,5),(2,'2025-03-31 18:00:00',1,45.000,1),(2,'2025-03-31 18:00:00',2,40.000,1),(2,'2025-03-31 18:00:00',3,35.000,1),(2,'2025-03-31 18:00:00',6,40.000,1),(2,'2025-03-31 18:00:00',7,40.000,1),(2,'2025-03-31 18:00:00',8,40.000,1),(2,'2025-06-30 18:00:00',1,44.100,1),(2,'2025-06-30 18:00:00',2,39.200,1),(2,'2025-06-30 18:00:00',3,34.300,1),(2,'2025-06-30 18:00:00',6,38.800,1),(2,'2025-06-30 18:00:00',7,38.800,1),(2,'2025-06-30 18:00:00',8,38.800,1),(2,'2025-09-30 18:00:00',1,42.300,1),(2,'2025-09-30 18:00:00',2,37.600,1),(2,'2025-09-30 18:00:00',3,32.900,1),(2,'2025-09-30 18:00:00',6,37.600,1),(2,'2025-09-30 18:00:00',7,37.600,1),(2,'2025-09-30 18:00:00',8,37.600,1),(2,'2025-12-31 18:00:00',1,41.400,1),(2,'2025-12-31 18:00:00',2,36.800,1),(2,'2025-12-31 18:00:00',3,32.200,1),(2,'2025-12-31 18:00:00',6,36.400,1),(2,'2025-12-31 18:00:00',7,36.400,1),(2,'2025-12-31 18:00:00',8,36.400,1),(3,'2025-03-31 18:00:00',4,150.000,1),(3,'2025-03-31 18:00:00',6,40.000,1),(3,'2025-03-31 18:00:00',7,40.000,1),(3,'2025-03-31 18:00:00',8,40.000,1),(3,'2025-06-30 18:00:00',4,147.000,1),(3,'2025-06-30 18:00:00',6,38.800,1),(3,'2025-06-30 18:00:00',7,38.800,1),(3,'2025-06-30 18:00:00',8,38.800,1),(3,'2025-09-30 18:00:00',4,141.000,1),(3,'2025-09-30 18:00:00',6,37.600,1),(3,'2025-09-30 18:00:00',7,37.600,1),(3,'2025-09-30 18:00:00',8,37.600,1),(3,'2025-12-31 18:00:00',4,138.000,1),(3,'2025-12-31 18:00:00',6,36.400,1),(3,'2025-12-31 18:00:00',7,36.400,1),(3,'2025-12-31 18:00:00',8,36.400,1),(4,'2025-03-31 18:00:00',4,25.000,1),(4,'2025-06-30 18:00:00',4,24.500,1),(4,'2025-09-30 18:00:00',4,23.500,1),(4,'2025-12-31 18:00:00',4,23.000,1),(5,'2025-03-31 18:00:00',1,144.000,13),(5,'2025-03-31 18:00:00',2,144.000,13),(5,'2025-03-31 18:00:00',3,144.000,13),(5,'2025-03-31 18:00:00',4,144.000,13),(5,'2025-03-31 18:00:00',5,144.000,13),(5,'2025-03-31 18:00:00',6,144.000,13),(5,'2025-03-31 18:00:00',7,144.000,13),(5,'2025-03-31 18:00:00',8,144.000,13),(5,'2025-06-30 18:00:00',1,138.240,13),(5,'2025-06-30 18:00:00',2,138.240,13),(5,'2025-06-30 18:00:00',3,138.240,13),(5,'2025-06-30 18:00:00',4,138.240,13),(5,'2025-06-30 18:00:00',5,138.240,13),(5,'2025-06-30 18:00:00',6,138.240,13),(5,'2025-06-30 18:00:00',7,138.240,13),(5,'2025-06-30 18:00:00',8,138.240,13),(5,'2025-09-30 18:00:00',1,132.480,13),(5,'2025-09-30 18:00:00',2,132.480,13),(5,'2025-09-30 18:00:00',3,132.480,13),(5,'2025-09-30 18:00:00',4,132.480,13),(5,'2025-09-30 18:00:00',5,132.480,13),(5,'2025-09-30 18:00:00',6,132.480,13),(5,'2025-09-30 18:00:00',7,132.480,13),(5,'2025-09-30 18:00:00',8,132.480,13),(5,'2025-12-31 18:00:00',1,126.720,13),(5,'2025-12-31 18:00:00',2,126.720,13),(5,'2025-12-31 18:00:00',3,126.720,13),(5,'2025-12-31 18:00:00',4,126.720,13),(5,'2025-12-31 18:00:00',5,126.720,13),(5,'2025-12-31 18:00:00',6,126.720,13),(5,'2025-12-31 18:00:00',7,126.720,13),(5,'2025-12-31 18:00:00',8,126.720,13),(6,'2025-03-31 18:00:00',5,70.000,1),(6,'2025-03-31 18:00:00',6,40.000,1),(6,'2025-03-31 18:00:00',7,40.000,1),(6,'2025-03-31 18:00:00',8,40.000,1),(6,'2025-06-30 18:00:00',5,68.600,1),(6,'2025-06-30 18:00:00',6,38.800,1),(6,'2025-06-30 18:00:00',7,38.800,1),(6,'2025-06-30 18:00:00',8,38.800,1),(6,'2025-09-30 18:00:00',5,65.800,1),(6,'2025-09-30 18:00:00',6,37.600,1),(6,'2025-09-30 18:00:00',7,37.600,1),(6,'2025-09-30 18:00:00',8,37.600,1),(6,'2025-12-31 18:00:00',5,64.400,1),(6,'2025-12-31 18:00:00',6,36.400,1),(6,'2025-12-31 18:00:00',7,36.400,1),(6,'2025-12-31 18:00:00',8,36.400,1),(7,'2025-03-31 18:00:00',1,12.800,2),(7,'2025-03-31 18:00:00',2,12.800,2),(7,'2025-03-31 18:00:00',3,12.800,2),(7,'2025-03-31 18:00:00',4,12.800,2),(7,'2025-03-31 18:00:00',5,12.800,2),(7,'2025-03-31 18:00:00',6,12.800,2),(7,'2025-03-31 18:00:00',7,12.800,2),(7,'2025-03-31 18:00:00',8,12.800,2),(7,'2025-06-30 18:00:00',1,12.288,2),(7,'2025-06-30 18:00:00',2,12.288,2),(7,'2025-06-30 18:00:00',3,12.288,2),(7,'2025-06-30 18:00:00',4,12.288,2),(7,'2025-06-30 18:00:00',5,12.288,2),(7,'2025-06-30 18:00:00',6,12.288,2),(7,'2025-06-30 18:00:00',7,12.288,2),(7,'2025-06-30 18:00:00',8,12.288,2),(7,'2025-09-30 18:00:00',1,11.776,2),(7,'2025-09-30 18:00:00',2,11.776,2),(7,'2025-09-30 18:00:00',3,11.776,2),(7,'2025-09-30 18:00:00',4,11.776,2),(7,'2025-09-30 18:00:00',5,11.776,2),(7,'2025-09-30 18:00:00',6,11.776,2),(7,'2025-09-30 18:00:00',7,11.776,2),(7,'2025-09-30 18:00:00',8,11.776,2),(7,'2025-12-31 18:00:00',1,11.264,2),(7,'2025-12-31 18:00:00',2,11.264,2),(7,'2025-12-31 18:00:00',3,11.264,2),(7,'2025-12-31 18:00:00',4,11.264,2),(7,'2025-12-31 18:00:00',5,11.264,2),(7,'2025-12-31 18:00:00',6,11.264,2),(7,'2025-12-31 18:00:00',7,11.264,2),(7,'2025-12-31 18:00:00',8,11.264,2),(8,'2025-03-31 18:00:00',1,30.000,1),(8,'2025-03-31 18:00:00',2,25.000,1),(8,'2025-03-31 18:00:00',3,20.000,1),(8,'2025-03-31 18:00:00',6,40.000,1),(8,'2025-03-31 18:00:00',7,40.000,1),(8,'2025-03-31 18:00:00',8,40.000,1),(8,'2025-06-30 18:00:00',1,29.400,1),(8,'2025-06-30 18:00:00',2,24.500,1),(8,'2025-06-30 18:00:00',3,19.600,1),(8,'2025-06-30 18:00:00',6,38.800,1),(8,'2025-06-30 18:00:00',7,38.800,1),(8,'2025-06-30 18:00:00',8,38.800,1),(8,'2025-09-30 18:00:00',1,28.200,1),(8,'2025-09-30 18:00:00',2,23.500,1),(8,'2025-09-30 18:00:00',3,18.800,1),(8,'2025-09-30 18:00:00',6,37.600,1),(8,'2025-09-30 18:00:00',7,37.600,1),(8,'2025-09-30 18:00:00',8,37.600,1),(8,'2025-12-31 18:00:00',1,27.600,1),(8,'2025-12-31 18:00:00',2,23.000,1),(8,'2025-12-31 18:00:00',3,18.400,1),(8,'2025-12-31 18:00:00',6,36.400,1),(8,'2025-12-31 18:00:00',7,36.400,1),(8,'2025-12-31 18:00:00',8,36.400,1),(9,'2025-03-31 18:00:00',4,60.000,1),(9,'2025-06-30 18:00:00',4,58.800,1),(9,'2025-09-30 18:00:00',4,56.400,1),(9,'2025-12-31 18:00:00',4,55.200,1),(10,'2025-03-31 18:00:00',1,8.000,1),(10,'2025-03-31 18:00:00',2,8.000,1),(10,'2025-03-31 18:00:00',3,8.000,1),(10,'2025-03-31 18:00:00',4,8.000,1),(10,'2025-03-31 18:00:00',5,8.000,1),(10,'2025-03-31 18:00:00',6,8.000,1),(10,'2025-03-31 18:00:00',7,8.000,1),(10,'2025-03-31 18:00:00',8,8.000,1),(10,'2025-06-30 18:00:00',1,7.680,1),(10,'2025-06-30 18:00:00',2,7.680,1),(10,'2025-06-30 18:00:00',3,7.680,1),(10,'2025-06-30 18:00:00',4,7.680,1),(10,'2025-06-30 18:00:00',5,7.680,1),(10,'2025-06-30 18:00:00',6,7.680,1),(10,'2025-06-30 18:00:00',7,7.680,1),(10,'2025-06-30 18:00:00',8,7.680,1),(10,'2025-09-30 18:00:00',1,7.360,1),(10,'2025-09-30 18:00:00',2,7.360,1),(10,'2025-09-30 18:00:00',3,7.360,1),(10,'2025-09-30 18:00:00',4,7.360,1),(10,'2025-09-30 18:00:00',5,7.360,1),(10,'2025-09-30 18:00:00',6,7.360,1),(10,'2025-09-30 18:00:00',7,7.360,1),(10,'2025-09-30 18:00:00',8,7.360,1),(10,'2025-12-31 18:00:00',1,7.040,1),(10,'2025-12-31 18:00:00',2,7.040,1),(10,'2025-12-31 18:00:00',3,7.040,1),(10,'2025-12-31 18:00:00',4,7.040,1),(10,'2025-12-31 18:00:00',5,7.040,1),(10,'2025-12-31 18:00:00',6,7.040,1),(10,'2025-12-31 18:00:00',7,7.040,1),(10,'2025-12-31 18:00:00',8,7.040,1),(11,'2025-03-31 18:00:00',4,18.000,1),(11,'2025-06-30 18:00:00',4,17.640,1),(11,'2025-09-30 18:00:00',4,16.920,1),(11,'2025-12-31 18:00:00',4,16.560,1),(12,'2025-03-31 18:00:00',2,35.000,1),(12,'2025-03-31 18:00:00',3,28.000,1),(12,'2025-06-30 18:00:00',2,34.300,1),(12,'2025-06-30 18:00:00',3,27.440,1),(12,'2025-09-30 18:00:00',2,32.900,1),(12,'2025-09-30 18:00:00',3,26.320,1),(12,'2025-12-31 18:00:00',2,32.200,1),(12,'2025-12-31 18:00:00',3,25.760,1),(13,'2025-03-31 18:00:00',1,80.000,1),(13,'2025-03-31 18:00:00',3,55.000,1),(13,'2025-06-30 18:00:00',1,78.400,1),(13,'2025-06-30 18:00:00',3,53.900,1),(13,'2025-09-30 18:00:00',1,75.200,1),(13,'2025-09-30 18:00:00',3,51.700,1),(13,'2025-12-31 18:00:00',1,73.600,1),(13,'2025-12-31 18:00:00',3,50.600,1),(14,'2025-03-31 18:00:00',1,15.000,5),(14,'2025-03-31 18:00:00',2,12.000,5),(14,'2025-06-30 18:00:00',1,14.700,5),(14,'2025-06-30 18:00:00',2,11.760,5),(14,'2025-09-30 18:00:00',1,14.100,5),(14,'2025-09-30 18:00:00',2,11.280,5),(14,'2025-12-31 18:00:00',1,13.800,5),(14,'2025-12-31 18:00:00',2,11.040,5),(15,'2025-03-31 18:00:00',1,40.000,13),(15,'2025-03-31 18:00:00',2,40.000,13),(15,'2025-03-31 18:00:00',3,40.000,13),(15,'2025-03-31 18:00:00',4,40.000,13),(15,'2025-03-31 18:00:00',5,40.000,13),(15,'2025-03-31 18:00:00',6,40.000,13),(15,'2025-03-31 18:00:00',7,40.000,13),(15,'2025-03-31 18:00:00',8,40.000,13),(15,'2025-06-30 18:00:00',1,38.400,13),(15,'2025-06-30 18:00:00',2,38.400,13),(15,'2025-06-30 18:00:00',3,38.400,13),(15,'2025-06-30 18:00:00',4,38.400,13),(15,'2025-06-30 18:00:00',5,38.400,13),(15,'2025-06-30 18:00:00',6,38.400,13),(15,'2025-06-30 18:00:00',7,38.400,13),(15,'2025-06-30 18:00:00',8,38.400,13),(15,'2025-09-30 18:00:00',1,36.800,13),(15,'2025-09-30 18:00:00',2,36.800,13),(15,'2025-09-30 18:00:00',3,36.800,13),(15,'2025-09-30 18:00:00',4,36.800,13),(15,'2025-09-30 18:00:00',5,36.800,13),(15,'2025-09-30 18:00:00',6,36.800,13),(15,'2025-09-30 18:00:00',7,36.800,13),(15,'2025-09-30 18:00:00',8,36.800,13),(15,'2025-12-31 18:00:00',1,35.200,13),(15,'2025-12-31 18:00:00',2,35.200,13),(15,'2025-12-31 18:00:00',3,35.200,13),(15,'2025-12-31 18:00:00',4,35.200,13),(15,'2025-12-31 18:00:00',5,35.200,13),(15,'2025-12-31 18:00:00',6,35.200,13),(15,'2025-12-31 18:00:00',7,35.200,13),(15,'2025-12-31 18:00:00',8,35.200,13),(16,'2025-03-31 18:00:00',5,55.000,1),(16,'2025-06-30 18:00:00',5,53.900,1),(16,'2025-09-30 18:00:00',5,51.700,1),(16,'2025-12-31 18:00:00',5,50.600,1),(17,'2025-03-31 18:00:00',5,30.000,5),(17,'2025-06-30 18:00:00',5,29.400,5),(17,'2025-09-30 18:00:00',5,28.200,5),(17,'2025-12-31 18:00:00',5,27.600,5),(18,'2025-03-31 18:00:00',5,22.000,1),(18,'2025-06-30 18:00:00',5,21.560,1),(18,'2025-09-30 18:00:00',5,20.680,1),(18,'2025-12-31 18:00:00',5,20.240,1),(19,'2025-03-31 18:00:00',1,6.400,2),(19,'2025-03-31 18:00:00',2,6.400,2),(19,'2025-03-31 18:00:00',3,6.400,2),(19,'2025-03-31 18:00:00',4,6.400,2),(19,'2025-03-31 18:00:00',5,6.400,2),(19,'2025-03-31 18:00:00',6,6.400,2),(19,'2025-03-31 18:00:00',7,6.400,2),(19,'2025-03-31 18:00:00',8,6.400,2),(19,'2025-06-30 18:00:00',1,6.144,2),(19,'2025-06-30 18:00:00',2,6.144,2),(19,'2025-06-30 18:00:00',3,6.144,2),(19,'2025-06-30 18:00:00',4,6.144,2),(19,'2025-06-30 18:00:00',5,6.144,2),(19,'2025-06-30 18:00:00',6,6.144,2),(19,'2025-06-30 18:00:00',7,6.144,2),(19,'2025-06-30 18:00:00',8,6.144,2),(19,'2025-09-30 18:00:00',1,5.888,2),(19,'2025-09-30 18:00:00',2,5.888,2),(19,'2025-09-30 18:00:00',3,5.888,2),(19,'2025-09-30 18:00:00',4,5.888,2),(19,'2025-09-30 18:00:00',5,5.888,2),(19,'2025-09-30 18:00:00',6,5.888,2),(19,'2025-09-30 18:00:00',7,5.888,2),(19,'2025-09-30 18:00:00',8,5.888,2),(19,'2025-12-31 18:00:00',1,5.632,2),(19,'2025-12-31 18:00:00',2,5.632,2),(19,'2025-12-31 18:00:00',3,5.632,2),(19,'2025-12-31 18:00:00',4,5.632,2),(19,'2025-12-31 18:00:00',5,5.632,2),(19,'2025-12-31 18:00:00',6,5.632,2),(19,'2025-12-31 18:00:00',7,5.632,2),(19,'2025-12-31 18:00:00',8,5.632,2),(20,'2025-03-31 18:00:00',1,20.000,3),(20,'2025-03-31 18:00:00',2,20.000,3),(20,'2025-03-31 18:00:00',4,20.000,3),(20,'2025-03-31 18:00:00',5,20.000,3),(20,'2025-03-31 18:00:00',6,20.000,3),(20,'2025-03-31 18:00:00',7,20.000,3),(20,'2025-03-31 18:00:00',8,20.000,3),(20,'2025-06-30 18:00:00',1,19.200,3),(20,'2025-06-30 18:00:00',2,19.200,3),(20,'2025-06-30 18:00:00',4,19.200,3),(20,'2025-06-30 18:00:00',5,19.200,3),(20,'2025-06-30 18:00:00',6,19.200,3),(20,'2025-06-30 18:00:00',7,19.200,3),(20,'2025-06-30 18:00:00',8,19.200,3),(20,'2025-09-30 18:00:00',1,18.400,3),(20,'2025-09-30 18:00:00',2,18.400,3),(20,'2025-09-30 18:00:00',4,18.400,3),(20,'2025-09-30 18:00:00',5,18.400,3),(20,'2025-09-30 18:00:00',6,18.400,3),(20,'2025-09-30 18:00:00',7,18.400,3),(20,'2025-09-30 18:00:00',8,18.400,3),(20,'2025-12-31 18:00:00',1,17.600,3),(20,'2025-12-31 18:00:00',2,17.600,3),(20,'2025-12-31 18:00:00',4,17.600,3),(20,'2025-12-31 18:00:00',5,17.600,3),(20,'2025-12-31 18:00:00',6,17.600,3),(20,'2025-12-31 18:00:00',7,17.600,3),(20,'2025-12-31 18:00:00',8,17.600,3),(21,'2025-03-31 18:00:00',3,16.000,1),(21,'2025-06-30 18:00:00',3,15.360,1),(21,'2025-09-30 18:00:00',3,14.720,1),(21,'2025-12-31 18:00:00',3,14.080,1);
 /*!40000 ALTER TABLE `inventory` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary view structure for view `latest_purchase_price`
+--
+
+DROP TABLE IF EXISTS `latest_purchase_price`;
+/*!50001 DROP VIEW IF EXISTS `latest_purchase_price`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `latest_purchase_price` AS SELECT 
+ 1 AS `rn`,
+ 1 AS `order_id`,
+ 1 AS `purchase_date`,
+ 1 AS `supplier_id`,
+ 1 AS `supplier`,
+ 1 AS `ingredient_id`,
+ 1 AS `ingredient_name`,
+ 1 AS `unit_price`,
+ 1 AS `quantity`,
+ 1 AS `unit_id`,
+ 1 AS `unit`,
+ 1 AS `location_id`,
+ 1 AS `location`,
+ 1 AS `total ($)`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `location`
@@ -331,9 +408,34 @@ CREATE TABLE `recipe_ingredients` (
 
 LOCK TABLES `recipe_ingredients` WRITE;
 /*!40000 ALTER TABLE `recipe_ingredients` DISABLE KEYS */;
-INSERT INTO `recipe_ingredients` VALUES (1,4,8.000,2),(1,5,4.000,13),(1,10,1.000,9),(1,13,1.000,1),(2,1,2.000,10),(2,3,1.000,1),(2,6,0.531,1),(2,7,0.500,2),(2,8,8.000,2),(2,19,0.250,2),(3,1,2.000,10),(3,2,0.500,9),(3,9,2.000,9),(3,16,1.000,13),(3,20,0.125,11),(3,21,2.000,10),(3,22,4.000,9),(4,1,2.000,10),(4,7,0.250,2),(4,8,8.000,2),(4,14,1.000,10),(4,47,1.000,9),(5,11,6.000,2),(5,23,1.000,13),(6,4,36.000,2),(6,6,6.375,1),(6,10,10.500,2),(6,36,6.000,1),(7,5,6.000,13),(7,18,4.000,2),(7,24,16.000,2),(7,25,24.000,13),(7,26,2.000,2),(7,27,0.500,9),(8,1,4.000,10),(8,3,2.000,1),(8,15,3.000,13),(8,19,0.250,2),(8,28,0.250,2),(9,15,2.000,13),(9,16,2.000,13),(9,17,1.000,9),(9,22,3.000,9),(9,29,4.000,13),(9,30,2.000,13),(9,31,2.000,13),(9,32,0.250,2),(9,33,1.000,13),(10,1,3.000,10),(10,7,0.500,2),(10,16,1.000,13),(10,34,0.500,1),(10,35,2.000,10),(10,47,2.000,9),(11,10,1.500,9),(11,13,1.000,1),(11,21,2.000,10),(11,46,1.000,10),(12,1,0.500,9),(12,2,0.500,9),(12,7,2.000,2),(12,13,1.000,1),(12,15,2.000,13),(12,37,2.000,2),(13,2,2.000,2),(13,3,1.000,1),(13,8,4.000,2),(13,10,2.000,2),(13,19,0.250,2),(13,38,4.000,2),(14,15,4.000,13),(14,28,0.500,2),(14,39,3.000,1),(14,40,1.000,10),(15,1,3.000,10),(15,28,0.250,2),(15,33,1.000,13),(15,41,2.000,1),(16,3,1.000,1),(16,27,0.500,9),(16,42,2.000,1),(16,43,0.250,9),(17,5,6.000,13),(17,27,1.000,9),(17,44,1.000,9),(17,45,4.000,9),(18,1,3.000,10),(18,12,1.500,1),(18,15,2.000,13),(18,32,0.500,2),(18,33,2.000,13);
+INSERT INTO `recipe_ingredients` VALUES (1,4,8.000,2),(1,5,4.000,13),(1,10,1.000,9),(1,13,1.000,1),(2,1,2.000,10),(2,3,1.000,1),(2,6,0.531,1),(2,7,0.500,2),(2,8,8.000,2),(2,19,0.250,2),(3,1,2.000,10),(3,2,0.500,9),(3,9,2.000,9),(3,16,1.000,13),(3,20,0.125,11),(3,21,2.000,10),(3,22,4.000,9),(4,1,2.000,10),(4,7,0.250,2),(4,8,8.000,2),(4,14,1.000,10),(4,47,1.000,9),(5,11,6.000,2),(5,23,1.000,13),(6,4,36.000,2),(6,6,6.375,1),(6,10,10.500,2),(6,36,6.000,1),(7,5,6.000,13),(7,18,4.000,2),(7,24,16.000,2),(7,25,24.000,13),(7,26,2.000,2),(7,27,0.500,9),(8,1,4.000,10),(8,3,2.000,1),(8,15,3.000,13),(8,19,0.250,2),(8,28,0.250,2),(9,15,2.000,13),(9,16,2.000,13),(9,17,1.000,9),(9,22,3.000,9),(9,29,4.000,1),(9,30,1.000,9),(9,31,1.000,9),(9,32,0.250,2),(9,33,1.000,13),(10,1,3.000,10),(10,7,0.500,2),(10,16,1.000,13),(10,34,0.500,1),(10,35,2.000,10),(10,47,2.000,9),(11,10,1.500,9),(11,13,1.000,1),(11,21,2.000,10),(11,46,1.000,10),(12,1,0.500,9),(12,2,0.500,9),(12,7,2.000,2),(12,13,1.000,1),(12,15,2.000,13),(12,37,2.000,2),(13,2,2.000,2),(13,3,1.000,1),(13,8,4.000,2),(13,10,2.000,2),(13,19,0.250,2),(13,38,4.000,2),(14,15,4.000,13),(14,28,0.500,2),(14,39,3.000,1),(14,40,1.000,10),(15,1,3.000,10),(15,28,0.250,2),(15,33,1.000,13),(15,41,2.000,1),(16,3,1.000,1),(16,27,0.500,9),(16,42,2.000,1),(16,43,0.250,9),(17,5,6.000,13),(17,27,1.000,9),(17,44,1.000,9),(17,45,4.000,9),(18,1,3.000,10),(18,12,1.500,1),(18,15,2.000,13),(18,32,0.500,2),(18,33,2.000,13);
 /*!40000 ALTER TABLE `recipe_ingredients` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary view structure for view `recipe_to_purchase_conversion`
+--
+
+DROP TABLE IF EXISTS `recipe_to_purchase_conversion`;
+/*!50001 DROP VIEW IF EXISTS `recipe_to_purchase_conversion`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `recipe_to_purchase_conversion` AS SELECT 
+ 1 AS `supplier_id`,
+ 1 AS `supplier_name`,
+ 1 AS `location_id`,
+ 1 AS `location_name`,
+ 1 AS `recipe_id`,
+ 1 AS `recipe`,
+ 1 AS `ingredient_id`,
+ 1 AS `ingredient`,
+ 1 AS `quantity`,
+ 1 AS `recipe_unit`,
+ 1 AS `recipe_unit_name`,
+ 1 AS `converted_quantity`,
+ 1 AS `purchase_unit`,
+ 1 AS `purchase_unit_name`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `region`
@@ -358,6 +460,25 @@ LOCK TABLES `region` WRITE;
 INSERT INTO `region` VALUES (1,'Northeast'),(2,'Midwest'),(3,'West Coast'),(4,'South');
 /*!40000 ALTER TABLE `region` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary view structure for view `running_purchase_list`
+--
+
+DROP TABLE IF EXISTS `running_purchase_list`;
+/*!50001 DROP VIEW IF EXISTS `running_purchase_list`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `running_purchase_list` AS SELECT 
+ 1 AS `supplier_name`,
+ 1 AS `order_id`,
+ 1 AS `purchase_date`,
+ 1 AS `ingredient_name`,
+ 1 AS `unit_price_actual`,
+ 1 AS `ingredient_quantity`,
+ 1 AS `unit_name`,
+ 1 AS `total ($)`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `supplier`
@@ -409,7 +530,7 @@ CREATE TABLE `unit` (
 
 LOCK TABLES `unit` WRITE;
 /*!40000 ALTER TABLE `unit` DISABLE KEYS */;
-INSERT INTO `unit` VALUES (1,'lb'),(2,'oz'),(3,'g'),(4,'kg'),(5,'l'),(6,'ml'),(7,'gal'),(8,'qt'),(9,'cup'),(10,'tbsp'),(11,'tsp'),(12,'case'),(13,'each'),(14,'#10 can'),(15,'28oz can');
+INSERT INTO `unit` VALUES (1,'lb'),(2,'oz'),(3,'g'),(4,'kg'),(5,'liter'),(6,'ml'),(7,'gal'),(8,'qt'),(9,'cup'),(10,'tbsp'),(11,'tsp'),(12,'case'),(13,'each'),(14,'#10 can'),(15,'28oz can');
 /*!40000 ALTER TABLE `unit` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -423,11 +544,12 @@ DROP TABLE IF EXISTS `unit_conversion`;
 CREATE TABLE `unit_conversion` (
   `from_unit` tinyint unsigned NOT NULL,
   `to_unit` tinyint unsigned NOT NULL,
-  `rate` decimal(10,7) DEFAULT NULL,
+  `rate` decimal(15,9) NOT NULL,
   PRIMARY KEY (`from_unit`,`to_unit`),
   KEY `fk_unitconv_to` (`to_unit`),
   CONSTRAINT `fk_unitconv_from` FOREIGN KEY (`from_unit`) REFERENCES `unit` (`unit_id`),
-  CONSTRAINT `fk_unitconv_to` FOREIGN KEY (`to_unit`) REFERENCES `unit` (`unit_id`)
+  CONSTRAINT `fk_unitconv_to` FOREIGN KEY (`to_unit`) REFERENCES `unit` (`unit_id`),
+  CONSTRAINT `unit_conversion_chk_1` CHECK ((`rate` > 0))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -437,9 +559,188 @@ CREATE TABLE `unit_conversion` (
 
 LOCK TABLES `unit_conversion` WRITE;
 /*!40000 ALTER TABLE `unit_conversion` DISABLE KEYS */;
-INSERT INTO `unit_conversion` VALUES (2,1,0.0625000),(3,4,0.0010000),(4,1,2.2046226),(5,7,0.2641720),(6,5,0.0010000),(8,7,0.2500000),(9,6,236.5880000),(9,8,0.2500000),(10,9,0.0625000),(11,10,0.3333333);
+INSERT INTO `unit_conversion` VALUES (1,2,16.000000000),(1,4,0.453592370),(2,1,0.062500000),(2,3,28.349520000),(3,2,0.035274000),(3,4,0.001000000),(4,1,2.204622600),(4,3,1000.000000000),(5,6,1000.000000000),(5,7,0.264172000),(5,8,1.056688000),(5,9,4.226750000),(5,10,67.628000000),(6,5,0.001000000),(7,5,3.785410000),(7,8,4.000000000),(8,5,0.946353000),(8,7,0.250000000),(8,9,4.000000000),(9,5,0.236588000),(9,6,236.588000000),(9,8,0.250000000),(9,10,16.000000000),(10,5,0.014786800),(10,9,0.062500000),(10,11,3.000000000),(11,10,0.333333300);
 /*!40000 ALTER TABLE `unit_conversion` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping routines for database 'restaurant'
+--
+/*!50003 DROP FUNCTION IF EXISTS `convert_ingredient` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `convert_ingredient`(p_ingredient_id smallint unsigned, p_ingredient_quantity DECIMAL(8,3), p_from_unit tinyint unsigned, p_to_unit tinyint unsigned) RETURNS decimal(8,3)
+    DETERMINISTIC
+BEGIN
+	DECLARE uc_rate DECIMAL(15,9);
+    DECLARE ic_rate DECIMAL(15,9);
+    
+    if ((p_from_unit = p_to_unit) OR (p_to_unit = p_from_unit)) THEN
+    RETURN p_ingredient_quantity;
+    END IF;
+    
+    SELECT rate FROM unit_conversion WHERE p_from_unit = from_unit AND p_to_unit = to_unit INTO uc_rate;
+    IF uc_rate IS NOT NULL THEN
+    return p_ingredient_quantity * uc_rate;
+    END IF;
+    
+	SELECT rate FROM unit_conversion WHERE p_from_unit = to_unit AND p_to_unit = from_unit INTO uc_rate;
+    IF uc_rate IS NOT NULL THEN
+    return p_ingredient_quantity * (1/uc_rate);
+    END IF;
+
+    SELECT rate FROM ingredient_conversion WHERE ingredient_id = p_ingredient_id AND p_from_unit = from_unit AND p_to_unit = to_unit INTO ic_rate;
+    IF ic_rate IS NOT NULL THEN
+    return p_ingredient_quantity * ic_rate;
+    END IF;
+    
+	SELECT rate FROM ingredient_conversion WHERE ingredient_id = p_ingredient_id AND p_from_unit = to_unit AND p_to_unit = from_unit INTO ic_rate;
+    IF ic_rate IS NOT NULL THEN
+    return p_ingredient_quantity * (1/ic_rate);
+    END IF;
+	
+    RETURN NULL;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `total_cost` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `total_cost`(ingredient_quantity decimal(8,3), unit_price decimal(10,2)) RETURNS decimal(6,2)
+    DETERMINISTIC
+BEGIN
+	RETURN (ingredient_quantity * unit_price);
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
+-- Final view structure for view `all_recipes`
+--
+
+/*!50001 DROP VIEW IF EXISTS `all_recipes`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `all_recipes` AS select distinct `r`.`recipe_name` AS `recipe_name`,`i`.`ingredient_name` AS `ingredient_name`,`ri`.`ingredient_quantity` AS `ingredient_quantity`,`u`.`unit_name` AS `unit_name`,`r`.`num_servings` AS `num_servings` from (((`recipe_ingredients` `ri` join `recipe` `r` on((`ri`.`recipe_id` = `r`.`recipe_id`))) join `unit` `u` on((`ri`.`ingredient_unit` = `u`.`unit_id`))) join `ingredient` `i` on((`ri`.`ingredient_id` = `i`.`ingredient_id`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `convert_ingred`
+--
+
+/*!50001 DROP VIEW IF EXISTS `convert_ingred`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `convert_ingred` AS select `i`.`ingredient_name` AS `ingredient_name`,`uf`.`unit_name` AS `from_unit`,`ut`.`unit_name` AS `to_unit`,`ic`.`rate` AS `rate` from (((`ingredient_conversion` `ic` join `unit` `uf` on((`ic`.`from_unit` = `uf`.`unit_id`))) join `unit` `ut` on((`ic`.`to_unit` = `ut`.`unit_id`))) join `ingredient` `i` on((`ic`.`ingredient_id` = `i`.`ingredient_id`))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `ingredient_conversion_rate`
+--
+
+/*!50001 DROP VIEW IF EXISTS `ingredient_conversion_rate`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `ingredient_conversion_rate` AS with `recipe_purchase` as (select `ri`.`ingredient_id` AS `ingredient_id`,`pl`.`ingredient_unit` AS `purchase_unit`,`ri`.`ingredient_unit` AS `recipe_unit` from (`recipe_ingredients` `ri` join `purchase_list` `pl` on((`ri`.`ingredient_id` = `pl`.`ingredient_id`))) group by `ri`.`ingredient_id`,`purchase_unit`,`recipe_unit` having (`recipe_unit` <> `purchase_unit`) order by `ri`.`ingredient_id`) select `rp`.`ingredient_id` AS `ingredient_id`,`rp`.`purchase_unit` AS `purchase_unit`,`rp`.`recipe_unit` AS `recipe_unit`,`uc`.`from_unit` AS `uc_from_unit`,`uc`.`to_unit` AS `uc_to_unit`,`uc`.`rate` AS `uc_rate`,`ic`.`from_unit` AS `ic_from_unit`,`ic`.`to_unit` AS `ic_to_unit`,`ic`.`rate` AS `ic_rate` from ((`recipe_purchase` `rp` left join `unit_conversion` `uc` on(((`uc`.`from_unit` = `rp`.`purchase_unit`) and (`uc`.`to_unit` = `rp`.`recipe_unit`)))) left join `ingredient_conversion` `ic` on(((`ic`.`from_unit` = `rp`.`purchase_unit`) and (`ic`.`to_unit` = `rp`.`recipe_unit`) and (`ic`.`ingredient_id` = `rp`.`ingredient_id`)))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `latest_purchase_price`
+--
+
+/*!50001 DROP VIEW IF EXISTS `latest_purchase_price`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `latest_purchase_price` AS with `latest` as (select row_number() OVER (PARTITION BY `po`.`supplier_id`,`pl`.`ingredient_id`,`l`.`location_id` ORDER BY `po`.`purchase_date` desc )  AS `rn`,`po`.`order_id` AS `order_id`,`po`.`purchase_date` AS `purchase_date`,`po`.`supplier_id` AS `supplier_id`,`s`.`supplier_name` AS `supplier`,`pl`.`ingredient_id` AS `ingredient_id`,`i`.`ingredient_name` AS `ingredient_name`,`pl`.`unit_price_actual` AS `unit_price`,`pl`.`ingredient_quantity` AS `quantity`,`pl`.`ingredient_unit` AS `unit_id`,`u`.`unit_name` AS `unit`,`po`.`location_id` AS `location_id`,`l`.`location_name` AS `location`,`total_cost`(`pl`.`ingredient_quantity`,`pl`.`unit_price_actual`) AS `total ($)` from (((((`purchase_order` `po` join `purchase_list` `pl` on((`po`.`order_id` = `pl`.`order_id`))) join `supplier` `s` on((`po`.`supplier_id` = `s`.`supplier_id`))) join `ingredient` `i` on((`pl`.`ingredient_id` = `i`.`ingredient_id`))) join `unit` `u` on((`pl`.`ingredient_unit` = `u`.`unit_id`))) join `location` `l` on((`po`.`location_id` = `l`.`location_id`)))) select `latest`.`rn` AS `rn`,`latest`.`order_id` AS `order_id`,`latest`.`purchase_date` AS `purchase_date`,`latest`.`supplier_id` AS `supplier_id`,`latest`.`supplier` AS `supplier`,`latest`.`ingredient_id` AS `ingredient_id`,`latest`.`ingredient_name` AS `ingredient_name`,`latest`.`unit_price` AS `unit_price`,`latest`.`quantity` AS `quantity`,`latest`.`unit_id` AS `unit_id`,`latest`.`unit` AS `unit`,`latest`.`location_id` AS `location_id`,`latest`.`location` AS `location`,`latest`.`total ($)` AS `total ($)` from `latest` where (`latest`.`rn` = 1) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `recipe_to_purchase_conversion`
+--
+
+/*!50001 DROP VIEW IF EXISTS `recipe_to_purchase_conversion`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `recipe_to_purchase_conversion` AS select `lpp`.`supplier_id` AS `supplier_id`,`s`.`supplier_name` AS `supplier_name`,`lpp`.`location_id` AS `location_id`,`l`.`location_name` AS `location_name`,`ri`.`recipe_id` AS `recipe_id`,`r`.`recipe_name` AS `recipe`,`ri`.`ingredient_id` AS `ingredient_id`,`i`.`ingredient_name` AS `ingredient`,`ri`.`ingredient_quantity` AS `quantity`,`ri`.`ingredient_unit` AS `recipe_unit`,`ru`.`unit_name` AS `recipe_unit_name`,`CONVERT_INGREDIENT`(`ri`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,`lpp`.`unit_id`) AS `converted_quantity`,`lpp`.`unit_id` AS `purchase_unit`,`pu`.`unit_name` AS `purchase_unit_name` from (((((((`recipe_ingredients` `ri` join `latest_purchase_price` `lpp` on((`ri`.`ingredient_id` = `lpp`.`ingredient_id`))) join `unit` `ru` on((`ri`.`ingredient_unit` = `ru`.`unit_id`))) join `unit` `pu` on((`lpp`.`unit_id` = `pu`.`unit_id`))) join `recipe` `r` on((`ri`.`recipe_id` = `r`.`recipe_id`))) join `supplier` `s` on((`lpp`.`supplier_id` = `s`.`supplier_id`))) join `location` `l` on((`lpp`.`location_id` = `l`.`location_id`))) join `ingredient` `i` on((`ri`.`ingredient_id` = `i`.`ingredient_id`))) order by `ri`.`recipe_id` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `running_purchase_list`
+--
+
+/*!50001 DROP VIEW IF EXISTS `running_purchase_list`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `running_purchase_list` AS select `s`.`supplier_name` AS `supplier_name`,`pl`.`order_id` AS `order_id`,`po`.`purchase_date` AS `purchase_date`,`i`.`ingredient_name` AS `ingredient_name`,`pl`.`unit_price_actual` AS `unit_price_actual`,`pl`.`ingredient_quantity` AS `ingredient_quantity`,`u`.`unit_name` AS `unit_name`,`total_cost`(`pl`.`ingredient_quantity`,`pl`.`unit_price_actual`) AS `total ($)` from ((((`purchase_list` `pl` join `purchase_order` `po` on((`pl`.`order_id` = `po`.`order_id`))) join `unit` `u` on((`pl`.`ingredient_unit` = `u`.`unit_id`))) join `ingredient` `i` on((`pl`.`ingredient_id` = `i`.`ingredient_id`))) join `supplier` `s` on((`po`.`supplier_id` = `s`.`supplier_id`))) order by `s`.`supplier_name`,`po`.`purchase_date` desc */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -451,4 +752,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-01 14:11:14
+-- Dump completed on 2026-10-02 17:14:43

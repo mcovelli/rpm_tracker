@@ -30,5 +30,6 @@ BEGIN
     return p_ingredient_quantity * (1/ic_rate);
     END IF;
 	
+    RETURN NULL;
 END
 // DELIMITER ;

@@ -23,7 +23,7 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- GTID state at the beginning of the backup 
 --
 
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'b148c0c6-f31b-11f0-b1b4-1cfa94f50f6a:1-92715';
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'b148c0c6-f31b-11f0-b1b4-1cfa94f50f6a:1-93018';
 
 --
 -- Temporary view structure for view `all_recipes`
@@ -193,6 +193,7 @@ DROP TABLE IF EXISTS `menu`;
 CREATE TABLE `menu` (
   `location_id` tinyint unsigned NOT NULL,
   `recipe_id` smallint unsigned NOT NULL,
+  `price` decimal(6,2) NOT NULL,
   `recipe_status` enum('ACTIVE','INACTIVE') NOT NULL DEFAULT 'ACTIVE',
   PRIMARY KEY (`location_id`,`recipe_id`),
   KEY `recipe_id` (`recipe_id`),
@@ -229,7 +230,7 @@ CREATE TABLE `price_quote` (
   CONSTRAINT `fk_pq_supplier` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`),
   CONSTRAINT `fk_pq_unit` FOREIGN KEY (`ingredient_unit`) REFERENCES `unit` (`unit_id`),
   CONSTRAINT `fk_region` FOREIGN KEY (`region_id`) REFERENCES `region` (`region_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=661 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=662 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -392,6 +393,43 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Table structure for table `sales`
+--
+
+DROP TABLE IF EXISTS `sales`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `sales` (
+  `transaction_id` int unsigned NOT NULL AUTO_INCREMENT,
+  `location_id` tinyint unsigned DEFAULT NULL,
+  `date_of_trans` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`transaction_id`),
+  KEY `location_id` (`location_id`),
+  CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5001 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `sales_items`
+--
+
+DROP TABLE IF EXISTS `sales_items`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `sales_items` (
+  `transaction_id` int unsigned NOT NULL,
+  `location_id` tinyint unsigned NOT NULL,
+  `recipe_id` smallint unsigned NOT NULL,
+  `qty` tinyint unsigned NOT NULL,
+  `price` decimal(6,2) NOT NULL,
+  PRIMARY KEY (`transaction_id`,`recipe_id`),
+  KEY `location_id` (`location_id`,`recipe_id`),
+  CONSTRAINT `sales_items_ibfk_1` FOREIGN KEY (`transaction_id`) REFERENCES `sales` (`transaction_id`),
+  CONSTRAINT `sales_items_ibfk_2` FOREIGN KEY (`location_id`, `recipe_id`) REFERENCES `menu` (`location_id`, `recipe_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `supplier`
 --
 
@@ -407,6 +445,7 @@ CREATE TABLE `supplier` (
   `zip_code` varchar(10) NOT NULL,
   `phone_number` varchar(15) NOT NULL,
   `contact_name` varchar(25) NOT NULL,
+  `supplier_status` enum('ACTIVE','INACTIVE') NOT NULL DEFAULT 'ACTIVE',
   PRIMARY KEY (`supplier_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -443,6 +482,133 @@ CREATE TABLE `unit_conversion` (
   CONSTRAINT `unit_conversion_chk_1` CHECK ((`rate` > 0))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping routines for database 'restaurant'
+--
+/*!50003 DROP FUNCTION IF EXISTS `calculate_percent_change` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `calculate_percent_change`(prev_amnt decimal(6,2), curr_amnt decimal(6,2)) RETURNS decimal(10,3)
+    DETERMINISTIC
+BEGIN
+	DECLARE pct_change DECIMAL(10, 5);
+    
+	SET pct_change = ((curr_amnt - prev_amnt) / prev_amnt) * 100;
+    RETURN pct_change;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `convert_ingredient` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `convert_ingredient`(p_ingredient_id smallint unsigned, p_ingredient_quantity DECIMAL(8,3), p_from_unit tinyint unsigned, p_to_unit tinyint unsigned) RETURNS decimal(8,3)
+    DETERMINISTIC
+BEGIN
+	DECLARE uc_rate DECIMAL(15,9);
+    DECLARE ic_rate DECIMAL(15,9);
+    
+    if ((p_from_unit = p_to_unit) OR (p_to_unit = p_from_unit)) THEN
+    RETURN p_ingredient_quantity;
+    END IF;
+    
+    SELECT rate FROM unit_conversion WHERE p_from_unit = from_unit AND p_to_unit = to_unit INTO uc_rate;
+    IF uc_rate IS NOT NULL THEN
+    return p_ingredient_quantity * uc_rate;
+    END IF;
+    
+	SELECT rate FROM unit_conversion WHERE p_from_unit = to_unit AND p_to_unit = from_unit INTO uc_rate;
+    IF uc_rate IS NOT NULL THEN
+    return p_ingredient_quantity * (1/uc_rate);
+    END IF;
+
+    SELECT rate FROM ingredient_conversion WHERE ingredient_id = p_ingredient_id AND p_from_unit = from_unit AND p_to_unit = to_unit INTO ic_rate;
+    IF ic_rate IS NOT NULL THEN
+    return p_ingredient_quantity * ic_rate;
+    END IF;
+    
+	SELECT rate FROM ingredient_conversion WHERE ingredient_id = p_ingredient_id AND p_from_unit = to_unit AND p_to_unit = from_unit INTO ic_rate;
+    IF ic_rate IS NOT NULL THEN
+    return p_ingredient_quantity * (1/ic_rate);
+    END IF;
+	
+    RETURN NULL;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `total_cost` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` FUNCTION `total_cost`(ingredient_quantity decimal(8,3), unit_price decimal(10,2)) RETURNS decimal(6,2)
+    DETERMINISTIC
+BEGIN
+	RETURN (ingredient_quantity * unit_price);
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `get_recipe_cost` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_recipe_cost`(
+recipe smallint unsigned,
+location tinyint unsigned
+)
+BEGIN
+    SELECT 
+		recipe_id,
+		recipe_name,
+		num_servings,
+		location_id,
+        location_name,
+		SUM(total_cost(converted_quantity, unit_price)) AS total_recipe_cost,
+		(SUM(total_cost(converted_quantity, unit_price))/ num_servings) AS cost_per_serving
+	FROM recipe_to_purchase_conversion
+    WHERE recipe_id = recipe AND location_id = location
+	GROUP BY recipe_id, recipe_name, num_servings, location_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Final view structure for view `all_recipes`
@@ -580,4 +746,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-03 16:48:53
+-- Dump completed on 2026-10-06 15:37:17

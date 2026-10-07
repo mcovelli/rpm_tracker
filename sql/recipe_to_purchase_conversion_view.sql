@@ -38,5 +38,5 @@ VIEW recipe_to_purchase_conversion AS
         JOIN ingredient i 
 			ON ri.ingredient_id = i.ingredient_id
 	WHERE m.recipe_status = 'ACTIVE'
-    -- GROUP BY m.recipe_id, ri.ingredient_id, lpp.supplier_id, m.location_id, lpp.unit_id, converted_quantity, lpp.unit_price
+	GROUP BY m.recipe_id, ri.ingredient_id, lpp.supplier_id, m.location_id, lpp.unit_id, converted_quantity, lpp.unit_price
 	ORDER BY m.location_id, r.recipe_id, ri.ingredient_id, s.supplier_id

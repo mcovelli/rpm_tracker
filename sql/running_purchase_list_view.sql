@@ -1,12 +1,6 @@
-
-CREATE OR REPLACE VIEW latest_purchase_price AS
+CREATE OR REPLACE VIEW running_purchase_list AS
 WITH latest AS (
     SELECT
-        ROW_NUMBER() OVER (
-            PARTITION BY po.supplier_id, pl.ingredient_id, l.location_id 
-            -- ADD THE TIE-BREAKER HERE:
-            ORDER BY po.purchase_date DESC, pl.list_id DESC 
-        ) AS rn,
         po.order_id,
         po.purchase_date,
         po.supplier_id,
@@ -27,5 +21,5 @@ WITH latest AS (
     JOIN unit u ON pl.ingredient_unit = u.unit_id
     JOIN location l ON po.location_id = l.location_id
 )
-SELECT * FROM latest WHERE rn = 1
-ORDER BY location, ingredient_name, supplier_id, purchase_date DESC;
+SELECT * FROM latest
+ORDER BY location, supplier_id, purchase_date DESC;

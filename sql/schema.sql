@@ -23,7 +23,7 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- GTID state at the beginning of the backup 
 --
 
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'b148c0c6-f31b-11f0-b1b4-1cfa94f50f6a:1-93112';
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'b148c0c6-f31b-11f0-b1b4-1cfa94f50f6a:1-93133';
 
 --
 -- Temporary view structure for view `all_recipes`
@@ -415,6 +415,29 @@ CREATE TABLE `recipe_ingredients` (
   CONSTRAINT `fk_recing_unit` FOREIGN KEY (`ingredient_unit`) REFERENCES `unit` (`unit_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Temporary view structure for view `recipe_nutritional_info`
+--
+
+DROP TABLE IF EXISTS `recipe_nutritional_info`;
+/*!50001 DROP VIEW IF EXISTS `recipe_nutritional_info`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `recipe_nutritional_info` AS SELECT 
+ 1 AS `recipe_id`,
+ 1 AS `recipe_name`,
+ 1 AS `calories_per_serving`,
+ 1 AS `fat_per_serving`,
+ 1 AS `saturated_fat_per_serving`,
+ 1 AS `tans_fat_per_serving`,
+ 1 AS `cholesterol_per_serving`,
+ 1 AS `sodium_per_serving`,
+ 1 AS `carbs_per_serving`,
+ 1 AS `sugars_per_serving`,
+ 1 AS `fiber_per_serving`,
+ 1 AS `protein_per_serving`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Temporary view structure for view `recipe_to_purchase_conversion`
@@ -969,6 +992,24 @@ DELIMITER ;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
+-- Final view structure for view `recipe_nutritional_info`
+--
+
+/*!50001 DROP VIEW IF EXISTS `recipe_nutritional_info`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `recipe_nutritional_info` AS select `ri`.`recipe_id` AS `recipe_id`,`r`.`recipe_name` AS `recipe_name`,cast(sum(((`ni`.`calories` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as unsigned) AS `calories_per_serving`,cast(sum(((`ni`.`total_fat_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `fat_per_serving`,cast(sum(((`ni`.`saturated_fat_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `saturated_fat_per_serving`,cast(sum(((`ni`.`trans_fat_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `tans_fat_per_serving`,cast(sum(((`ni`.`cholesterol_mg` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `cholesterol_per_serving`,cast(sum(((`ni`.`sodium_mg` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `sodium_per_serving`,cast(sum(((`ni`.`total_carbs_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `carbs_per_serving`,cast(sum(((`ni`.`sugars_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `sugars_per_serving`,cast(sum(((`ni`.`fiber_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `fiber_per_serving`,cast(sum(((`ni`.`protein_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `protein_per_serving` from ((((`nutritional_info` `ni` join `recipe_ingredients` `ri` on((`ni`.`ingredient_id` = `ri`.`ingredient_id`))) join `recipe` `r` on((`ri`.`recipe_id` = `r`.`recipe_id`))) join `ingredient` `i` on((`ni`.`ingredient_id` = `i`.`ingredient_id`))) join `unit` `u` on((`ri`.`ingredient_unit` = `u`.`unit_id`))) group by `ri`.`recipe_id`,`r`.`recipe_name`,`r`.`num_servings` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `recipe_to_purchase_conversion`
 --
 
@@ -1014,4 +1055,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-07 17:30:18
+-- Dump completed on 2026-10-07 18:51:45

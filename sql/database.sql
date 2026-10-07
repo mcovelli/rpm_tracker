@@ -23,7 +23,7 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- GTID state at the beginning of the backup 
 --
 
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'b148c0c6-f31b-11f0-b1b4-1cfa94f50f6a:1-93112';
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'b148c0c6-f31b-11f0-b1b4-1cfa94f50f6a:1-93133';
 
 --
 -- Temporary view structure for view `all_recipes`
@@ -545,6 +545,29 @@ LOCK TABLES `recipe_ingredients` WRITE;
 INSERT INTO `recipe_ingredients` VALUES (1,4,8.000,2),(1,5,4.000,13),(1,10,1.000,9),(1,13,1.000,1),(2,1,2.000,10),(2,3,1.000,1),(2,6,0.531,1),(2,7,0.500,2),(2,8,8.000,2),(2,19,0.250,2),(3,1,2.000,10),(3,2,0.500,9),(3,9,2.000,9),(3,16,1.000,13),(3,20,0.125,11),(3,21,2.000,10),(3,22,4.000,9),(4,1,2.000,10),(4,7,0.250,2),(4,8,8.000,2),(4,14,1.000,10),(4,47,1.000,9),(5,11,6.000,2),(5,23,1.000,13),(6,4,36.000,2),(6,6,6.375,1),(6,10,10.500,2),(6,36,6.000,1),(7,5,6.000,13),(7,18,4.000,2),(7,24,16.000,2),(7,25,24.000,13),(7,26,2.000,2),(7,27,0.500,9),(8,1,4.000,10),(8,3,2.000,1),(8,15,3.000,13),(8,19,0.250,2),(8,28,0.250,2),(9,15,2.000,13),(9,16,2.000,13),(9,17,1.000,9),(9,22,3.000,9),(9,29,4.000,1),(9,30,1.000,9),(9,31,1.000,9),(9,32,0.250,2),(9,33,1.000,13),(10,1,3.000,10),(10,7,0.500,2),(10,16,1.000,13),(10,34,0.500,1),(10,35,2.000,10),(10,47,2.000,9),(11,10,1.500,9),(11,13,1.000,1),(11,21,2.000,10),(11,46,1.000,10),(12,1,0.500,9),(12,2,0.500,9),(12,7,2.000,2),(12,13,1.000,1),(12,15,2.000,13),(12,37,2.000,2),(13,2,2.000,2),(13,3,1.000,1),(13,8,4.000,2),(13,10,2.000,2),(13,19,0.250,2),(13,38,4.000,2),(14,15,4.000,13),(14,28,0.500,2),(14,39,3.000,1),(14,40,1.000,10),(15,1,3.000,10),(15,28,0.250,2),(15,33,1.000,13),(15,41,2.000,1),(16,3,1.000,1),(16,27,0.500,9),(16,42,2.000,1),(16,43,0.250,9),(17,5,6.000,13),(17,27,1.000,9),(17,44,1.000,9),(17,45,4.000,9),(18,1,3.000,10),(18,12,1.500,1),(18,15,2.000,13),(18,32,0.500,2),(18,33,2.000,13);
 /*!40000 ALTER TABLE `recipe_ingredients` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Temporary view structure for view `recipe_nutritional_info`
+--
+
+DROP TABLE IF EXISTS `recipe_nutritional_info`;
+/*!50001 DROP VIEW IF EXISTS `recipe_nutritional_info`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `recipe_nutritional_info` AS SELECT 
+ 1 AS `recipe_id`,
+ 1 AS `recipe_name`,
+ 1 AS `calories_per_serving`,
+ 1 AS `fat_per_serving`,
+ 1 AS `saturated_fat_per_serving`,
+ 1 AS `tans_fat_per_serving`,
+ 1 AS `cholesterol_per_serving`,
+ 1 AS `sodium_per_serving`,
+ 1 AS `carbs_per_serving`,
+ 1 AS `sugars_per_serving`,
+ 1 AS `fiber_per_serving`,
+ 1 AS `protein_per_serving`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Temporary view structure for view `recipe_to_purchase_conversion`
@@ -1159,6 +1182,24 @@ DELIMITER ;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
+-- Final view structure for view `recipe_nutritional_info`
+--
+
+/*!50001 DROP VIEW IF EXISTS `recipe_nutritional_info`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `recipe_nutritional_info` AS select `ri`.`recipe_id` AS `recipe_id`,`r`.`recipe_name` AS `recipe_name`,cast(sum(((`ni`.`calories` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as unsigned) AS `calories_per_serving`,cast(sum(((`ni`.`total_fat_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `fat_per_serving`,cast(sum(((`ni`.`saturated_fat_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `saturated_fat_per_serving`,cast(sum(((`ni`.`trans_fat_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `tans_fat_per_serving`,cast(sum(((`ni`.`cholesterol_mg` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `cholesterol_per_serving`,cast(sum(((`ni`.`sodium_mg` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `sodium_per_serving`,cast(sum(((`ni`.`total_carbs_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `carbs_per_serving`,cast(sum(((`ni`.`sugars_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `sugars_per_serving`,cast(sum(((`ni`.`fiber_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `fiber_per_serving`,cast(sum(((`ni`.`protein_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `protein_per_serving` from ((((`nutritional_info` `ni` join `recipe_ingredients` `ri` on((`ni`.`ingredient_id` = `ri`.`ingredient_id`))) join `recipe` `r` on((`ri`.`recipe_id` = `r`.`recipe_id`))) join `ingredient` `i` on((`ni`.`ingredient_id` = `i`.`ingredient_id`))) join `unit` `u` on((`ri`.`ingredient_unit` = `u`.`unit_id`))) group by `ri`.`recipe_id`,`r`.`recipe_name`,`r`.`num_servings` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `recipe_to_purchase_conversion`
 --
 
@@ -1204,4 +1245,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-07 17:30:04
+-- Dump completed on 2026-10-07 18:51:33

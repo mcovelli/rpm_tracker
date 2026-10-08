@@ -9,7 +9,7 @@ A MySQL schema designed for recipe costing, ingredient pricing, nutritional trac
 | File | What it is |
 |---|---|
 | `schema.sql` | Full `CREATE TABLE` definitions for 19 tables with keys and foreign key constraints, plus custom functions, stored procedures and analytical views |
-| `sample_data.sql` | Fictional sample data including locations, suppliers, ingredients, purchase orders, baseline nutritional profiles, allergen mappings and inventory snapshots |
+| `database.sql` | Fictional sample data including locations, suppliers, ingredients, purchase orders, baseline nutritional profiles, allergen mappings and inventory snapshots |
 | `README.md` | This file |
 
 ## Schema overview
@@ -67,4 +67,4 @@ Upcoming deliverables include:
 **Command line:**
 ```bash
 mysql -u <your_username> -p < schema.sql
-mysql -u <your_username> -p restaurant < sample_data.sql
+mysql -u <your_username> -p restaurant < database.sql

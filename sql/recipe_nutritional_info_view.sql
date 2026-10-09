@@ -1,4 +1,4 @@
-CREATE VIEW recipe_nutritional_info AS
+CREATE OR REPLACE VIEW recipe_nutritional_info AS
 SELECT
 	ri.recipe_id,
     r.recipe_name,
@@ -13,7 +13,7 @@ SELECT
 			/ r.num_servings)) AS DECIMAL(5,1)) AS saturated_fat_per_serving,
 	CAST(SUM(
 		(ni.trans_fat_g * (convert_ingredient(ni.ingredient_id, ri.ingredient_quantity, ri.ingredient_unit, 3) / 100) 
-			/ r.num_servings)) AS DECIMAL(5,1)) AS tans_fat_per_serving,
+			/ r.num_servings)) AS DECIMAL(5,1)) AS trans_fat_per_serving,
 	CAST(SUM(
 		(ni.cholesterol_mg * (convert_ingredient(ni.ingredient_id, ri.ingredient_quantity, ri.ingredient_unit, 3) / 100) 
 			/ r.num_servings)) AS DECIMAL(5,1)) AS cholesterol_per_serving,

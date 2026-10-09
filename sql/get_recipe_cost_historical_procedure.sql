@@ -8,91 +8,72 @@ CREATE PROCEDURE get_recipe_cost_historical (
     IN p_target_date DATE
 )
 BEGIN
-    -- STEP 1: Exactly mirrors 'latest_purchase_price' view
-    WITH latest AS (
-        SELECT
-            ROW_NUMBER() OVER (
-                PARTITION BY po.supplier_id, pl.ingredient_id, po.location_id 
-                ORDER BY po.purchase_date DESC, pl.list_id DESC 
-            ) AS rn,
-            po.order_id,
-            po.purchase_date,
-            po.supplier_id,
-            s.supplier_name AS supplier,
-            pl.ingredient_id,
-            i.ingredient_name,
-            pl.unit_price_actual AS unit_price,
-            pl.ingredient_quantity AS quantity,
-            pl.ingredient_unit AS unit_id,
-            u.unit_name AS unit,
-            po.location_id,
-            l.location_name AS location,
-            total_cost(pl.ingredient_quantity, pl.unit_price_actual) AS `total ($)`
-        FROM purchase_order po
-        JOIN purchase_list pl ON po.order_id = pl.order_id
-        JOIN supplier s ON po.supplier_id = s.supplier_id
-        JOIN ingredient i ON pl.ingredient_id = i.ingredient_id
-        JOIN unit u ON pl.ingredient_unit = u.unit_id
-        JOIN location l ON po.location_id = l.location_id
-        WHERE po.purchase_date <= p_target_date
-    ),
-    latest_purchase_price_cte AS (
-        SELECT * FROM latest WHERE rn = 1
-    ),
-    -- STEP 2: Exactly mirrors 'recipe_to_purchase_conversion' view
-    recipe_to_purchase_conversion_cte AS (
-        SELECT 
-            lpp.supplier_id AS supplier_id,
-            s.supplier_name AS supplier_name,
-            m.location_id AS location_id,
-            l.location_name AS location_name,
-            ri.recipe_id AS recipe_id,
-            r.recipe_name AS recipe_name,
-            r.num_servings,
-            ri.ingredient_id AS ingredient_id,
-            i.ingredient_name AS ingredient_name,
-            ri.ingredient_quantity AS ingredient_quantity,
-            ri.ingredient_unit AS recipe_unit,
-            ru.unit_name AS recipe_unit_name,
-            CONVERT_INGREDIENT(ri.ingredient_id, ri.ingredient_quantity, ri.ingredient_unit, lpp.unit_id) AS converted_quantity,
-            lpp.unit_id AS purchase_unit,
-            pu.unit_name AS purchase_unit_name,
-            lpp.unit_price,
-            total_cost(CONVERT_INGREDIENT(ri.ingredient_id, ri.ingredient_quantity, ri.ingredient_unit, lpp.unit_id), lpp.unit_price) AS total_cost
-        FROM
-            recipe_ingredients ri
-            JOIN latest_purchase_price_cte lpp 
-                ON ri.ingredient_id = lpp.ingredient_id
-            JOIN menu m 
-                ON ri.recipe_id = m.recipe_id 
-                AND lpp.location_id = m.location_id
-            JOIN unit ru 
-                ON ri.ingredient_unit = ru.unit_id
-            JOIN unit pu 
-                ON lpp.unit_id = pu.unit_id
-            JOIN recipe r 
-                ON ri.recipe_id = r.recipe_id
-            JOIN supplier s 
-                ON lpp.supplier_id = s.supplier_id
-            JOIN location l 
-                ON lpp.location_id = l.location_id
-            JOIN ingredient i 
-                ON ri.ingredient_id = i.ingredient_id
-        WHERE m.recipe_status = 'ACTIVE'
-    )
-    -- STEP 3: Exactly mirrors your 'get_recipe_cost' standard procedure
+WITH recipe_snapshot_dates AS (
+    -- STEP 1: Get every date any ingredient for a recipe was purchased at a location
+    SELECT DISTINCT m.location_id, ri.recipe_id, po.purchase_date AS snapshot_date
+    FROM menu m
+    JOIN recipe_ingredients ri ON m.recipe_id = ri.recipe_id
+    JOIN purchase_list pl ON ri.ingredient_id = pl.ingredient_id
+    JOIN purchase_order po ON pl.order_id = po.order_id AND m.location_id = po.location_id
+    WHERE m.recipe_id = p_recipe_id AND m.location_id = p_location_id AND po.purchase_date <= p_target_date
+),
+recipe_full_ingredient_list AS (
+    -- STEP 2: Create a row for EVERY ingredient in the recipe for EVERY snapshot date
     SELECT 
-        recipe_id,
-        recipe_name,
-        num_servings,
-        location_id,
-        location_name,
-        p_target_date AS price_as_of_date,
-        SUM(total_cost(converted_quantity, unit_price)) AS total_recipe_cost,
-        (SUM(total_cost(converted_quantity, unit_price))/ num_servings) AS cost_per_serving
-    FROM recipe_to_purchase_conversion_cte
-    WHERE recipe_id = p_recipe_id AND location_id = p_location_id
-    GROUP BY recipe_id, recipe_name, num_servings, location_id, location_name, p_target_date;
+        rsd.location_id, 
+        rsd.recipe_id, 
+        rsd.snapshot_date, 
+        ri.ingredient_id, 
+        ri.ingredient_quantity, 
+        ri.ingredient_unit AS recipe_unit
+    FROM recipe_snapshot_dates rsd
+    JOIN recipe_ingredients ri ON rsd.recipe_id = ri.recipe_id
+),
+historical_prices AS (
+    -- STEP 3: Look backward from the snapshot date to find the most recent price
+    SELECT 
+        rfi.location_id,
+        rfi.recipe_id,
+        rfi.snapshot_date,
+        rfi.ingredient_id,
+        rfi.ingredient_quantity,
+        rfi.recipe_unit,
+        pl.unit_price_actual,
+        pl.ingredient_unit AS purchase_unit,
+        ROW_NUMBER() OVER (
+            PARTITION BY rfi.snapshot_date, rfi.ingredient_id 
+            ORDER BY po.purchase_date DESC, pl.list_id DESC
+        ) AS rn
+    FROM recipe_full_ingredient_list rfi
+    JOIN purchase_order po 
+        ON po.location_id = rfi.location_id 
+        AND po.purchase_date <= rfi.snapshot_date
+    JOIN purchase_list pl 
+        ON po.order_id = pl.order_id 
+        AND pl.ingredient_id = rfi.ingredient_id
+)
+-- STEP 4: Sum the full recipe using the effective prices for that specific date
+SELECT 
+    hp.snapshot_date AS purchase_date,
+    hp.location_id,
+    l.location_name,
+    hp.recipe_id,
+    r.recipe_name,
+    r.num_servings,
+    SUM(total_cost(CONVERT_INGREDIENT(hp.ingredient_id, hp.ingredient_quantity, hp.recipe_unit, hp.purchase_unit), hp.unit_price_actual)) AS total_recipe_cost,
+    (SUM(total_cost(CONVERT_INGREDIENT(hp.ingredient_id, hp.ingredient_quantity, hp.recipe_unit, hp.purchase_unit), hp.unit_price_actual)) / r.num_servings) AS cost_per_serving
+FROM historical_prices hp
+JOIN location l ON hp.location_id = l.location_id
+JOIN recipe r ON hp.recipe_id = r.recipe_id
+WHERE hp.rn = 1
+GROUP BY 
+    hp.snapshot_date, 
+    hp.location_id, 
+    l.location_name, 
+    hp.recipe_id, 
+    r.recipe_name, 
+    r.num_servings
+ORDER BY purchase_date DESC;
 END //
 
 DELIMITER ;

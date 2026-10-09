@@ -23,7 +23,7 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- GTID state at the beginning of the backup 
 --
 
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'b148c0c6-f31b-11f0-b1b4-1cfa94f50f6a:1-93133';
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'b148c0c6-f31b-11f0-b1b4-1cfa94f50f6a:1-94266';
 
 --
 -- Temporary view structure for view `all_recipes`
@@ -81,8 +81,10 @@ CREATE TABLE `ingredient` (
   `ingredient_id` smallint unsigned NOT NULL AUTO_INCREMENT,
   `ingredient_name` varchar(50) NOT NULL,
   `ingredient_category` varchar(50) NOT NULL,
+  `yield_pct` decimal(5,2) NOT NULL DEFAULT '100.00',
+  `yield_source` varchar(80) DEFAULT NULL,
   PRIMARY KEY (`ingredient_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -215,6 +217,26 @@ CREATE TABLE `location` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Temporary view structure for view `location_price_variance`
+--
+
+DROP TABLE IF EXISTS `location_price_variance`;
+/*!50001 DROP VIEW IF EXISTS `location_price_variance`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `location_price_variance` AS SELECT 
+ 1 AS `location_id`,
+ 1 AS `location_name`,
+ 1 AS `ingredient_id`,
+ 1 AS `ingredient_name`,
+ 1 AS `ingredient_category`,
+ 1 AS `avg_purchase_price`,
+ 1 AS `max_purchase_price`,
+ 1 AS `min_purchase_price`,
+ 1 AS `total_orders`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `menu`
 --
 
@@ -232,6 +254,43 @@ CREATE TABLE `menu` (
   CONSTRAINT `menu_ibfk_2` FOREIGN KEY (`recipe_id`) REFERENCES `recipe` (`recipe_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `menu_price_original`
+--
+
+DROP TABLE IF EXISTS `menu_price_original`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `menu_price_original` (
+  `location_id` int NOT NULL,
+  `recipe_id` int NOT NULL,
+  `price` decimal(6,2) NOT NULL,
+  PRIMARY KEY (`location_id`,`recipe_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Temporary view structure for view `menu_profitability_by_location`
+--
+
+DROP TABLE IF EXISTS `menu_profitability_by_location`;
+/*!50001 DROP VIEW IF EXISTS `menu_profitability_by_location`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `menu_profitability_by_location` AS SELECT 
+ 1 AS `location_id`,
+ 1 AS `location_name`,
+ 1 AS `recipe_id`,
+ 1 AS `recipe_name`,
+ 1 AS `recipe_status`,
+ 1 AS `menu_price`,
+ 1 AS `cost_per_serving`,
+ 1 AS `gross_profit_per_unit`,
+ 1 AS `profit_margin_pct`,
+ 1 AS `total_units_sold`,
+ 1 AS `total_gross_profit_dollars`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Table structure for table `nutritional_info`
@@ -285,7 +344,7 @@ CREATE TABLE `price_quote` (
   CONSTRAINT `fk_pq_supplier` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`),
   CONSTRAINT `fk_pq_unit` FOREIGN KEY (`ingredient_unit`) REFERENCES `unit` (`unit_id`),
   CONSTRAINT `fk_region` FOREIGN KEY (`region_id`) REFERENCES `region` (`region_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=662 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2833 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -309,7 +368,7 @@ CREATE TABLE `purchase_list` (
   CONSTRAINT `fk_pl_ingredient` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredient` (`ingredient_id`),
   CONSTRAINT `fk_pl_order` FOREIGN KEY (`order_id`) REFERENCES `purchase_order` (`order_id`),
   CONSTRAINT `fk_pl_unit` FOREIGN KEY (`ingredient_unit`) REFERENCES `unit` (`unit_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1407 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49790 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -329,7 +388,7 @@ CREATE TABLE `purchase_order` (
   KEY `fk_location` (`location_id`),
   CONSTRAINT `fk_location` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`),
   CONSTRAINT `fk_po_supplier` FOREIGN KEY (`supplier_id`) REFERENCES `supplier` (`supplier_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=593 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12217 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -343,9 +402,24 @@ CREATE TABLE `recipe` (
   `recipe_id` smallint unsigned NOT NULL AUTO_INCREMENT,
   `recipe_name` varchar(50) NOT NULL,
   `num_servings` int DEFAULT NULL,
+  `course` enum('Starter','Main','Dessert') NOT NULL DEFAULT 'Main',
+  `program` enum('Restaurant','QSR','Pronto','Fresh Pasta') NOT NULL DEFAULT 'Restaurant',
   PRIMARY KEY (`recipe_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Temporary view structure for view `recipe_allergens`
+--
+
+DROP TABLE IF EXISTS `recipe_allergens`;
+/*!50001 DROP VIEW IF EXISTS `recipe_allergens`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `recipe_allergens` AS SELECT 
+ 1 AS `recipe_name`,
+ 1 AS `allergen_name`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Temporary view structure for view `recipe_cost`
@@ -374,25 +448,14 @@ DROP TABLE IF EXISTS `recipe_cost_historical`;
 SET @saved_cs_client     = @@character_set_client;
 /*!50503 SET character_set_client = utf8mb4 */;
 /*!50001 CREATE VIEW `recipe_cost_historical` AS SELECT 
- 1 AS `rn`,
  1 AS `purchase_date`,
- 1 AS `supplier_id`,
- 1 AS `supplier_name`,
  1 AS `location_id`,
  1 AS `location_name`,
  1 AS `recipe_id`,
  1 AS `recipe_name`,
  1 AS `num_servings`,
- 1 AS `ingredient_id`,
- 1 AS `ingredient_name`,
- 1 AS `ingredient_quantity`,
- 1 AS `recipe_unit`,
- 1 AS `recipe_unit_name`,
- 1 AS `converted_quantity`,
- 1 AS `purchase_unit`,
- 1 AS `purchase_unit_name`,
- 1 AS `unit_price_actual`,
- 1 AS `total_cost`*/;
+ 1 AS `total_recipe_cost`,
+ 1 AS `cost_per_serving`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -430,7 +493,7 @@ SET @saved_cs_client     = @@character_set_client;
  1 AS `calories_per_serving`,
  1 AS `fat_per_serving`,
  1 AS `saturated_fat_per_serving`,
- 1 AS `tans_fat_per_serving`,
+ 1 AS `trans_fat_per_serving`,
  1 AS `cholesterol_per_serving`,
  1 AS `sodium_per_serving`,
  1 AS `carbs_per_serving`,
@@ -518,8 +581,9 @@ CREATE TABLE `sales` (
   `date_of_trans` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`transaction_id`),
   KEY `location_id` (`location_id`),
+  KEY `date_of_trans_index` (`date_of_trans`),
   CONSTRAINT `sales_ibfk_1` FOREIGN KEY (`location_id`) REFERENCES `location` (`location_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5001 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=84122 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -535,6 +599,7 @@ CREATE TABLE `sales_items` (
   `recipe_id` smallint unsigned NOT NULL,
   `qty` tinyint unsigned NOT NULL,
   `price` decimal(6,2) NOT NULL,
+  `total_per_item` decimal(8,2) GENERATED ALWAYS AS ((`qty` * `price`)) STORED,
   PRIMARY KEY (`transaction_id`,`recipe_id`),
   KEY `location_id` (`location_id`,`recipe_id`),
   CONSTRAINT `sales_items_ibfk_1` FOREIGN KEY (`transaction_id`) REFERENCES `sales` (`transaction_id`),
@@ -560,7 +625,7 @@ CREATE TABLE `supplier` (
   `contact_name` varchar(25) NOT NULL,
   `supplier_status` enum('ACTIVE','INACTIVE') NOT NULL DEFAULT 'ACTIVE',
   PRIMARY KEY (`supplier_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -775,6 +840,59 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `get_recipe_cost_as_of_date` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_0900_ai_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `get_recipe_cost_as_of_date`(
+    IN p_recipe_id SMALLINT UNSIGNED,
+    IN p_location_id TINYINT UNSIGNED,
+    IN p_target_date DATE
+)
+BEGIN
+    WITH latest_prices AS (
+        -- STEP 1: Find the single most recent purchase price for each ingredient on or before the target date
+        SELECT 
+            pl.ingredient_id,
+            pl.ingredient_unit AS purchase_unit,
+            pl.unit_price_actual,
+            ROW_NUMBER() OVER (
+                PARTITION BY pl.ingredient_id 
+                ORDER BY po.purchase_date DESC, pl.list_id DESC
+            ) AS rn
+        FROM purchase_order po
+        JOIN purchase_list pl ON po.order_id = pl.order_id
+        WHERE po.location_id = p_location_id 
+          AND po.purchase_date <= p_target_date
+    )
+    -- STEP 2: Join those latest prices to the recipe and sum the total cost
+    SELECT 
+        p_target_date AS price_as_of_date,
+        p_location_id AS location_id,
+        l.location_name,
+        p_recipe_id AS recipe_id,
+        r.recipe_name,
+        r.num_servings,
+        SUM(total_cost(CONVERT_INGREDIENT(ri.ingredient_id, ri.ingredient_quantity, ri.ingredient_unit, lp.purchase_unit), lp.unit_price_actual)) AS total_recipe_cost,
+        (SUM(total_cost(CONVERT_INGREDIENT(ri.ingredient_id, ri.ingredient_quantity, ri.ingredient_unit, lp.purchase_unit), lp.unit_price_actual)) / r.num_servings) AS cost_per_serving
+    FROM recipe_ingredients ri
+    JOIN recipe r ON ri.recipe_id = r.recipe_id
+    JOIN location l ON l.location_id = p_location_id
+    JOIN latest_prices lp ON ri.ingredient_id = lp.ingredient_id AND lp.rn = 1
+    WHERE ri.recipe_id = p_recipe_id
+    GROUP BY l.location_name, r.recipe_name, r.num_servings;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `get_recipe_cost_historical` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -791,91 +909,72 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `get_recipe_cost_historical`(
     IN p_target_date DATE
 )
 BEGIN
-    -- STEP 1: Exactly mirrors 'latest_purchase_price' view
-    WITH latest AS (
-        SELECT
-            ROW_NUMBER() OVER (
-                PARTITION BY po.supplier_id, pl.ingredient_id, po.location_id 
-                ORDER BY po.purchase_date DESC, pl.list_id DESC 
-            ) AS rn,
-            po.order_id,
-            po.purchase_date,
-            po.supplier_id,
-            s.supplier_name AS supplier,
-            pl.ingredient_id,
-            i.ingredient_name,
-            pl.unit_price_actual AS unit_price,
-            pl.ingredient_quantity AS quantity,
-            pl.ingredient_unit AS unit_id,
-            u.unit_name AS unit,
-            po.location_id,
-            l.location_name AS location,
-            total_cost(pl.ingredient_quantity, pl.unit_price_actual) AS `total ($)`
-        FROM purchase_order po
-        JOIN purchase_list pl ON po.order_id = pl.order_id
-        JOIN supplier s ON po.supplier_id = s.supplier_id
-        JOIN ingredient i ON pl.ingredient_id = i.ingredient_id
-        JOIN unit u ON pl.ingredient_unit = u.unit_id
-        JOIN location l ON po.location_id = l.location_id
-        WHERE po.purchase_date <= p_target_date
-    ),
-    latest_purchase_price_cte AS (
-        SELECT * FROM latest WHERE rn = 1
-    ),
-    -- STEP 2: Exactly mirrors 'recipe_to_purchase_conversion' view
-    recipe_to_purchase_conversion_cte AS (
-        SELECT 
-            lpp.supplier_id AS supplier_id,
-            s.supplier_name AS supplier_name,
-            m.location_id AS location_id,
-            l.location_name AS location_name,
-            ri.recipe_id AS recipe_id,
-            r.recipe_name AS recipe_name,
-            r.num_servings,
-            ri.ingredient_id AS ingredient_id,
-            i.ingredient_name AS ingredient_name,
-            ri.ingredient_quantity AS ingredient_quantity,
-            ri.ingredient_unit AS recipe_unit,
-            ru.unit_name AS recipe_unit_name,
-            CONVERT_INGREDIENT(ri.ingredient_id, ri.ingredient_quantity, ri.ingredient_unit, lpp.unit_id) AS converted_quantity,
-            lpp.unit_id AS purchase_unit,
-            pu.unit_name AS purchase_unit_name,
-            lpp.unit_price,
-            total_cost(CONVERT_INGREDIENT(ri.ingredient_id, ri.ingredient_quantity, ri.ingredient_unit, lpp.unit_id), lpp.unit_price) AS total_cost
-        FROM
-            recipe_ingredients ri
-            JOIN latest_purchase_price_cte lpp 
-                ON ri.ingredient_id = lpp.ingredient_id
-            JOIN menu m 
-                ON ri.recipe_id = m.recipe_id 
-                AND lpp.location_id = m.location_id
-            JOIN unit ru 
-                ON ri.ingredient_unit = ru.unit_id
-            JOIN unit pu 
-                ON lpp.unit_id = pu.unit_id
-            JOIN recipe r 
-                ON ri.recipe_id = r.recipe_id
-            JOIN supplier s 
-                ON lpp.supplier_id = s.supplier_id
-            JOIN location l 
-                ON lpp.location_id = l.location_id
-            JOIN ingredient i 
-                ON ri.ingredient_id = i.ingredient_id
-        WHERE m.recipe_status = 'ACTIVE'
-    )
-    -- STEP 3: Exactly mirrors your 'get_recipe_cost' standard procedure
+WITH recipe_snapshot_dates AS (
+    -- STEP 1: Get every date any ingredient for a recipe was purchased at a location
+    SELECT DISTINCT m.location_id, ri.recipe_id, po.purchase_date AS snapshot_date
+    FROM menu m
+    JOIN recipe_ingredients ri ON m.recipe_id = ri.recipe_id
+    JOIN purchase_list pl ON ri.ingredient_id = pl.ingredient_id
+    JOIN purchase_order po ON pl.order_id = po.order_id AND m.location_id = po.location_id
+    WHERE m.recipe_id = p_recipe_id AND m.location_id = p_location_id AND po.purchase_date <= p_target_date
+),
+recipe_full_ingredient_list AS (
+    -- STEP 2: Create a row for EVERY ingredient in the recipe for EVERY snapshot date
     SELECT 
-        recipe_id,
-        recipe_name,
-        num_servings,
-        location_id,
-        location_name,
-        p_target_date AS price_as_of_date,
-        SUM(total_cost(converted_quantity, unit_price)) AS total_recipe_cost,
-        (SUM(total_cost(converted_quantity, unit_price))/ num_servings) AS cost_per_serving
-    FROM recipe_to_purchase_conversion_cte
-    WHERE recipe_id = p_recipe_id AND location_id = p_location_id
-    GROUP BY recipe_id, recipe_name, num_servings, location_id, location_name, p_target_date;
+        rsd.location_id, 
+        rsd.recipe_id, 
+        rsd.snapshot_date, 
+        ri.ingredient_id, 
+        ri.ingredient_quantity, 
+        ri.ingredient_unit AS recipe_unit
+    FROM recipe_snapshot_dates rsd
+    JOIN recipe_ingredients ri ON rsd.recipe_id = ri.recipe_id
+),
+historical_prices AS (
+    -- STEP 3: Look backward from the snapshot date to find the most recent price
+    SELECT 
+        rfi.location_id,
+        rfi.recipe_id,
+        rfi.snapshot_date,
+        rfi.ingredient_id,
+        rfi.ingredient_quantity,
+        rfi.recipe_unit,
+        pl.unit_price_actual,
+        pl.ingredient_unit AS purchase_unit,
+        ROW_NUMBER() OVER (
+            PARTITION BY rfi.snapshot_date, rfi.ingredient_id 
+            ORDER BY po.purchase_date DESC, pl.list_id DESC
+        ) AS rn
+    FROM recipe_full_ingredient_list rfi
+    JOIN purchase_order po 
+        ON po.location_id = rfi.location_id 
+        AND po.purchase_date <= rfi.snapshot_date
+    JOIN purchase_list pl 
+        ON po.order_id = pl.order_id 
+        AND pl.ingredient_id = rfi.ingredient_id
+)
+-- STEP 4: Sum the full recipe using the effective prices for that specific date
+SELECT 
+    hp.snapshot_date AS purchase_date,
+    hp.location_id,
+    l.location_name,
+    hp.recipe_id,
+    r.recipe_name,
+    r.num_servings,
+    SUM(total_cost(CONVERT_INGREDIENT(hp.ingredient_id, hp.ingredient_quantity, hp.recipe_unit, hp.purchase_unit), hp.unit_price_actual)) AS total_recipe_cost,
+    (SUM(total_cost(CONVERT_INGREDIENT(hp.ingredient_id, hp.ingredient_quantity, hp.recipe_unit, hp.purchase_unit), hp.unit_price_actual)) / r.num_servings) AS cost_per_serving
+FROM historical_prices hp
+JOIN location l ON hp.location_id = l.location_id
+JOIN recipe r ON hp.recipe_id = r.recipe_id
+WHERE hp.rn = 1
+GROUP BY 
+    hp.snapshot_date, 
+    hp.location_id, 
+    l.location_name, 
+    hp.recipe_id, 
+    r.recipe_name, 
+    r.num_servings
+ORDER BY purchase_date DESC;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -956,6 +1055,60 @@ DELIMITER ;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
+-- Final view structure for view `location_price_variance`
+--
+
+/*!50001 DROP VIEW IF EXISTS `location_price_variance`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `location_price_variance` AS select `l`.`location_id` AS `location_id`,`l`.`location_name` AS `location_name`,`i`.`ingredient_id` AS `ingredient_id`,`i`.`ingredient_name` AS `ingredient_name`,`i`.`ingredient_category` AS `ingredient_category`,avg(`pl`.`unit_price_actual`) AS `avg_purchase_price`,max(`pl`.`unit_price_actual`) AS `max_purchase_price`,min(`pl`.`unit_price_actual`) AS `min_purchase_price`,count(`po`.`order_id`) AS `total_orders` from (((`purchase_order` `po` join `purchase_list` `pl` on((`po`.`order_id` = `pl`.`order_id`))) join `location` `l` on((`po`.`location_id` = `l`.`location_id`))) join `ingredient` `i` on((`pl`.`ingredient_id` = `i`.`ingredient_id`))) group by `l`.`location_id`,`l`.`location_name`,`i`.`ingredient_id`,`i`.`ingredient_name`,`i`.`ingredient_category` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `menu_profitability_by_location`
+--
+
+/*!50001 DROP VIEW IF EXISTS `menu_profitability_by_location`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `menu_profitability_by_location` AS select `m`.`location_id` AS `location_id`,`l`.`location_name` AS `location_name`,`r`.`recipe_id` AS `recipe_id`,`r`.`recipe_name` AS `recipe_name`,`m`.`recipe_status` AS `recipe_status`,`m`.`price` AS `menu_price`,`rc`.`cost_per_serving` AS `cost_per_serving`,(`m`.`price` - `rc`.`cost_per_serving`) AS `gross_profit_per_unit`,(((`m`.`price` - `rc`.`cost_per_serving`) / `m`.`price`) * 100) AS `profit_margin_pct`,sum(`si`.`qty`) AS `total_units_sold`,(sum(`si`.`qty`) * (`m`.`price` - `rc`.`cost_per_serving`)) AS `total_gross_profit_dollars` from ((((`menu` `m` join `recipe` `r` on((`m`.`recipe_id` = `r`.`recipe_id`))) join `location` `l` on((`m`.`location_id` = `l`.`location_id`))) join `recipe_cost` `rc` on(((`m`.`recipe_id` = `rc`.`recipe_id`) and (`m`.`location_id` = `rc`.`location_id`)))) join `sales_items` `si` on(((`m`.`recipe_id` = `si`.`recipe_id`) and (`m`.`location_id` = `si`.`location_id`)))) where (`m`.`recipe_status` = 'ACTIVE') group by `m`.`location_id`,`l`.`location_name`,`r`.`recipe_id`,`r`.`recipe_name`,`m`.`price`,`rc`.`cost_per_serving` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `recipe_allergens`
+--
+
+/*!50001 DROP VIEW IF EXISTS `recipe_allergens`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `recipe_allergens` AS select `r`.`recipe_name` AS `recipe_name`,`a`.`allergen_name` AS `allergen_name` from (((`ingredient_allergens` `ia` join `allergens` `a` on((`ia`.`allergen_id` = `a`.`allergen_id`))) join `recipe_ingredients` `ri` on((`ia`.`ingredient_id` = `ri`.`ingredient_id`))) join `recipe` `r` on((`ri`.`recipe_id` = `r`.`recipe_id`))) group by `r`.`recipe_name`,`a`.`allergen_name` order by `r`.`recipe_name` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `recipe_cost`
 --
 
@@ -986,7 +1139,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `recipe_cost_historical` AS with `purchase_record_rn` as (select row_number() OVER (PARTITION BY `ri`.`ingredient_id`,`m`.`location_id`,`po`.`supplier_id` ORDER BY `po`.`purchase_date` desc )  AS `rn`,`po`.`purchase_date` AS `purchase_date`,`pl`.`ingredient_id` AS `ingredient_id`,`po`.`supplier_id` AS `supplier_id`,`m`.`location_id` AS `location_id`,`m`.`recipe_id` AS `recipe_id`,`ri`.`ingredient_quantity` AS `ingredient_quantity`,`ri`.`ingredient_unit` AS `recipe_unit`,`pl`.`ingredient_unit` AS `purchase_unit`,`pl`.`unit_price_actual` AS `unit_price_actual` from (((`purchase_list` `pl` join `purchase_order` `po` on((`pl`.`order_id` = `po`.`order_id`))) join `recipe_ingredients` `ri` on((`pl`.`ingredient_id` = `ri`.`ingredient_id`))) join `menu` `m` on(((`ri`.`recipe_id` = `m`.`recipe_id`) and (`po`.`location_id` = `m`.`location_id`)))) order by `m`.`location_id`,`m`.`recipe_id`,`po`.`purchase_date`) select `pr`.`rn` AS `rn`,`pr`.`purchase_date` AS `purchase_date`,`pr`.`supplier_id` AS `supplier_id`,`s`.`supplier_name` AS `supplier_name`,`pr`.`location_id` AS `location_id`,`l`.`location_name` AS `location_name`,`pr`.`recipe_id` AS `recipe_id`,`r`.`recipe_name` AS `recipe_name`,`r`.`num_servings` AS `num_servings`,`pr`.`ingredient_id` AS `ingredient_id`,`i`.`ingredient_name` AS `ingredient_name`,`pr`.`ingredient_quantity` AS `ingredient_quantity`,`pr`.`recipe_unit` AS `recipe_unit`,`ru`.`unit_name` AS `recipe_unit_name`,`CONVERT_INGREDIENT`(`pr`.`ingredient_id`,`pr`.`ingredient_quantity`,`pr`.`recipe_unit`,`pr`.`purchase_unit`) AS `converted_quantity`,`pr`.`purchase_unit` AS `purchase_unit`,`pu`.`unit_name` AS `purchase_unit_name`,`pr`.`unit_price_actual` AS `unit_price_actual`,`total_cost`(`CONVERT_INGREDIENT`(`pr`.`ingredient_id`,`pr`.`ingredient_quantity`,`pr`.`recipe_unit`,`pr`.`purchase_unit`),`pr`.`unit_price_actual`) AS `total_cost` from ((((((`purchase_record_rn` `pr` join `unit` `ru` on((`pr`.`recipe_unit` = `ru`.`unit_id`))) join `unit` `pu` on((`pr`.`purchase_unit` = `pu`.`unit_id`))) join `recipe` `r` on((`pr`.`recipe_id` = `r`.`recipe_id`))) join `supplier` `s` on((`pr`.`supplier_id` = `s`.`supplier_id`))) join `location` `l` on((`pr`.`location_id` = `l`.`location_id`))) join `ingredient` `i` on((`pr`.`ingredient_id` = `i`.`ingredient_id`))) group by `pr`.`recipe_id`,`pr`.`ingredient_id`,`pr`.`supplier_id`,`pr`.`location_id`,`pr`.`purchase_unit`,`pr`.`recipe_unit`,`pr`.`unit_price_actual`,`pr`.`purchase_date` */;
+/*!50001 VIEW `recipe_cost_historical` AS with `last_line_per_day` as (select `po`.`location_id` AS `location_id`,`pl`.`ingredient_id` AS `ingredient_id`,`po`.`purchase_date` AS `purchase_date`,`pl`.`unit_price_actual` AS `unit_price_actual`,`pl`.`ingredient_unit` AS `ingredient_unit`,row_number() OVER (PARTITION BY `po`.`location_id`,`pl`.`ingredient_id`,`po`.`purchase_date` ORDER BY `pl`.`list_id` desc )  AS `rn_day` from (`purchase_order` `po` join `purchase_list` `pl` on((`pl`.`order_id` = `po`.`order_id`)))), `price_events` as (select `last_line_per_day`.`location_id` AS `location_id`,`last_line_per_day`.`ingredient_id` AS `ingredient_id`,`last_line_per_day`.`purchase_date` AS `purchase_date`,`last_line_per_day`.`unit_price_actual` AS `unit_price_actual`,`last_line_per_day`.`ingredient_unit` AS `ingredient_unit` from `last_line_per_day` where (`last_line_per_day`.`rn_day` = 1)), `converted` as (select distinct `ri`.`recipe_id` AS `recipe_id`,`ri`.`ingredient_id` AS `ingredient_id`,`pu`.`ingredient_unit` AS `purchase_unit`,`convert_ingredient`(`ri`.`ingredient_id`,(`ri`.`ingredient_quantity` / (`i`.`yield_pct` / 100)),`ri`.`ingredient_unit`,`pu`.`ingredient_unit`) AS `qty` from ((`recipe_ingredients` `ri` join `ingredient` `i` on((`i`.`ingredient_id` = `ri`.`ingredient_id`))) join (select distinct `purchase_list`.`ingredient_id` AS `ingredient_id`,`purchase_list`.`ingredient_unit` AS `ingredient_unit` from `purchase_list`) `pu` on((`pu`.`ingredient_id` = `ri`.`ingredient_id`)))), `line_cost` as (select `pe`.`location_id` AS `location_id`,`ri`.`recipe_id` AS `recipe_id`,`ri`.`ingredient_id` AS `ingredient_id`,`pe`.`purchase_date` AS `purchase_date`,round((`cv`.`qty` * `pe`.`unit_price_actual`),2) AS `line_cost` from (((`price_events` `pe` join `recipe_ingredients` `ri` on((`ri`.`ingredient_id` = `pe`.`ingredient_id`))) join `menu` `m` on(((`m`.`location_id` = `pe`.`location_id`) and (`m`.`recipe_id` = `ri`.`recipe_id`)))) join `converted` `cv` on(((`cv`.`recipe_id` = `ri`.`recipe_id`) and (`cv`.`ingredient_id` = `ri`.`ingredient_id`) and (`cv`.`purchase_unit` = `pe`.`ingredient_unit`))))), `moves` as (select `line_cost`.`location_id` AS `location_id`,`line_cost`.`recipe_id` AS `recipe_id`,`line_cost`.`purchase_date` AS `purchase_date`,(coalesce(`line_cost`.`line_cost`,0) - coalesce(lag(`line_cost`.`line_cost`) OVER (PARTITION BY `line_cost`.`location_id`,`line_cost`.`recipe_id`,`line_cost`.`ingredient_id` ORDER BY `line_cost`.`purchase_date` ) ,0)) AS `move`,(case when (lag(`line_cost`.`line_cost`) OVER (PARTITION BY `line_cost`.`location_id`,`line_cost`.`recipe_id`,`line_cost`.`ingredient_id` ORDER BY `line_cost`.`purchase_date` )  is null) then 1 else 0 end) AS `first_buy` from `line_cost`), `per_day` as (select `moves`.`location_id` AS `location_id`,`moves`.`recipe_id` AS `recipe_id`,`moves`.`purchase_date` AS `purchase_date`,sum(`moves`.`move`) AS `move`,sum(`moves`.`first_buy`) AS `first_buys` from `moves` group by `moves`.`location_id`,`moves`.`recipe_id`,`moves`.`purchase_date`), `running` as (select `per_day`.`location_id` AS `location_id`,`per_day`.`recipe_id` AS `recipe_id`,`per_day`.`purchase_date` AS `purchase_date`,sum(`per_day`.`move`) OVER (PARTITION BY `per_day`.`location_id`,`per_day`.`recipe_id` ORDER BY `per_day`.`purchase_date` )  AS `total_recipe_cost`,sum(`per_day`.`first_buys`) OVER (PARTITION BY `per_day`.`location_id`,`per_day`.`recipe_id` ORDER BY `per_day`.`purchase_date` )  AS `ingredients_priced` from `per_day`), `recipe_size` as (select `recipe_ingredients`.`recipe_id` AS `recipe_id`,count(distinct `recipe_ingredients`.`ingredient_id`) AS `n_ingredients` from `recipe_ingredients` group by `recipe_ingredients`.`recipe_id`) select `c`.`purchase_date` AS `purchase_date`,`c`.`location_id` AS `location_id`,`l`.`location_name` AS `location_name`,`c`.`recipe_id` AS `recipe_id`,`r`.`recipe_name` AS `recipe_name`,`r`.`num_servings` AS `num_servings`,`c`.`total_recipe_cost` AS `total_recipe_cost`,(`c`.`total_recipe_cost` / `r`.`num_servings`) AS `cost_per_serving` from (((`running` `c` join `recipe_size` `rs` on(((`rs`.`recipe_id` = `c`.`recipe_id`) and (`c`.`ingredients_priced` = `rs`.`n_ingredients`)))) join `location` `l` on((`l`.`location_id` = `c`.`location_id`))) join `recipe` `r` on((`r`.`recipe_id` = `c`.`recipe_id`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1004,7 +1157,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `recipe_nutritional_info` AS select `ri`.`recipe_id` AS `recipe_id`,`r`.`recipe_name` AS `recipe_name`,cast(sum(((`ni`.`calories` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as unsigned) AS `calories_per_serving`,cast(sum(((`ni`.`total_fat_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `fat_per_serving`,cast(sum(((`ni`.`saturated_fat_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `saturated_fat_per_serving`,cast(sum(((`ni`.`trans_fat_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `tans_fat_per_serving`,cast(sum(((`ni`.`cholesterol_mg` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `cholesterol_per_serving`,cast(sum(((`ni`.`sodium_mg` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `sodium_per_serving`,cast(sum(((`ni`.`total_carbs_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `carbs_per_serving`,cast(sum(((`ni`.`sugars_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `sugars_per_serving`,cast(sum(((`ni`.`fiber_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `fiber_per_serving`,cast(sum(((`ni`.`protein_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `protein_per_serving` from ((((`nutritional_info` `ni` join `recipe_ingredients` `ri` on((`ni`.`ingredient_id` = `ri`.`ingredient_id`))) join `recipe` `r` on((`ri`.`recipe_id` = `r`.`recipe_id`))) join `ingredient` `i` on((`ni`.`ingredient_id` = `i`.`ingredient_id`))) join `unit` `u` on((`ri`.`ingredient_unit` = `u`.`unit_id`))) group by `ri`.`recipe_id`,`r`.`recipe_name`,`r`.`num_servings` */;
+/*!50001 VIEW `recipe_nutritional_info` AS select `ri`.`recipe_id` AS `recipe_id`,`r`.`recipe_name` AS `recipe_name`,cast(sum(((`ni`.`calories` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as unsigned) AS `calories_per_serving`,cast(sum(((`ni`.`total_fat_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `fat_per_serving`,cast(sum(((`ni`.`saturated_fat_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `saturated_fat_per_serving`,cast(sum(((`ni`.`trans_fat_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `trans_fat_per_serving`,cast(sum(((`ni`.`cholesterol_mg` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `cholesterol_per_serving`,cast(sum(((`ni`.`sodium_mg` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `sodium_per_serving`,cast(sum(((`ni`.`total_carbs_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `carbs_per_serving`,cast(sum(((`ni`.`sugars_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `sugars_per_serving`,cast(sum(((`ni`.`fiber_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `fiber_per_serving`,cast(sum(((`ni`.`protein_g` * (`convert_ingredient`(`ni`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,3) / 100)) / `r`.`num_servings`)) as decimal(5,1)) AS `protein_per_serving` from ((((`nutritional_info` `ni` join `recipe_ingredients` `ri` on((`ni`.`ingredient_id` = `ri`.`ingredient_id`))) join `recipe` `r` on((`ri`.`recipe_id` = `r`.`recipe_id`))) join `ingredient` `i` on((`ni`.`ingredient_id` = `i`.`ingredient_id`))) join `unit` `u` on((`ri`.`ingredient_unit` = `u`.`unit_id`))) group by `ri`.`recipe_id`,`r`.`recipe_name`,`r`.`num_servings` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1022,7 +1175,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `recipe_to_purchase_conversion` AS select `lpp`.`supplier_id` AS `supplier_id`,`s`.`supplier_name` AS `supplier_name`,`m`.`location_id` AS `location_id`,`l`.`location_name` AS `location_name`,`ri`.`recipe_id` AS `recipe_id`,`r`.`recipe_name` AS `recipe_name`,`r`.`num_servings` AS `num_servings`,`ri`.`ingredient_id` AS `ingredient_id`,`i`.`ingredient_name` AS `ingredient_name`,`ri`.`ingredient_quantity` AS `ingredient_quantity`,`ri`.`ingredient_unit` AS `recipe_unit`,`ru`.`unit_name` AS `recipe_unit_name`,`CONVERT_INGREDIENT`(`ri`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,`lpp`.`unit_id`) AS `converted_quantity`,`lpp`.`unit_id` AS `purchase_unit`,`pu`.`unit_name` AS `purchase_unit_name`,`lpp`.`unit_price` AS `unit_price`,`total_cost`(`CONVERT_INGREDIENT`(`ri`.`ingredient_id`,`ri`.`ingredient_quantity`,`ri`.`ingredient_unit`,`lpp`.`unit_id`),`lpp`.`unit_price`) AS `total_cost` from ((((((((`recipe_ingredients` `ri` join `latest_purchase_price` `lpp` on((`ri`.`ingredient_id` = `lpp`.`ingredient_id`))) join `menu` `m` on(((`ri`.`recipe_id` = `m`.`recipe_id`) and (`lpp`.`location_id` = `m`.`location_id`)))) join `unit` `ru` on((`ri`.`ingredient_unit` = `ru`.`unit_id`))) join `unit` `pu` on((`lpp`.`unit_id` = `pu`.`unit_id`))) join `recipe` `r` on((`ri`.`recipe_id` = `r`.`recipe_id`))) join `supplier` `s` on((`lpp`.`supplier_id` = `s`.`supplier_id`))) join `location` `l` on((`lpp`.`location_id` = `l`.`location_id`))) join `ingredient` `i` on((`ri`.`ingredient_id` = `i`.`ingredient_id`))) where (`m`.`recipe_status` = 'ACTIVE') group by `m`.`recipe_id`,`ri`.`ingredient_id`,`lpp`.`supplier_id`,`m`.`location_id`,`lpp`.`unit_id`,`converted_quantity`,`lpp`.`unit_price` order by `m`.`location_id`,`r`.`recipe_id`,`ri`.`ingredient_id`,`s`.`supplier_id` */;
+/*!50001 VIEW `recipe_to_purchase_conversion` AS select `lpp`.`supplier_id` AS `supplier_id`,`s`.`supplier_name` AS `supplier_name`,`m`.`location_id` AS `location_id`,`l`.`location_name` AS `location_name`,`ri`.`recipe_id` AS `recipe_id`,`r`.`recipe_name` AS `recipe_name`,`r`.`num_servings` AS `num_servings`,`ri`.`ingredient_id` AS `ingredient_id`,`i`.`ingredient_name` AS `ingredient_name`,`ri`.`ingredient_quantity` AS `ingredient_quantity`,`ri`.`ingredient_unit` AS `recipe_unit`,`ru`.`unit_name` AS `recipe_unit_name`,`CONVERT_INGREDIENT`(`ri`.`ingredient_id`,(`ri`.`ingredient_quantity` / (`i`.`yield_pct` / 100)),`ri`.`ingredient_unit`,`lpp`.`unit_id`) AS `converted_quantity`,`lpp`.`unit_id` AS `purchase_unit`,`pu`.`unit_name` AS `purchase_unit_name`,`lpp`.`unit_price` AS `unit_price`,`total_cost`(`CONVERT_INGREDIENT`(`ri`.`ingredient_id`,(`ri`.`ingredient_quantity` / (`i`.`yield_pct` / 100)),`ri`.`ingredient_unit`,`lpp`.`unit_id`),`lpp`.`unit_price`) AS `total_cost` from ((((((((`recipe_ingredients` `ri` join `latest_purchase_price` `lpp` on((`ri`.`ingredient_id` = `lpp`.`ingredient_id`))) join `menu` `m` on(((`ri`.`recipe_id` = `m`.`recipe_id`) and (`lpp`.`location_id` = `m`.`location_id`)))) join `unit` `ru` on((`ri`.`ingredient_unit` = `ru`.`unit_id`))) join `unit` `pu` on((`lpp`.`unit_id` = `pu`.`unit_id`))) join `recipe` `r` on((`ri`.`recipe_id` = `r`.`recipe_id`))) join `supplier` `s` on((`lpp`.`supplier_id` = `s`.`supplier_id`))) join `location` `l` on((`lpp`.`location_id` = `l`.`location_id`))) join `ingredient` `i` on((`ri`.`ingredient_id` = `i`.`ingredient_id`))) where (`m`.`recipe_status` = 'ACTIVE') group by `m`.`recipe_id`,`ri`.`ingredient_id`,`lpp`.`supplier_id`,`m`.`location_id`,`lpp`.`unit_id`,`converted_quantity`,`lpp`.`unit_price` order by `m`.`location_id`,`r`.`recipe_id`,`ri`.`ingredient_id`,`s`.`supplier_id` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1055,4 +1208,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-07 18:51:45
+-- Dump completed on 2026-10-09 17:07:31

@@ -1,0 +1,2194 @@
+<?xml version='1.0' encoding='utf-8' ?>
+
+<!-- build 20262.26.0912.1023                               -->
+<workbook _.fcp.WorkbookFingerprinting.true...author-id='ea9a8cf1041611464016e1dcc644beaec4ce92484aa208380e8df46eadc94030' _.fcp.WorkbookFingerprinting.true...creator-author-id='ea9a8cf1041611464016e1dcc644beaec4ce92484aa208380e8df46eadc94030' _.fcp.WorkbookFingerprinting.true...creator-license-type='free' _.fcp.WorkbookFingerprinting.true...creator-machine-id='1c3359adf3f1ad853019bcb7be4c2845590d744d29cf1a25496b6d9093c6b288' _.fcp.WorkbookFingerprinting.true...license-type='free' _.fcp.WorkbookFingerprinting.true...machine-id='1c3359adf3f1ad853019bcb7be4c2845590d744d29cf1a25496b6d9093c6b288' original-version='18.1' source-build='2026.2.3 (20262.26.0912.1023)' source-platform='mac' version='18.1' xmlns:user='http://www.tableausoftware.com/xml/user'>
+  <document-format-change-manifest>
+    <AccessibleZoneTabOrder />
+    <AnimationOnByDefault />
+    <AutoCreateAndUpdateDSDPhoneLayouts />
+    <IndividualControlFormatting />
+    <IntuitiveSorting />
+    <IntuitiveSorting_SP2 />
+    <MarkAnimation />
+    <ObjectModelEncapsulateLegacy />
+    <ObjectModelRelationshipPerfOptions />
+    <ObjectModelTableType />
+    <SchemaViewerObjectModel />
+    <SetMembershipControl />
+    <SheetIdentifierTracking />
+    <SortTagCleanup />
+    <WindowsPersistSimpleIdentifiers />
+    <_.fcp.WorkbookFingerprinting.true...WorkbookFingerprinting />
+    <WorksheetBackgroundTransparency />
+    <ZoneBackgroundTransparency />
+  </document-format-change-manifest>
+  <preferences>
+    <preference name='ui.encoding.shelf.height' value='24' />
+    <preference name='ui.shelf.height' value='26' />
+  </preferences>
+  <datasources>
+    <datasource caption='location_price_variance (restaurant)' inline='true' name='federated.12elyao0ny4fn218pxmt40mowj6c' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='localhost' name='mysql.19o1bkm1paxkgp1e0xocv15ubi84'>
+            <connection class='mysql' dbname='restaurant' odbc-native-protocol='' one-time-sql='' port='3306' server='localhost' source-charset='' username='root' />
+          </named-connection>
+        </named-connections>
+        <relation connection='mysql.19o1bkm1paxkgp1e0xocv15ubi84' name='location_price_variance' table='[location_price_variance]' type='table' />
+        <metadata-records>
+          <metadata-record class='column'>
+            <remote-name>location_id</remote-name>
+            <remote-type>17</remote-type>
+            <local-name>[location_id]</local-name>
+            <parent-name>[location_price_variance]</parent-name>
+            <remote-alias>location_id</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>3</precision>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TINYINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_UTINYINT&quot;</attribute>
+            </attributes>
+            <object-id>[location_price_variance_96040D4B0D314BD2ACEA6D4C6372E8F2]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>location_name</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[location_name]</local-name>
+            <parent-name>[location_price_variance]</parent-name>
+            <remote-alias>location_name</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>50</width>
+            <contains-null>false</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <object-id>[location_price_variance_96040D4B0D314BD2ACEA6D4C6372E8F2]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>ingredient_id</remote-name>
+            <remote-type>18</remote-type>
+            <local-name>[ingredient_id]</local-name>
+            <parent-name>[location_price_variance]</parent-name>
+            <remote-alias>ingredient_id</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>5</precision>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_SMALLINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_USHORT&quot;</attribute>
+            </attributes>
+            <object-id>[location_price_variance_96040D4B0D314BD2ACEA6D4C6372E8F2]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>ingredient_name</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[ingredient_name]</local-name>
+            <parent-name>[location_price_variance]</parent-name>
+            <remote-alias>ingredient_name</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>50</width>
+            <contains-null>false</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <object-id>[location_price_variance_96040D4B0D314BD2ACEA6D4C6372E8F2]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>ingredient_category</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[ingredient_category]</local-name>
+            <parent-name>[location_price_variance]</parent-name>
+            <remote-alias>ingredient_category</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>50</width>
+            <contains-null>false</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <object-id>[location_price_variance_96040D4B0D314BD2ACEA6D4C6372E8F2]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>avg_purchase_price</remote-name>
+            <remote-type>131</remote-type>
+            <local-name>[avg_purchase_price]</local-name>
+            <parent-name>[location_price_variance]</parent-name>
+            <remote-alias>avg_purchase_price</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <scale>6</scale>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_DECIMAL&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_NUMERIC&quot;</attribute>
+            </attributes>
+            <object-id>[location_price_variance_96040D4B0D314BD2ACEA6D4C6372E8F2]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>max_purchase_price</remote-name>
+            <remote-type>131</remote-type>
+            <local-name>[max_purchase_price]</local-name>
+            <parent-name>[location_price_variance]</parent-name>
+            <remote-alias>max_purchase_price</remote-alias>
+            <ordinal>7</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>6</precision>
+            <scale>2</scale>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_DECIMAL&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_NUMERIC&quot;</attribute>
+            </attributes>
+            <object-id>[location_price_variance_96040D4B0D314BD2ACEA6D4C6372E8F2]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>min_purchase_price</remote-name>
+            <remote-type>131</remote-type>
+            <local-name>[min_purchase_price]</local-name>
+            <parent-name>[location_price_variance]</parent-name>
+            <remote-alias>min_purchase_price</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>6</precision>
+            <scale>2</scale>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_DECIMAL&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_NUMERIC&quot;</attribute>
+            </attributes>
+            <object-id>[location_price_variance_96040D4B0D314BD2ACEA6D4C6372E8F2]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>total_orders</remote-name>
+            <remote-type>20</remote-type>
+            <local-name>[total_orders]</local-name>
+            <parent-name>[location_price_variance]</parent-name>
+            <remote-alias>total_orders</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>19</precision>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_BIGINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SBIGINT&quot;</attribute>
+            </attributes>
+            <object-id>[location_price_variance_96040D4B0D314BD2ACEA6D4C6372E8F2]</object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='Price Spread' datatype='real' name='[Calculation_3059101187768326]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='MAX([avg_purchase_price]) - MIN([avg_purchase_price])' />
+      </column>
+      <column caption='location_price_variance' datatype='table' name='[__tableau_internal_object_id__].[location_price_variance_96040D4B0D314BD2ACEA6D4C6372E8F2]' role='measure' type='quantitative' />
+      <column caption='Avg Purchase Price' datatype='real' name='[avg_purchase_price]' role='measure' type='quantitative' />
+      <column caption='Ingredient Category' datatype='string' name='[ingredient_category]' role='dimension' type='nominal' />
+      <column caption='Ingredient Id' datatype='integer' name='[ingredient_id]' role='dimension' type='ordinal' />
+      <column caption='Ingredient Name' datatype='string' name='[ingredient_name]' role='dimension' type='nominal' />
+      <column caption='Location Id' datatype='integer' name='[location_id]' role='dimension' type='ordinal' />
+      <column caption='Location Name' datatype='string' name='[location_name]' role='dimension' type='nominal' />
+      <column caption='Max Purchase Price' datatype='real' name='[max_purchase_price]' role='measure' type='quantitative' />
+      <column caption='Min Purchase Price' datatype='real' name='[min_purchase_price]' role='measure' type='quantitative' />
+      <column caption='Total Orders' datatype='integer' name='[total_orders]' role='measure' type='quantitative' />
+      <column-instance column='[location_name]' derivation='None' name='[none:location_name:nk]' pivot='key' type='nominal' />
+      <layout dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <style>
+        <style-rule element='mark'>
+          <encoding attr='color' field='[none:location_name:nk]' type='palette'>
+            <map to='#4e79a7'>
+              <bucket>&quot;Eataly Boston&quot;</bucket>
+            </map>
+            <map to='#59a14f'>
+              <bucket>&quot;Eataly Flatiron&quot;</bucket>
+            </map>
+            <map to='#76b7b2'>
+              <bucket>&quot;Eataly Downtown NYC&quot;</bucket>
+            </map>
+            <map to='#b07aa1'>
+              <bucket>&quot;Eataly Los Angeles&quot;</bucket>
+            </map>
+            <map to='#e15759'>
+              <bucket>&quot;Eataly Dallas&quot;</bucket>
+            </map>
+            <map to='#edc948'>
+              <bucket>&quot;Eataly Las Vegas&quot;</bucket>
+            </map>
+            <map to='#f28e2b'>
+              <bucket>&quot;Eataly Chicago&quot;</bucket>
+            </map>
+            <map to='#ff9da7'>
+              <bucket>&quot;Eataly San Jose&quot;</bucket>
+            </map>
+          </encoding>
+        </style-rule>
+      </style>
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+      <object-graph>
+        <objects>
+          <object caption='location_price_variance' id='location_price_variance_96040D4B0D314BD2ACEA6D4C6372E8F2'>
+            <properties context=''>
+              <relation connection='mysql.19o1bkm1paxkgp1e0xocv15ubi84' name='location_price_variance' table='[location_price_variance]' type='table' />
+            </properties>
+          </object>
+        </objects>
+      </object-graph>
+    </datasource>
+    <datasource caption='sales_items+ (restaurant)' inline='true' name='federated.13lkmj71wyoe0i10a2l0i0crckeq' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='localhost' name='mysql.1ju9wfj0w6fg3212bljgn1obkqfb'>
+            <connection class='mysql' dbname='restaurant' odbc-native-protocol='' one-time-sql='' port='3306' server='localhost' source-charset='' username='root' />
+          </named-connection>
+        </named-connections>
+        <relation type='collection'>
+          <relation connection='mysql.1ju9wfj0w6fg3212bljgn1obkqfb' name='sales_items' table='[sales_items]' type='table' />
+          <relation connection='mysql.1ju9wfj0w6fg3212bljgn1obkqfb' name='location' table='[location]' type='table' />
+          <relation connection='mysql.1ju9wfj0w6fg3212bljgn1obkqfb' name='region' table='[region]' type='table' />
+          <relation connection='mysql.1ju9wfj0w6fg3212bljgn1obkqfb' name='menu' table='[menu]' type='table' />
+          <relation connection='mysql.1ju9wfj0w6fg3212bljgn1obkqfb' name='recipe' table='[recipe]' type='table' />
+          <relation connection='mysql.1ju9wfj0w6fg3212bljgn1obkqfb' name='sales' table='[sales]' type='table' />
+        </relation>
+        <cols>
+          <map key='[address]' value='[location].[address]' />
+          <map key='[city]' value='[location].[city]' />
+          <map key='[course]' value='[recipe].[course]' />
+          <map key='[date_of_trans]' value='[sales].[date_of_trans]' />
+          <map key='[location_id (location)]' value='[location].[location_id]' />
+          <map key='[location_id (menu)]' value='[menu].[location_id]' />
+          <map key='[location_id (sales)]' value='[sales].[location_id]' />
+          <map key='[location_id]' value='[sales_items].[location_id]' />
+          <map key='[location_name]' value='[location].[location_name]' />
+          <map key='[manager_name]' value='[location].[manager_name]' />
+          <map key='[num_servings]' value='[recipe].[num_servings]' />
+          <map key='[phone_number]' value='[location].[phone_number]' />
+          <map key='[price (menu)]' value='[menu].[price]' />
+          <map key='[price]' value='[sales_items].[price]' />
+          <map key='[program]' value='[recipe].[program]' />
+          <map key='[qty]' value='[sales_items].[qty]' />
+          <map key='[recipe_id (menu)]' value='[menu].[recipe_id]' />
+          <map key='[recipe_id (recipe)]' value='[recipe].[recipe_id]' />
+          <map key='[recipe_id]' value='[sales_items].[recipe_id]' />
+          <map key='[recipe_name]' value='[recipe].[recipe_name]' />
+          <map key='[recipe_status]' value='[menu].[recipe_status]' />
+          <map key='[region_id (region)]' value='[region].[region_id]' />
+          <map key='[region_id]' value='[location].[region_id]' />
+          <map key='[region_name]' value='[region].[region_name]' />
+          <map key='[state]' value='[location].[state]' />
+          <map key='[total_per_item]' value='[sales_items].[total_per_item]' />
+          <map key='[transaction_id (sales)]' value='[sales].[transaction_id]' />
+          <map key='[transaction_id]' value='[sales_items].[transaction_id]' />
+          <map key='[zip_code]' value='[location].[zip_code]' />
+        </cols>
+        <metadata-records>
+          <metadata-record class='column'>
+            <remote-name>transaction_id</remote-name>
+            <remote-type>19</remote-type>
+            <local-name>[transaction_id]</local-name>
+            <parent-name>[sales_items]</parent-name>
+            <remote-alias>transaction_id</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_ULONG&quot;</attribute>
+            </attributes>
+            <object-id>[sales_items_A79866CA1EDE4DF6AF463CD16B6B81B7]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>location_id</remote-name>
+            <remote-type>17</remote-type>
+            <local-name>[location_id]</local-name>
+            <parent-name>[sales_items]</parent-name>
+            <remote-alias>location_id</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>3</precision>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TINYINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_UTINYINT&quot;</attribute>
+            </attributes>
+            <object-id>[sales_items_A79866CA1EDE4DF6AF463CD16B6B81B7]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>recipe_id</remote-name>
+            <remote-type>18</remote-type>
+            <local-name>[recipe_id]</local-name>
+            <parent-name>[sales_items]</parent-name>
+            <remote-alias>recipe_id</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>5</precision>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_SMALLINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_USHORT&quot;</attribute>
+            </attributes>
+            <object-id>[sales_items_A79866CA1EDE4DF6AF463CD16B6B81B7]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>qty</remote-name>
+            <remote-type>17</remote-type>
+            <local-name>[qty]</local-name>
+            <parent-name>[sales_items]</parent-name>
+            <remote-alias>qty</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>3</precision>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TINYINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_UTINYINT&quot;</attribute>
+            </attributes>
+            <object-id>[sales_items_A79866CA1EDE4DF6AF463CD16B6B81B7]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>price</remote-name>
+            <remote-type>131</remote-type>
+            <local-name>[price]</local-name>
+            <parent-name>[sales_items]</parent-name>
+            <remote-alias>price</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>6</precision>
+            <scale>2</scale>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_DECIMAL&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_NUMERIC&quot;</attribute>
+            </attributes>
+            <object-id>[sales_items_A79866CA1EDE4DF6AF463CD16B6B81B7]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>total_per_item</remote-name>
+            <remote-type>131</remote-type>
+            <local-name>[total_per_item]</local-name>
+            <parent-name>[sales_items]</parent-name>
+            <remote-alias>total_per_item</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>8</precision>
+            <scale>2</scale>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_DECIMAL&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_NUMERIC&quot;</attribute>
+            </attributes>
+            <object-id>[sales_items_A79866CA1EDE4DF6AF463CD16B6B81B7]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>location_id</remote-name>
+            <remote-type>17</remote-type>
+            <local-name>[location_id (location)]</local-name>
+            <parent-name>[location]</parent-name>
+            <remote-alias>location_id</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>3</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TINYINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_UTINYINT&quot;</attribute>
+            </attributes>
+            <object-id>[location_7B8F8A5E0919434EAE7FFD5E10D0682B]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>location_name</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[location_name]</local-name>
+            <parent-name>[location]</parent-name>
+            <remote-alias>location_name</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>50</width>
+            <contains-null>false</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <object-id>[location_7B8F8A5E0919434EAE7FFD5E10D0682B]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>address</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[address]</local-name>
+            <parent-name>[location]</parent-name>
+            <remote-alias>address</remote-alias>
+            <ordinal>10</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>30</width>
+            <contains-null>false</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <object-id>[location_7B8F8A5E0919434EAE7FFD5E10D0682B]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>city</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[city]</local-name>
+            <parent-name>[location]</parent-name>
+            <remote-alias>city</remote-alias>
+            <ordinal>11</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>30</width>
+            <contains-null>false</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <object-id>[location_7B8F8A5E0919434EAE7FFD5E10D0682B]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>state</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[state]</local-name>
+            <parent-name>[location]</parent-name>
+            <remote-alias>state</remote-alias>
+            <ordinal>12</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>30</width>
+            <contains-null>false</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <object-id>[location_7B8F8A5E0919434EAE7FFD5E10D0682B]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>zip_code</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[zip_code]</local-name>
+            <parent-name>[location]</parent-name>
+            <remote-alias>zip_code</remote-alias>
+            <ordinal>13</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>10</width>
+            <contains-null>false</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <object-id>[location_7B8F8A5E0919434EAE7FFD5E10D0682B]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>region_id</remote-name>
+            <remote-type>17</remote-type>
+            <local-name>[region_id]</local-name>
+            <parent-name>[location]</parent-name>
+            <remote-alias>region_id</remote-alias>
+            <ordinal>14</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>3</precision>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TINYINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_UTINYINT&quot;</attribute>
+            </attributes>
+            <object-id>[location_7B8F8A5E0919434EAE7FFD5E10D0682B]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>phone_number</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[phone_number]</local-name>
+            <parent-name>[location]</parent-name>
+            <remote-alias>phone_number</remote-alias>
+            <ordinal>15</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>15</width>
+            <contains-null>false</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <object-id>[location_7B8F8A5E0919434EAE7FFD5E10D0682B]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>manager_name</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[manager_name]</local-name>
+            <parent-name>[location]</parent-name>
+            <remote-alias>manager_name</remote-alias>
+            <ordinal>16</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>25</width>
+            <contains-null>false</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <object-id>[location_7B8F8A5E0919434EAE7FFD5E10D0682B]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>region_id</remote-name>
+            <remote-type>17</remote-type>
+            <local-name>[region_id (region)]</local-name>
+            <parent-name>[region]</parent-name>
+            <remote-alias>region_id</remote-alias>
+            <ordinal>18</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>3</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TINYINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_UTINYINT&quot;</attribute>
+            </attributes>
+            <object-id>[region_F96107E4AA224651A6E84D8F4E5B3E56]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>region_name</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[region_name]</local-name>
+            <parent-name>[region]</parent-name>
+            <remote-alias>region_name</remote-alias>
+            <ordinal>19</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>25</width>
+            <contains-null>false</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <object-id>[region_F96107E4AA224651A6E84D8F4E5B3E56]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>location_id</remote-name>
+            <remote-type>17</remote-type>
+            <local-name>[location_id (menu)]</local-name>
+            <parent-name>[menu]</parent-name>
+            <remote-alias>location_id</remote-alias>
+            <ordinal>21</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>3</precision>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TINYINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_UTINYINT&quot;</attribute>
+            </attributes>
+            <object-id>[menu_B39CB952AFC04DD783A912D1D4AE90C4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>recipe_id</remote-name>
+            <remote-type>18</remote-type>
+            <local-name>[recipe_id (menu)]</local-name>
+            <parent-name>[menu]</parent-name>
+            <remote-alias>recipe_id</remote-alias>
+            <ordinal>22</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>5</precision>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_SMALLINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_USHORT&quot;</attribute>
+            </attributes>
+            <object-id>[menu_B39CB952AFC04DD783A912D1D4AE90C4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>price</remote-name>
+            <remote-type>131</remote-type>
+            <local-name>[price (menu)]</local-name>
+            <parent-name>[menu]</parent-name>
+            <remote-alias>price</remote-alias>
+            <ordinal>23</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>6</precision>
+            <scale>2</scale>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_DECIMAL&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_NUMERIC&quot;</attribute>
+            </attributes>
+            <object-id>[menu_B39CB952AFC04DD783A912D1D4AE90C4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>recipe_status</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[recipe_status]</local-name>
+            <parent-name>[menu]</parent-name>
+            <remote-alias>recipe_status</remote-alias>
+            <ordinal>24</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>8</width>
+            <contains-null>false</contains-null>
+            <padded-semantics>true</padded-semantics>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+            </attributes>
+            <object-id>[menu_B39CB952AFC04DD783A912D1D4AE90C4]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>recipe_id</remote-name>
+            <remote-type>18</remote-type>
+            <local-name>[recipe_id (recipe)]</local-name>
+            <parent-name>[recipe]</parent-name>
+            <remote-alias>recipe_id</remote-alias>
+            <ordinal>26</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>5</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_SMALLINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_USHORT&quot;</attribute>
+            </attributes>
+            <object-id>[recipe_366A12995BC84930890BACFD01FC3C64]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>recipe_name</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[recipe_name]</local-name>
+            <parent-name>[recipe]</parent-name>
+            <remote-alias>recipe_name</remote-alias>
+            <ordinal>27</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>50</width>
+            <contains-null>false</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <object-id>[recipe_366A12995BC84930890BACFD01FC3C64]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>num_servings</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[num_servings]</local-name>
+            <parent-name>[recipe]</parent-name>
+            <remote-alias>num_servings</remote-alias>
+            <ordinal>28</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SLONG&quot;</attribute>
+            </attributes>
+            <object-id>[recipe_366A12995BC84930890BACFD01FC3C64]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>course</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[course]</local-name>
+            <parent-name>[recipe]</parent-name>
+            <remote-alias>course</remote-alias>
+            <ordinal>29</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>7</width>
+            <contains-null>false</contains-null>
+            <padded-semantics>true</padded-semantics>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+            </attributes>
+            <object-id>[recipe_366A12995BC84930890BACFD01FC3C64]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>program</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[program]</local-name>
+            <parent-name>[recipe]</parent-name>
+            <remote-alias>program</remote-alias>
+            <ordinal>30</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>11</width>
+            <contains-null>false</contains-null>
+            <padded-semantics>true</padded-semantics>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+            </attributes>
+            <object-id>[recipe_366A12995BC84930890BACFD01FC3C64]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>transaction_id</remote-name>
+            <remote-type>19</remote-type>
+            <local-name>[transaction_id (sales)]</local-name>
+            <parent-name>[sales]</parent-name>
+            <remote-alias>transaction_id</remote-alias>
+            <ordinal>32</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_ULONG&quot;</attribute>
+            </attributes>
+            <object-id>[sales_B1AE6B0AD5E440BFA33ED6720D174F43]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>location_id</remote-name>
+            <remote-type>17</remote-type>
+            <local-name>[location_id (sales)]</local-name>
+            <parent-name>[sales]</parent-name>
+            <remote-alias>location_id</remote-alias>
+            <ordinal>33</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>3</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TINYINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_UTINYINT&quot;</attribute>
+            </attributes>
+            <object-id>[sales_B1AE6B0AD5E440BFA33ED6720D174F43]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>date_of_trans</remote-name>
+            <remote-type>7</remote-type>
+            <local-name>[date_of_trans]</local-name>
+            <parent-name>[sales]</parent-name>
+            <remote-alias>date_of_trans</remote-alias>
+            <ordinal>34</ordinal>
+            <local-type>datetime</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TYPE_TIMESTAMP&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_TYPE_TIMESTAMP&quot;</attribute>
+            </attributes>
+            <object-id>[sales_B1AE6B0AD5E440BFA33ED6720D174F43]</object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='location' datatype='table' name='[__tableau_internal_object_id__].[location_7B8F8A5E0919434EAE7FFD5E10D0682B]' role='measure' type='quantitative' />
+      <column caption='menu' datatype='table' name='[__tableau_internal_object_id__].[menu_B39CB952AFC04DD783A912D1D4AE90C4]' role='measure' type='quantitative' />
+      <column caption='recipe' datatype='table' name='[__tableau_internal_object_id__].[recipe_366A12995BC84930890BACFD01FC3C64]' role='measure' type='quantitative' />
+      <column caption='region' datatype='table' name='[__tableau_internal_object_id__].[region_F96107E4AA224651A6E84D8F4E5B3E56]' role='measure' type='quantitative' />
+      <column caption='sales' datatype='table' name='[__tableau_internal_object_id__].[sales_B1AE6B0AD5E440BFA33ED6720D174F43]' role='measure' type='quantitative' />
+      <column caption='sales_items' datatype='table' name='[__tableau_internal_object_id__].[sales_items_A79866CA1EDE4DF6AF463CD16B6B81B7]' role='measure' type='quantitative' />
+      <column caption='Address' datatype='string' name='[address]' role='dimension' type='nominal' />
+      <column caption='City' datatype='string' name='[city]' role='dimension' semantic-role='[City].[Name]' type='nominal' />
+      <column caption='Date Of Trans' datatype='datetime' name='[date_of_trans]' role='dimension' type='ordinal' />
+      <column aggregation='Sum' caption='Location Id (Location)' datatype='integer' name='[location_id (location)]' role='dimension' type='ordinal' />
+      <column aggregation='Sum' caption='Location Id (Menu)' datatype='integer' name='[location_id (menu)]' role='dimension' type='ordinal' />
+      <column aggregation='Sum' caption='Location Id (Sales)' datatype='integer' name='[location_id (sales)]' role='dimension' type='ordinal' />
+      <column aggregation='Sum' caption='Location Id' datatype='integer' name='[location_id]' role='dimension' type='ordinal' />
+      <column caption='Location Name' datatype='string' name='[location_name]' role='dimension' type='nominal' />
+      <column caption='Manager Name' datatype='string' name='[manager_name]' role='dimension' type='nominal' />
+      <column caption='Num Servings' datatype='integer' name='[num_servings]' role='measure' type='quantitative' />
+      <column caption='Phone Number' datatype='string' name='[phone_number]' role='dimension' type='nominal' />
+      <column caption='Price (Menu)' datatype='real' name='[price (menu)]' role='measure' type='quantitative' />
+      <column caption='Price' datatype='real' name='[price]' role='measure' type='quantitative' />
+      <column caption='Qty' datatype='integer' name='[qty]' role='measure' type='quantitative' />
+      <column aggregation='Sum' caption='Recipe Id (Menu)' datatype='integer' name='[recipe_id (menu)]' role='dimension' type='ordinal' />
+      <column aggregation='Sum' caption='Recipe Id (Recipe)' datatype='integer' name='[recipe_id (recipe)]' role='dimension' type='ordinal' />
+      <column aggregation='Sum' caption='Recipe Id' datatype='integer' name='[recipe_id]' role='dimension' type='ordinal' />
+      <column caption='Recipe Name' datatype='string' name='[recipe_name]' role='dimension' type='nominal' />
+      <column caption='Recipe Status' datatype='string' name='[recipe_status]' role='dimension' type='nominal' />
+      <column aggregation='Sum' caption='Region Id (Region)' datatype='integer' name='[region_id (region)]' role='dimension' type='ordinal' />
+      <column aggregation='Sum' caption='Region Id' datatype='integer' name='[region_id]' role='dimension' type='ordinal' />
+      <column caption='Region Name' datatype='string' name='[region_name]' role='dimension' type='nominal' />
+      <column caption='State' datatype='string' name='[state]' role='dimension' semantic-role='[State].[Name]' type='nominal' />
+      <column caption='Total Per Item' datatype='real' name='[total_per_item]' role='measure' type='quantitative' />
+      <column aggregation='Sum' caption='Transaction Id (Sales)' datatype='integer' name='[transaction_id (sales)]' role='dimension' type='ordinal' />
+      <column aggregation='Sum' caption='Transaction Id' datatype='integer' name='[transaction_id]' role='dimension' type='ordinal' />
+      <column caption='Zip Code' datatype='string' name='[zip_code]' role='dimension' semantic-role='[ZipCode].[Name]' type='nominal' />
+      <layout dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+      <object-graph>
+        <objects>
+          <object caption='location' id='location_7B8F8A5E0919434EAE7FFD5E10D0682B'>
+            <properties context=''>
+              <relation connection='mysql.1ju9wfj0w6fg3212bljgn1obkqfb' name='location' table='[location]' type='table' />
+            </properties>
+          </object>
+          <object caption='menu' id='menu_B39CB952AFC04DD783A912D1D4AE90C4'>
+            <properties context=''>
+              <relation connection='mysql.1ju9wfj0w6fg3212bljgn1obkqfb' name='menu' table='[menu]' type='table' />
+            </properties>
+          </object>
+          <object caption='recipe' id='recipe_366A12995BC84930890BACFD01FC3C64'>
+            <properties context=''>
+              <relation connection='mysql.1ju9wfj0w6fg3212bljgn1obkqfb' name='recipe' table='[recipe]' type='table' />
+            </properties>
+          </object>
+          <object caption='region' id='region_F96107E4AA224651A6E84D8F4E5B3E56'>
+            <properties context=''>
+              <relation connection='mysql.1ju9wfj0w6fg3212bljgn1obkqfb' name='region' table='[region]' type='table' />
+            </properties>
+          </object>
+          <object caption='sales' id='sales_B1AE6B0AD5E440BFA33ED6720D174F43'>
+            <properties context=''>
+              <relation connection='mysql.1ju9wfj0w6fg3212bljgn1obkqfb' name='sales' table='[sales]' type='table' />
+            </properties>
+          </object>
+          <object caption='sales_items' id='sales_items_A79866CA1EDE4DF6AF463CD16B6B81B7'>
+            <properties context=''>
+              <relation connection='mysql.1ju9wfj0w6fg3212bljgn1obkqfb' name='sales_items' table='[sales_items]' type='table' />
+            </properties>
+          </object>
+        </objects>
+        <relationships>
+          <relationship>
+            <expression op='='>
+              <expression op='[location_id]' />
+              <expression op='[location_id (location)]' />
+            </expression>
+            <first-end-point object-id='sales_items_A79866CA1EDE4DF6AF463CD16B6B81B7' />
+            <second-end-point is-db-set-unique-key='true' object-id='location_7B8F8A5E0919434EAE7FFD5E10D0682B' unique-key='true' />
+          </relationship>
+          <relationship>
+            <expression op='='>
+              <expression op='[location_id]' />
+              <expression op='[location_id (menu)]' />
+            </expression>
+            <first-end-point guaranteed-value='true' is-db-set-guaranteed-value='true' object-id='sales_items_A79866CA1EDE4DF6AF463CD16B6B81B7' />
+            <second-end-point object-id='menu_B39CB952AFC04DD783A912D1D4AE90C4' />
+          </relationship>
+          <relationship>
+            <expression op='='>
+              <expression op='[recipe_id (menu)]' />
+              <expression op='[recipe_id (recipe)]' />
+            </expression>
+            <first-end-point guaranteed-value='true' is-db-set-guaranteed-value='true' object-id='menu_B39CB952AFC04DD783A912D1D4AE90C4' />
+            <second-end-point is-db-set-unique-key='true' object-id='recipe_366A12995BC84930890BACFD01FC3C64' unique-key='true' />
+          </relationship>
+          <relationship>
+            <expression op='='>
+              <expression op='[region_id]' />
+              <expression op='[region_id (region)]' />
+            </expression>
+            <first-end-point guaranteed-value='true' is-db-set-guaranteed-value='true' object-id='location_7B8F8A5E0919434EAE7FFD5E10D0682B' />
+            <second-end-point is-db-set-unique-key='true' object-id='region_F96107E4AA224651A6E84D8F4E5B3E56' unique-key='true' />
+          </relationship>
+          <relationship>
+            <expression op='='>
+              <expression op='[transaction_id]' />
+              <expression op='[transaction_id (sales)]' />
+            </expression>
+            <first-end-point guaranteed-value='true' is-db-set-guaranteed-value='true' object-id='sales_items_A79866CA1EDE4DF6AF463CD16B6B81B7' />
+            <second-end-point is-db-set-unique-key='true' object-id='sales_B1AE6B0AD5E440BFA33ED6720D174F43' unique-key='true' />
+          </relationship>
+        </relationships>
+      </object-graph>
+    </datasource>
+    <datasource caption='recipe_cost_historical (restaurant)' inline='true' name='federated.0cgcb950anohoo17y81pg1527qn1' version='18.1'>
+      <connection class='federated'>
+        <named-connections>
+          <named-connection caption='localhost' name='mysql.0rfydhv1voo8501aztyzr1um7fj5'>
+            <connection class='mysql' dbname='restaurant' odbc-native-protocol='' one-time-sql='' port='3306' server='localhost' source-charset='' username='root' />
+          </named-connection>
+        </named-connections>
+        <relation type='collection'>
+          <relation connection='mysql.0rfydhv1voo8501aztyzr1um7fj5' name='sales_items' table='[sales_items]' type='table' />
+          <relation connection='mysql.0rfydhv1voo8501aztyzr1um7fj5' name='menu' table='[menu]' type='table' />
+          <relation connection='mysql.0rfydhv1voo8501aztyzr1um7fj5' name='recipe' table='[recipe]' type='table' />
+          <relation connection='mysql.0rfydhv1voo8501aztyzr1um7fj5' name='recipe_cost_historical' table='[recipe_cost_historical]' type='table' />
+          <relation connection='mysql.0rfydhv1voo8501aztyzr1um7fj5' name='sales' table='[sales]' type='table' />
+          <relation connection='mysql.0rfydhv1voo8501aztyzr1um7fj5' name='location' table='[location]' type='table' />
+          <relation connection='mysql.0rfydhv1voo8501aztyzr1um7fj5' name='region' table='[region]' type='table' />
+        </relation>
+        <cols>
+          <map key='[address]' value='[location].[address]' />
+          <map key='[city]' value='[location].[city]' />
+          <map key='[cost_per_serving]' value='[recipe_cost_historical].[cost_per_serving]' />
+          <map key='[course]' value='[recipe].[course]' />
+          <map key='[date_of_trans]' value='[sales].[date_of_trans]' />
+          <map key='[location_id (location)]' value='[location].[location_id]' />
+          <map key='[location_id (menu)]' value='[menu].[location_id]' />
+          <map key='[location_id (recipe_cost_historical)]' value='[recipe_cost_historical].[location_id]' />
+          <map key='[location_id (sales)]' value='[sales].[location_id]' />
+          <map key='[location_id]' value='[sales_items].[location_id]' />
+          <map key='[location_name (location)]' value='[location].[location_name]' />
+          <map key='[location_name]' value='[recipe_cost_historical].[location_name]' />
+          <map key='[manager_name]' value='[location].[manager_name]' />
+          <map key='[num_servings (recipe_cost_historical)]' value='[recipe_cost_historical].[num_servings]' />
+          <map key='[num_servings]' value='[recipe].[num_servings]' />
+          <map key='[phone_number]' value='[location].[phone_number]' />
+          <map key='[price (menu)]' value='[menu].[price]' />
+          <map key='[price]' value='[sales_items].[price]' />
+          <map key='[program]' value='[recipe].[program]' />
+          <map key='[purchase_date]' value='[recipe_cost_historical].[purchase_date]' />
+          <map key='[qty]' value='[sales_items].[qty]' />
+          <map key='[recipe_id (menu)]' value='[menu].[recipe_id]' />
+          <map key='[recipe_id (recipe)]' value='[recipe].[recipe_id]' />
+          <map key='[recipe_id (recipe_cost_historical)]' value='[recipe_cost_historical].[recipe_id]' />
+          <map key='[recipe_id]' value='[sales_items].[recipe_id]' />
+          <map key='[recipe_name (recipe_cost_historical)]' value='[recipe_cost_historical].[recipe_name]' />
+          <map key='[recipe_name]' value='[recipe].[recipe_name]' />
+          <map key='[recipe_status]' value='[menu].[recipe_status]' />
+          <map key='[region_id (region)]' value='[region].[region_id]' />
+          <map key='[region_id]' value='[location].[region_id]' />
+          <map key='[region_name]' value='[region].[region_name]' />
+          <map key='[state]' value='[location].[state]' />
+          <map key='[total_per_item]' value='[sales_items].[total_per_item]' />
+          <map key='[total_recipe_cost]' value='[recipe_cost_historical].[total_recipe_cost]' />
+          <map key='[transaction_id (sales)]' value='[sales].[transaction_id]' />
+          <map key='[transaction_id]' value='[sales_items].[transaction_id]' />
+          <map key='[zip_code]' value='[location].[zip_code]' />
+        </cols>
+        <metadata-records>
+          <metadata-record class='column'>
+            <remote-name>transaction_id</remote-name>
+            <remote-type>19</remote-type>
+            <local-name>[transaction_id]</local-name>
+            <parent-name>[sales_items]</parent-name>
+            <remote-alias>transaction_id</remote-alias>
+            <ordinal>1</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_ULONG&quot;</attribute>
+            </attributes>
+            <object-id>[sales_items_869DC178958B490BA64200A58967F7B2]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>location_id</remote-name>
+            <remote-type>17</remote-type>
+            <local-name>[location_id]</local-name>
+            <parent-name>[sales_items]</parent-name>
+            <remote-alias>location_id</remote-alias>
+            <ordinal>2</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>3</precision>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TINYINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_UTINYINT&quot;</attribute>
+            </attributes>
+            <object-id>[sales_items_869DC178958B490BA64200A58967F7B2]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>recipe_id</remote-name>
+            <remote-type>18</remote-type>
+            <local-name>[recipe_id]</local-name>
+            <parent-name>[sales_items]</parent-name>
+            <remote-alias>recipe_id</remote-alias>
+            <ordinal>3</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>5</precision>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_SMALLINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_USHORT&quot;</attribute>
+            </attributes>
+            <object-id>[sales_items_869DC178958B490BA64200A58967F7B2]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>qty</remote-name>
+            <remote-type>17</remote-type>
+            <local-name>[qty]</local-name>
+            <parent-name>[sales_items]</parent-name>
+            <remote-alias>qty</remote-alias>
+            <ordinal>4</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>3</precision>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TINYINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_UTINYINT&quot;</attribute>
+            </attributes>
+            <object-id>[sales_items_869DC178958B490BA64200A58967F7B2]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>price</remote-name>
+            <remote-type>131</remote-type>
+            <local-name>[price]</local-name>
+            <parent-name>[sales_items]</parent-name>
+            <remote-alias>price</remote-alias>
+            <ordinal>5</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>6</precision>
+            <scale>2</scale>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_DECIMAL&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_NUMERIC&quot;</attribute>
+            </attributes>
+            <object-id>[sales_items_869DC178958B490BA64200A58967F7B2]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>total_per_item</remote-name>
+            <remote-type>131</remote-type>
+            <local-name>[total_per_item]</local-name>
+            <parent-name>[sales_items]</parent-name>
+            <remote-alias>total_per_item</remote-alias>
+            <ordinal>6</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>8</precision>
+            <scale>2</scale>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_DECIMAL&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_NUMERIC&quot;</attribute>
+            </attributes>
+            <object-id>[sales_items_869DC178958B490BA64200A58967F7B2]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>location_id</remote-name>
+            <remote-type>17</remote-type>
+            <local-name>[location_id (menu)]</local-name>
+            <parent-name>[menu]</parent-name>
+            <remote-alias>location_id</remote-alias>
+            <ordinal>8</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>3</precision>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TINYINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_UTINYINT&quot;</attribute>
+            </attributes>
+            <object-id>[menu_470DA6C6B64C4417A88BA8E4AE5AD52F]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>recipe_id</remote-name>
+            <remote-type>18</remote-type>
+            <local-name>[recipe_id (menu)]</local-name>
+            <parent-name>[menu]</parent-name>
+            <remote-alias>recipe_id</remote-alias>
+            <ordinal>9</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>5</precision>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_SMALLINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_USHORT&quot;</attribute>
+            </attributes>
+            <object-id>[menu_470DA6C6B64C4417A88BA8E4AE5AD52F]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>price</remote-name>
+            <remote-type>131</remote-type>
+            <local-name>[price (menu)]</local-name>
+            <parent-name>[menu]</parent-name>
+            <remote-alias>price</remote-alias>
+            <ordinal>10</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>6</precision>
+            <scale>2</scale>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_DECIMAL&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_NUMERIC&quot;</attribute>
+            </attributes>
+            <object-id>[menu_470DA6C6B64C4417A88BA8E4AE5AD52F]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>recipe_status</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[recipe_status]</local-name>
+            <parent-name>[menu]</parent-name>
+            <remote-alias>recipe_status</remote-alias>
+            <ordinal>11</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>8</width>
+            <contains-null>false</contains-null>
+            <padded-semantics>true</padded-semantics>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+            </attributes>
+            <object-id>[menu_470DA6C6B64C4417A88BA8E4AE5AD52F]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>recipe_id</remote-name>
+            <remote-type>18</remote-type>
+            <local-name>[recipe_id (recipe)]</local-name>
+            <parent-name>[recipe]</parent-name>
+            <remote-alias>recipe_id</remote-alias>
+            <ordinal>13</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>5</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_SMALLINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_USHORT&quot;</attribute>
+            </attributes>
+            <object-id>[recipe_A5595152A002458EBB4F37DDD0A4CD55]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>recipe_name</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[recipe_name]</local-name>
+            <parent-name>[recipe]</parent-name>
+            <remote-alias>recipe_name</remote-alias>
+            <ordinal>14</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>50</width>
+            <contains-null>false</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <object-id>[recipe_A5595152A002458EBB4F37DDD0A4CD55]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>num_servings</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[num_servings]</local-name>
+            <parent-name>[recipe]</parent-name>
+            <remote-alias>num_servings</remote-alias>
+            <ordinal>15</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SLONG&quot;</attribute>
+            </attributes>
+            <object-id>[recipe_A5595152A002458EBB4F37DDD0A4CD55]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>course</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[course]</local-name>
+            <parent-name>[recipe]</parent-name>
+            <remote-alias>course</remote-alias>
+            <ordinal>16</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>7</width>
+            <contains-null>false</contains-null>
+            <padded-semantics>true</padded-semantics>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+            </attributes>
+            <object-id>[recipe_A5595152A002458EBB4F37DDD0A4CD55]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>program</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[program]</local-name>
+            <parent-name>[recipe]</parent-name>
+            <remote-alias>program</remote-alias>
+            <ordinal>17</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>11</width>
+            <contains-null>false</contains-null>
+            <padded-semantics>true</padded-semantics>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+            </attributes>
+            <object-id>[recipe_A5595152A002458EBB4F37DDD0A4CD55]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>purchase_date</remote-name>
+            <remote-type>7</remote-type>
+            <local-name>[purchase_date]</local-name>
+            <parent-name>[recipe_cost_historical]</parent-name>
+            <remote-alias>purchase_date</remote-alias>
+            <ordinal>19</ordinal>
+            <local-type>date</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TYPE_DATE&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_TYPE_DATE&quot;</attribute>
+            </attributes>
+            <object-id>[recipe_cost_historical_D48041701B7E4B4B9309E3FA0C695021]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>location_id</remote-name>
+            <remote-type>17</remote-type>
+            <local-name>[location_id (recipe_cost_historical)]</local-name>
+            <parent-name>[recipe_cost_historical]</parent-name>
+            <remote-alias>location_id</remote-alias>
+            <ordinal>20</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>3</precision>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TINYINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_UTINYINT&quot;</attribute>
+            </attributes>
+            <object-id>[recipe_cost_historical_D48041701B7E4B4B9309E3FA0C695021]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>location_name</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[location_name]</local-name>
+            <parent-name>[recipe_cost_historical]</parent-name>
+            <remote-alias>location_name</remote-alias>
+            <ordinal>21</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>50</width>
+            <contains-null>false</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <object-id>[recipe_cost_historical_D48041701B7E4B4B9309E3FA0C695021]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>recipe_id</remote-name>
+            <remote-type>18</remote-type>
+            <local-name>[recipe_id (recipe_cost_historical)]</local-name>
+            <parent-name>[recipe_cost_historical]</parent-name>
+            <remote-alias>recipe_id</remote-alias>
+            <ordinal>22</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>5</precision>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_SMALLINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_USHORT&quot;</attribute>
+            </attributes>
+            <object-id>[recipe_cost_historical_D48041701B7E4B4B9309E3FA0C695021]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>recipe_name</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[recipe_name (recipe_cost_historical)]</local-name>
+            <parent-name>[recipe_cost_historical]</parent-name>
+            <remote-alias>recipe_name</remote-alias>
+            <ordinal>23</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>50</width>
+            <contains-null>false</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <object-id>[recipe_cost_historical_D48041701B7E4B4B9309E3FA0C695021]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>num_servings</remote-name>
+            <remote-type>3</remote-type>
+            <local-name>[num_servings (recipe_cost_historical)]</local-name>
+            <parent-name>[recipe_cost_historical]</parent-name>
+            <remote-alias>num_servings</remote-alias>
+            <ordinal>24</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_SLONG&quot;</attribute>
+            </attributes>
+            <object-id>[recipe_cost_historical_D48041701B7E4B4B9309E3FA0C695021]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>total_recipe_cost</remote-name>
+            <remote-type>131</remote-type>
+            <local-name>[total_recipe_cost]</local-name>
+            <parent-name>[recipe_cost_historical]</parent-name>
+            <remote-alias>total_recipe_cost</remote-alias>
+            <ordinal>25</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>57</precision>
+            <scale>2</scale>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_DECIMAL&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_NUMERIC&quot;</attribute>
+            </attributes>
+            <object-id>[recipe_cost_historical_D48041701B7E4B4B9309E3FA0C695021]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>cost_per_serving</remote-name>
+            <remote-type>131</remote-type>
+            <local-name>[cost_per_serving]</local-name>
+            <parent-name>[recipe_cost_historical]</parent-name>
+            <remote-alias>cost_per_serving</remote-alias>
+            <ordinal>26</ordinal>
+            <local-type>real</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>61</precision>
+            <scale>6</scale>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_DECIMAL&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_NUMERIC&quot;</attribute>
+            </attributes>
+            <object-id>[recipe_cost_historical_D48041701B7E4B4B9309E3FA0C695021]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>transaction_id</remote-name>
+            <remote-type>19</remote-type>
+            <local-name>[transaction_id (sales)]</local-name>
+            <parent-name>[sales]</parent-name>
+            <remote-alias>transaction_id</remote-alias>
+            <ordinal>28</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>10</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_INTEGER&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_ULONG&quot;</attribute>
+            </attributes>
+            <object-id>[sales_AABD4D3CE7E84368831E74FD180E57BF]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>location_id</remote-name>
+            <remote-type>17</remote-type>
+            <local-name>[location_id (sales)]</local-name>
+            <parent-name>[sales]</parent-name>
+            <remote-alias>location_id</remote-alias>
+            <ordinal>29</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>3</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TINYINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_UTINYINT&quot;</attribute>
+            </attributes>
+            <object-id>[sales_AABD4D3CE7E84368831E74FD180E57BF]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>date_of_trans</remote-name>
+            <remote-type>7</remote-type>
+            <local-name>[date_of_trans]</local-name>
+            <parent-name>[sales]</parent-name>
+            <remote-alias>date_of_trans</remote-alias>
+            <ordinal>30</ordinal>
+            <local-type>datetime</local-type>
+            <aggregation>Year</aggregation>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TYPE_TIMESTAMP&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_TYPE_TIMESTAMP&quot;</attribute>
+            </attributes>
+            <object-id>[sales_AABD4D3CE7E84368831E74FD180E57BF]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>location_id</remote-name>
+            <remote-type>17</remote-type>
+            <local-name>[location_id (location)]</local-name>
+            <parent-name>[location]</parent-name>
+            <remote-alias>location_id</remote-alias>
+            <ordinal>32</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>3</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TINYINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_UTINYINT&quot;</attribute>
+            </attributes>
+            <object-id>[location_E35F6CC87B694C55B35BC57476955F12]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>location_name</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[location_name (location)]</local-name>
+            <parent-name>[location]</parent-name>
+            <remote-alias>location_name</remote-alias>
+            <ordinal>33</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>50</width>
+            <contains-null>false</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <object-id>[location_E35F6CC87B694C55B35BC57476955F12]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>address</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[address]</local-name>
+            <parent-name>[location]</parent-name>
+            <remote-alias>address</remote-alias>
+            <ordinal>34</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>30</width>
+            <contains-null>false</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <object-id>[location_E35F6CC87B694C55B35BC57476955F12]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>city</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[city]</local-name>
+            <parent-name>[location]</parent-name>
+            <remote-alias>city</remote-alias>
+            <ordinal>35</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>30</width>
+            <contains-null>false</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <object-id>[location_E35F6CC87B694C55B35BC57476955F12]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>state</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[state]</local-name>
+            <parent-name>[location]</parent-name>
+            <remote-alias>state</remote-alias>
+            <ordinal>36</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>30</width>
+            <contains-null>false</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <object-id>[location_E35F6CC87B694C55B35BC57476955F12]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>zip_code</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[zip_code]</local-name>
+            <parent-name>[location]</parent-name>
+            <remote-alias>zip_code</remote-alias>
+            <ordinal>37</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>10</width>
+            <contains-null>false</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <object-id>[location_E35F6CC87B694C55B35BC57476955F12]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>region_id</remote-name>
+            <remote-type>17</remote-type>
+            <local-name>[region_id]</local-name>
+            <parent-name>[location]</parent-name>
+            <remote-alias>region_id</remote-alias>
+            <ordinal>38</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>3</precision>
+            <contains-null>false</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TINYINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_UTINYINT&quot;</attribute>
+            </attributes>
+            <object-id>[location_E35F6CC87B694C55B35BC57476955F12]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>phone_number</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[phone_number]</local-name>
+            <parent-name>[location]</parent-name>
+            <remote-alias>phone_number</remote-alias>
+            <ordinal>39</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>15</width>
+            <contains-null>false</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <object-id>[location_E35F6CC87B694C55B35BC57476955F12]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>manager_name</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[manager_name]</local-name>
+            <parent-name>[location]</parent-name>
+            <remote-alias>manager_name</remote-alias>
+            <ordinal>40</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>25</width>
+            <contains-null>false</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <object-id>[location_E35F6CC87B694C55B35BC57476955F12]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>region_id</remote-name>
+            <remote-type>17</remote-type>
+            <local-name>[region_id (region)]</local-name>
+            <parent-name>[region]</parent-name>
+            <remote-alias>region_id</remote-alias>
+            <ordinal>42</ordinal>
+            <local-type>integer</local-type>
+            <aggregation>Sum</aggregation>
+            <precision>3</precision>
+            <contains-null>true</contains-null>
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_TINYINT&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_UTINYINT&quot;</attribute>
+            </attributes>
+            <object-id>[region_8EE1377502EF46119538DD6DB5CA1333]</object-id>
+          </metadata-record>
+          <metadata-record class='column'>
+            <remote-name>region_name</remote-name>
+            <remote-type>130</remote-type>
+            <local-name>[region_name]</local-name>
+            <parent-name>[region]</parent-name>
+            <remote-alias>region_name</remote-alias>
+            <ordinal>43</ordinal>
+            <local-type>string</local-type>
+            <aggregation>Count</aggregation>
+            <width>25</width>
+            <contains-null>false</contains-null>
+            <collation charset='296' flag='3' name='LROOT_S1' />
+            <attributes>
+              <attribute datatype='string' name='DebugRemoteType'>&quot;SQL_WVARCHAR&quot;</attribute>
+              <attribute datatype='string' name='DebugWireType'>&quot;SQL_C_WCHAR&quot;</attribute>
+              <attribute datatype='string' name='TypeIsVarchar'>&quot;true&quot;</attribute>
+            </attributes>
+            <object-id>[region_8EE1377502EF46119538DD6DB5CA1333]</object-id>
+          </metadata-record>
+        </metadata-records>
+      </connection>
+      <aliases enabled='yes' />
+      <column caption='Total Location Revenue' datatype='real' name='[Calculation_3059101538553865]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='SUM([total_per_item])' />
+      </column>
+      <column caption='Total Items Sold (Volume)' datatype='integer' name='[Calculation_3059101543481354]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='SUM([qty])' />
+      </column>
+      <column caption='Location Gross Profit ($)' datatype='real' name='[Calculation_3059101543804940]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='SUM([total_per_item]) - (SUM([qty]) * AVG([cost_per_serving]))' />
+      </column>
+      <column caption='Aggregate Profit Margin (%)' datatype='real' name='[Calculation_3059101543878669]' role='measure' type='quantitative'>
+        <calculation class='tableau' formula='[Calculation_3059101543804940] / SUM([total_per_item])' />
+      </column>
+      <column caption='location' datatype='table' name='[__tableau_internal_object_id__].[location_E35F6CC87B694C55B35BC57476955F12]' role='measure' type='quantitative' />
+      <column caption='menu' datatype='table' name='[__tableau_internal_object_id__].[menu_470DA6C6B64C4417A88BA8E4AE5AD52F]' role='measure' type='quantitative' />
+      <column caption='recipe' datatype='table' name='[__tableau_internal_object_id__].[recipe_A5595152A002458EBB4F37DDD0A4CD55]' role='measure' type='quantitative' />
+      <column caption='recipe_cost_historical' datatype='table' name='[__tableau_internal_object_id__].[recipe_cost_historical_D48041701B7E4B4B9309E3FA0C695021]' role='measure' type='quantitative' />
+      <column caption='region' datatype='table' name='[__tableau_internal_object_id__].[region_8EE1377502EF46119538DD6DB5CA1333]' role='measure' type='quantitative' />
+      <column caption='sales' datatype='table' name='[__tableau_internal_object_id__].[sales_AABD4D3CE7E84368831E74FD180E57BF]' role='measure' type='quantitative' />
+      <column caption='sales_items' datatype='table' name='[__tableau_internal_object_id__].[sales_items_869DC178958B490BA64200A58967F7B2]' role='measure' type='quantitative' />
+      <column caption='Address' datatype='string' name='[address]' role='dimension' type='nominal' />
+      <column caption='City' datatype='string' name='[city]' role='dimension' semantic-role='[City].[Name]' type='nominal' />
+      <column caption='Cost Per Serving' datatype='real' name='[cost_per_serving]' role='measure' type='quantitative' />
+      <column caption='Course' datatype='string' name='[course]' role='dimension' type='nominal' />
+      <column caption='Date Of Trans' datatype='datetime' name='[date_of_trans]' role='dimension' type='ordinal' />
+      <column aggregation='Sum' caption='Location Id (Location)' datatype='integer' name='[location_id (location)]' role='dimension' type='ordinal' />
+      <column aggregation='Sum' caption='Location Id (Menu)' datatype='integer' name='[location_id (menu)]' role='dimension' type='ordinal' />
+      <column caption='Location Id (Recipe Cost Historical)' datatype='integer' name='[location_id (recipe_cost_historical)]' role='dimension' type='ordinal' />
+      <column aggregation='Sum' caption='Location Id (Sales)' datatype='integer' name='[location_id (sales)]' role='dimension' type='ordinal' />
+      <column aggregation='Sum' caption='Location Id' datatype='integer' name='[location_id]' role='dimension' type='ordinal' />
+      <column caption='Location Name (Location)' datatype='string' name='[location_name (location)]' role='dimension' type='nominal' />
+      <column caption='Location Name' datatype='string' name='[location_name]' role='dimension' type='nominal' />
+      <column caption='Manager Name' datatype='string' name='[manager_name]' role='dimension' type='nominal' />
+      <column caption='Num Servings (Recipe Cost Historical)' datatype='integer' name='[num_servings (recipe_cost_historical)]' role='measure' type='quantitative' />
+      <column caption='Num Servings' datatype='integer' name='[num_servings]' role='measure' type='quantitative' />
+      <column caption='Phone Number' datatype='string' name='[phone_number]' role='dimension' type='nominal' />
+      <column caption='Price (Menu)' datatype='real' name='[price (menu)]' role='measure' type='quantitative' />
+      <column caption='Price' datatype='real' name='[price]' role='measure' type='quantitative' />
+      <column caption='Program' datatype='string' name='[program]' role='dimension' type='nominal' />
+      <column caption='Purchase Date' datatype='date' name='[purchase_date]' role='dimension' type='ordinal' />
+      <column caption='Qty' datatype='integer' name='[qty]' role='measure' type='quantitative' />
+      <column aggregation='Sum' caption='Recipe Id (Menu)' datatype='integer' name='[recipe_id (menu)]' role='dimension' type='ordinal' />
+      <column caption='Recipe Id (Recipe)' datatype='integer' name='[recipe_id (recipe)]' role='dimension' type='ordinal' />
+      <column caption='Recipe Id (Recipe Cost Historical)' datatype='integer' name='[recipe_id (recipe_cost_historical)]' role='dimension' type='ordinal' />
+      <column aggregation='Sum' caption='Recipe Id' datatype='integer' name='[recipe_id]' role='dimension' type='ordinal' />
+      <column caption='Recipe Name (Recipe Cost Historical)' datatype='string' name='[recipe_name (recipe_cost_historical)]' role='dimension' type='nominal' />
+      <column caption='Recipe Name' datatype='string' name='[recipe_name]' role='dimension' type='nominal' />
+      <column caption='Recipe Status' datatype='string' name='[recipe_status]' role='dimension' type='nominal' />
+      <column aggregation='Sum' caption='Region Id (Region)' datatype='integer' name='[region_id (region)]' role='dimension' type='ordinal' />
+      <column aggregation='Sum' caption='Region Id' datatype='integer' name='[region_id]' role='dimension' type='ordinal' />
+      <column caption='Region Name' datatype='string' name='[region_name]' role='dimension' type='nominal' />
+      <column caption='State' datatype='string' name='[state]' role='dimension' semantic-role='[State].[Name]' type='nominal' />
+      <column caption='Total Per Item' datatype='real' name='[total_per_item]' role='measure' type='quantitative' />
+      <column caption='Total Recipe Cost' datatype='real' name='[total_recipe_cost]' role='measure' type='quantitative' />
+      <column aggregation='Sum' caption='Transaction Id (Sales)' datatype='integer' name='[transaction_id (sales)]' role='dimension' type='ordinal' />
+      <column aggregation='Sum' caption='Transaction Id' datatype='integer' name='[transaction_id]' role='dimension' type='ordinal' />
+      <column caption='Zip Code' datatype='string' name='[zip_code]' role='dimension' semantic-role='[ZipCode].[Name]' type='nominal' />
+      <layout dim-ordering='alphabetic' measure-ordering='alphabetic' show-structure='true' />
+      <semantic-values>
+        <semantic-value key='[Country].[Name]' value='&quot;United States&quot;' />
+      </semantic-values>
+      <object-graph>
+        <objects>
+          <object caption='location' id='location_E35F6CC87B694C55B35BC57476955F12'>
+            <properties context=''>
+              <relation connection='mysql.0rfydhv1voo8501aztyzr1um7fj5' name='location' table='[location]' type='table' />
+            </properties>
+          </object>
+          <object caption='menu' id='menu_470DA6C6B64C4417A88BA8E4AE5AD52F'>
+            <properties context=''>
+              <relation connection='mysql.0rfydhv1voo8501aztyzr1um7fj5' name='menu' table='[menu]' type='table' />
+            </properties>
+          </object>
+          <object caption='recipe' id='recipe_A5595152A002458EBB4F37DDD0A4CD55'>
+            <properties context=''>
+              <relation connection='mysql.0rfydhv1voo8501aztyzr1um7fj5' name='recipe' table='[recipe]' type='table' />
+            </properties>
+          </object>
+          <object caption='recipe_cost_historical' id='recipe_cost_historical_D48041701B7E4B4B9309E3FA0C695021'>
+            <properties context=''>
+              <relation connection='mysql.0rfydhv1voo8501aztyzr1um7fj5' name='recipe_cost_historical' table='[recipe_cost_historical]' type='table' />
+            </properties>
+          </object>
+          <object caption='region' id='region_8EE1377502EF46119538DD6DB5CA1333'>
+            <properties context=''>
+              <relation connection='mysql.0rfydhv1voo8501aztyzr1um7fj5' name='region' table='[region]' type='table' />
+            </properties>
+          </object>
+          <object caption='sales' id='sales_AABD4D3CE7E84368831E74FD180E57BF'>
+            <properties context=''>
+              <relation connection='mysql.0rfydhv1voo8501aztyzr1um7fj5' name='sales' table='[sales]' type='table' />
+            </properties>
+          </object>
+          <object caption='sales_items' id='sales_items_869DC178958B490BA64200A58967F7B2'>
+            <properties context=''>
+              <relation connection='mysql.0rfydhv1voo8501aztyzr1um7fj5' name='sales_items' table='[sales_items]' type='table' />
+            </properties>
+          </object>
+        </objects>
+        <relationships>
+          <relationship>
+            <expression op='='>
+              <expression op='[location_id (sales)]' />
+              <expression op='[location_id (location)]' />
+            </expression>
+            <first-end-point object-id='sales_AABD4D3CE7E84368831E74FD180E57BF' />
+            <second-end-point is-db-set-unique-key='true' object-id='location_E35F6CC87B694C55B35BC57476955F12' unique-key='true' />
+          </relationship>
+          <relationship>
+            <expression op='='>
+              <expression op='[recipe_id]' />
+              <expression op='[recipe_id (menu)]' />
+            </expression>
+            <first-end-point guaranteed-value='true' is-db-set-guaranteed-value='true' object-id='sales_items_869DC178958B490BA64200A58967F7B2' />
+            <second-end-point object-id='menu_470DA6C6B64C4417A88BA8E4AE5AD52F' />
+          </relationship>
+          <relationship>
+            <expression op='='>
+              <expression op='[recipe_id]' />
+              <expression op='[recipe_id (recipe)]' />
+            </expression>
+            <first-end-point object-id='sales_items_869DC178958B490BA64200A58967F7B2' />
+            <second-end-point is-db-set-unique-key='true' object-id='recipe_A5595152A002458EBB4F37DDD0A4CD55' unique-key='true' />
+          </relationship>
+          <relationship>
+            <expression op='='>
+              <expression op='[recipe_id (recipe)]' />
+              <expression op='[recipe_id (recipe_cost_historical)]' />
+            </expression>
+            <first-end-point is-db-set-unique-key='true' object-id='recipe_A5595152A002458EBB4F37DDD0A4CD55' unique-key='true' />
+            <second-end-point object-id='recipe_cost_historical_D48041701B7E4B4B9309E3FA0C695021' />
+          </relationship>
+          <relationship>
+            <expression op='='>
+              <expression op='[region_id]' />
+              <expression op='[region_id (region)]' />
+            </expression>
+            <first-end-point guaranteed-value='true' is-db-set-guaranteed-value='true' object-id='location_E35F6CC87B694C55B35BC57476955F12' />
+            <second-end-point is-db-set-unique-key='true' object-id='region_8EE1377502EF46119538DD6DB5CA1333' unique-key='true' />
+          </relationship>
+          <relationship>
+            <expression op='='>
+              <expression op='[transaction_id]' />
+              <expression op='[transaction_id (sales)]' />
+            </expression>
+            <first-end-point guaranteed-value='true' is-db-set-guaranteed-value='true' object-id='sales_items_869DC178958B490BA64200A58967F7B2' />
+            <second-end-point is-db-set-unique-key='true' object-id='sales_AABD4D3CE7E84368831E74FD180E57BF' unique-key='true' />
+          </relationship>
+        </relationships>
+      </object-graph>
+    </datasource>
+  </datasources>
+  <worksheets>
+    <worksheet name='Ingredient Price Variance by Location'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>&lt;Sheet Name&gt;</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='location_price_variance (restaurant)' name='federated.12elyao0ny4fn218pxmt40mowj6c' />
+          </datasources>
+          <datasource-dependencies datasource='federated.12elyao0ny4fn218pxmt40mowj6c'>
+            <column-instance column='[avg_purchase_price]' derivation='Avg' name='[avg:avg_purchase_price:qk]' pivot='key' type='quantitative' />
+            <column caption='Avg Purchase Price' datatype='real' name='[avg_purchase_price]' role='measure' type='quantitative' />
+            <column caption='Ingredient Category' datatype='string' name='[ingredient_category]' role='dimension' type='nominal' />
+            <column caption='Ingredient Name' datatype='string' name='[ingredient_name]' role='dimension' type='nominal' />
+            <column caption='Location Name' datatype='string' name='[location_name]' role='dimension' type='nominal' />
+            <column-instance column='[ingredient_category]' derivation='None' name='[none:ingredient_category:nk]' pivot='key' type='nominal' />
+            <column-instance column='[ingredient_name]' derivation='None' name='[none:ingredient_name:nk]' pivot='key' type='nominal' />
+            <column-instance column='[location_name]' derivation='None' name='[none:location_name:nk]' pivot='key' type='nominal' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.12elyao0ny4fn218pxmt40mowj6c].[none:ingredient_category:nk]'>
+            <groupfilter function='level-members' level='[none:ingredient_category:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <computed-sort column='[federated.12elyao0ny4fn218pxmt40mowj6c].[none:ingredient_name:nk]' direction='DESC' using='[federated.12elyao0ny4fn218pxmt40mowj6c].[avg:avg_purchase_price:qk]' />
+          <slices>
+            <column>[federated.12elyao0ny4fn218pxmt40mowj6c].[none:ingredient_category:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='refline'>
+            <format attr='fill-above' id='refline1' value='#00000000' />
+            <format attr='fill-below' id='refline1' value='#00000000' />
+            <format attr='stroke-size' id='refline1' value='3' />
+            <format attr='stroke-color' id='refline1' value='#ac0006' />
+          </style-rule>
+          <style-rule element='quick-filter'>
+            <format attr='border-style' value='solid' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='off' />
+            </view>
+            <mark class='Square' />
+            <encodings>
+              <color column='[federated.12elyao0ny4fn218pxmt40mowj6c].[none:location_name:nk]' />
+            </encodings>
+            <reference-line axis-column='[federated.12elyao0ny4fn218pxmt40mowj6c].[avg:avg_purchase_price:qk]' enable-instant-analytics='true' formula='average' id='refline1' label-type='value' probability='95' scope='per-pane' value-column='[federated.12elyao0ny4fn218pxmt40mowj6c].[avg:avg_purchase_price:qk]' z-order='1' />
+            <style>
+              <style-rule element='mark'>
+                <format attr='size' value='0.25' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>([federated.12elyao0ny4fn218pxmt40mowj6c].[none:ingredient_name:nk] / [federated.12elyao0ny4fn218pxmt40mowj6c].[none:ingredient_category:nk])</rows>
+        <cols>[federated.12elyao0ny4fn218pxmt40mowj6c].[avg:avg_purchase_price:qk]</cols>
+      </table>
+      <simple-id uuid='{1075FDE3-73A1-44B5-8428-4F15066A7906}' />
+    </worksheet>
+    <worksheet name='Menu Item Profitability'>
+      <layout-options>
+        <title>
+          <formatted-text>
+            <run>&lt;Sheet Name&gt;</run>
+          </formatted-text>
+        </title>
+      </layout-options>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='recipe_cost_historical (restaurant)' name='federated.0cgcb950anohoo17y81pg1527qn1' />
+          </datasources>
+          <datasource-dependencies datasource='federated.0cgcb950anohoo17y81pg1527qn1'>
+            <column caption='Location Gross Profit ($)' datatype='real' name='[Calculation_3059101543804940]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='SUM([total_per_item]) - (SUM([qty]) * AVG([cost_per_serving]))' />
+            </column>
+            <column caption='Aggregate Profit Margin (%)' datatype='real' name='[Calculation_3059101543878669]' role='measure' type='quantitative'>
+              <calculation class='tableau' formula='[Calculation_3059101543804940] / SUM([total_per_item])' />
+            </column>
+            <column caption='Cost Per Serving' datatype='real' name='[cost_per_serving]' role='measure' type='quantitative' />
+            <column caption='Location Name' datatype='string' name='[location_name]' role='dimension' type='nominal' />
+            <column-instance column='[location_name]' derivation='None' name='[none:location_name:nk]' pivot='key' type='nominal' />
+            <column-instance column='[recipe_name]' derivation='None' name='[none:recipe_name:nk]' pivot='key' type='nominal' />
+            <column caption='Qty' datatype='integer' name='[qty]' role='measure' type='quantitative' />
+            <column caption='Recipe Name' datatype='string' name='[recipe_name]' role='dimension' type='nominal' />
+            <column caption='Total Per Item' datatype='real' name='[total_per_item]' role='measure' type='quantitative' />
+            <column-instance column='[Calculation_3059101543804940]' derivation='User' name='[usr:Calculation_3059101543804940:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[Calculation_3059101543878669]' derivation='User' name='[usr:Calculation_3059101543878669:qk]' pivot='key' type='quantitative' />
+          </datasource-dependencies>
+          <filter class='categorical' column='[federated.0cgcb950anohoo17y81pg1527qn1].[none:location_name:nk]'>
+            <groupfilter function='level-members' level='[none:location_name:nk]' user:ui-enumeration='all' user:ui-marker='enumerate' />
+          </filter>
+          <shelf-sorts>
+            <shelf-sort-v2 dimension-to-sort='[federated.0cgcb950anohoo17y81pg1527qn1].[none:recipe_name:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.0cgcb950anohoo17y81pg1527qn1].[usr:Calculation_3059101543804940:qk]' shelf='rows' />
+          </shelf-sorts>
+          <slices>
+            <column>[federated.0cgcb950anohoo17y81pg1527qn1].[none:location_name:nk]</column>
+          </slices>
+          <aggregation value='true' />
+        </view>
+        <style>
+          <style-rule element='refline'>
+            <format attr='fill-above' id='refline0' value='#00000000' />
+            <format attr='fill-below' id='refline0' value='#00000000' />
+          </style-rule>
+          <style-rule element='quick-filter'>
+            <format attr='border-style' field='[federated.0cgcb950anohoo17y81pg1527qn1].[none:location_name:nk]' value='solid' />
+            <format attr='border-width' field='[federated.0cgcb950anohoo17y81pg1527qn1].[none:location_name:nk]' value='2' />
+          </style-rule>
+        </style>
+        <panes>
+          <pane id='5' selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+            <encodings>
+              <color column='[federated.0cgcb950anohoo17y81pg1527qn1].[usr:Calculation_3059101543878669:qk]' />
+              <text column='[federated.0cgcb950anohoo17y81pg1527qn1].[usr:Calculation_3059101543804940:qk]' />
+            </encodings>
+            <style>
+              <style-rule element='mark'>
+                <format attr='mark-labels-cull' value='true' />
+                <format attr='mark-labels-show' value='true' />
+              </style-rule>
+            </style>
+          </pane>
+        </panes>
+        <rows>[federated.0cgcb950anohoo17y81pg1527qn1].[none:recipe_name:nk]</rows>
+        <cols>[federated.0cgcb950anohoo17y81pg1527qn1].[usr:Calculation_3059101543804940:qk]</cols>
+      </table>
+      <simple-id uuid='{1B6565E2-368D-4878-9E6F-8F64A191E3FE}' />
+    </worksheet>
+    <worksheet name='Sheet 3'>
+      <table>
+        <view>
+          <datasources>
+            <datasource caption='sales_items+ (restaurant)' name='federated.13lkmj71wyoe0i10a2l0i0crckeq' />
+          </datasources>
+          <datasource-dependencies datasource='federated.13lkmj71wyoe0i10a2l0i0crckeq'>
+            <column-instance column='[total_per_item]' derivation='Avg' name='[avg:total_per_item:qk]' pivot='key' type='quantitative' />
+            <column-instance column='[recipe_name]' derivation='None' name='[none:recipe_name:nk]' pivot='key' type='nominal' />
+            <column-instance column='[region_name]' derivation='None' name='[none:region_name:nk]' pivot='key' type='nominal' />
+            <column caption='Recipe Name' datatype='string' name='[recipe_name]' role='dimension' type='nominal' />
+            <column caption='Region Name' datatype='string' name='[region_name]' role='dimension' type='nominal' />
+            <column caption='Total Per Item' datatype='real' name='[total_per_item]' role='measure' type='quantitative' />
+          </datasource-dependencies>
+          <shelf-sorts>
+            <shelf-sort-v2 dimension-to-sort='[federated.13lkmj71wyoe0i10a2l0i0crckeq].[none:region_name:nk]' direction='DESC' is-on-innermost-dimension='true' measure-to-sort-by='[federated.13lkmj71wyoe0i10a2l0i0crckeq].[avg:total_per_item:qk]' shelf='rows' />
+          </shelf-sorts>
+          <aggregation value='true' />
+        </view>
+        <style />
+        <panes>
+          <pane selection-relaxation-option='selection-relaxation-allow'>
+            <view>
+              <breakdown value='auto' />
+            </view>
+            <mark class='Automatic' />
+          </pane>
+        </panes>
+        <rows>([federated.13lkmj71wyoe0i10a2l0i0crckeq].[none:recipe_name:nk] / [federated.13lkmj71wyoe0i10a2l0i0crckeq].[none:region_name:nk])</rows>
+        <cols>[federated.13lkmj71wyoe0i10a2l0i0crckeq].[avg:total_per_item:qk]</cols>
+      </table>
+      <simple-id uuid='{F9C6FA36-F0A0-4983-A39B-781436C9A617}' />
+    </worksheet>
+  </worksheets>
+  <dashboards>
+    <dashboard enable-sort-zone-taborder='true' name='Executive Menu Profitability KPI Overview'>
+      <style />
+      <size maxheight='800' maxwidth='1000' minheight='800' minwidth='1000' />
+      <datasources>
+        <datasource caption='recipe_cost_historical (restaurant)' name='federated.0cgcb950anohoo17y81pg1527qn1' />
+        <datasource caption='location_price_variance (restaurant)' name='federated.12elyao0ny4fn218pxmt40mowj6c' />
+      </datasources>
+      <datasource-dependencies datasource='federated.0cgcb950anohoo17y81pg1527qn1'>
+        <column caption='Location Name' datatype='string' name='[location_name]' role='dimension' type='nominal' />
+        <column-instance column='[location_name]' derivation='None' name='[none:location_name:nk]' pivot='key' type='nominal' />
+      </datasource-dependencies>
+      <datasource-dependencies datasource='federated.12elyao0ny4fn218pxmt40mowj6c'>
+        <column caption='Ingredient Category' datatype='string' name='[ingredient_category]' role='dimension' type='nominal' />
+        <column-instance column='[ingredient_category]' derivation='None' name='[none:ingredient_category:nk]' pivot='key' type='nominal' />
+      </datasource-dependencies>
+      <zones>
+        <zone h='100000' id='4' type-v2='layout-basic' w='100000' x='0' y='0'>
+          <zone h='98000' id='7' param='horz' type-v2='layout-flow' w='49200' x='50000' y='1000'>
+            <zone h='98000' id='5' type-v2='layout-basic' w='49200' x='50000' y='1000'>
+              <zone h='98000' id='3' name='Menu Item Profitability' w='49200' x='50000' y='1000'>
+                <zone-style>
+                  <format attr='border-color' value='#000000' />
+                  <format attr='border-style' value='none' />
+                  <format attr='border-width' value='0' />
+                  <format attr='margin' value='4' />
+                </zone-style>
+              </zone>
+            </zone>
+          </zone>
+          <zone h='98000' id='10' name='Ingredient Price Variance by Location' w='49200' x='800' y='1000'>
+            <zone-style>
+              <format attr='border-color' value='#000000' />
+              <format attr='border-style' value='none' />
+              <format attr='border-width' value='0' />
+              <format attr='margin' value='4' />
+            </zone-style>
+          </zone>
+          <zone-style>
+            <format attr='border-color' value='#000000' />
+            <format attr='border-style' value='none' />
+            <format attr='border-width' value='0' />
+            <format attr='margin' value='8' />
+          </zone-style>
+        </zone>
+        <zone h='5500' id='9' mode='dropdown' name='Menu Item Profitability' param='[federated.0cgcb950anohoo17y81pg1527qn1].[none:location_name:nk]' type-v2='filter' values='database' w='16000' x='76300' y='2750' />
+        <zone h='6500' id='11' mode='checkdropdown' name='Ingredient Price Variance by Location' param='[federated.12elyao0ny4fn218pxmt40mowj6c].[none:ingredient_category:nk]' type-v2='filter' w='16000' x='25300' y='6125' />
+        <zone h='22250' id='12' name='Ingredient Price Variance by Location' pane-specification-id='0' param='[federated.12elyao0ny4fn218pxmt40mowj6c].[none:location_name:nk]' type-v2='color' w='15300' x='50700' y='62875' />
+      </zones>
+      <devicelayouts>
+        <devicelayout auto-generated='true' name='Phone'>
+          <size maxheight='800' minheight='800' sizing-mode='vscroll' />
+          <zones>
+            <zone h='100000' id='20' type-v2='layout-basic' w='100000' x='0' y='0'>
+              <zone h='98000' id='19' param='vert' type-v2='layout-flow' w='98400' x='800' y='1000'>
+                <zone h='6500' id='11' mode='checkdropdown' name='Ingredient Price Variance by Location' param='[federated.12elyao0ny4fn218pxmt40mowj6c].[none:ingredient_category:nk]' type-v2='filter' w='16000' x='25300' y='6125'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='280' h='98000' id='10' is-fixed='true' name='Ingredient Price Variance by Location' w='49200' x='800' y='1000'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone h='22250' id='12' name='Ingredient Price Variance by Location' pane-specification-id='0' param='[federated.12elyao0ny4fn218pxmt40mowj6c].[none:location_name:nk]' type-v2='color' w='15300' x='50700' y='62875'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone h='5500' id='9' mode='dropdown' name='Menu Item Profitability' param='[federated.0cgcb950anohoo17y81pg1527qn1].[none:location_name:nk]' type-v2='filter' values='database' w='16000' x='76300' y='2750'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+                <zone fixed-size='280' h='98000' id='3' is-fixed='true' name='Menu Item Profitability' w='49200' x='50000' y='1000'>
+                  <zone-style>
+                    <format attr='border-color' value='#000000' />
+                    <format attr='border-style' value='none' />
+                    <format attr='border-width' value='0' />
+                    <format attr='margin' value='4' />
+                    <format attr='padding' value='0' />
+                  </zone-style>
+                </zone>
+              </zone>
+              <zone-style>
+                <format attr='border-color' value='#000000' />
+                <format attr='border-style' value='none' />
+                <format attr='border-width' value='0' />
+                <format attr='margin' value='8' />
+              </zone-style>
+            </zone>
+          </zones>
+        </devicelayout>
+      </devicelayouts>
+      <simple-id uuid='{9F7CD2EA-6299-4327-948C-42396B15D7B4}' />
+    </dashboard>
+  </dashboards>
+  <windows source-height='72'>
+    <window class='worksheet' maximized='true' name='Menu Item Profitability'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card param='[federated.0cgcb950anohoo17y81pg1527qn1].[none:location_name:nk]' type='filter' />
+            <card pane-specification-id='5' param='[federated.0cgcb950anohoo17y81pg1527qn1].[usr:Calculation_3059101543878669:qk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{5CBF300F-842B-45B6-9E6D-D176A92F5F76}' />
+    </window>
+    <window class='worksheet' name='Ingredient Price Variance by Location'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+        <edge name='right'>
+          <strip size='160'>
+            <card param='[federated.12elyao0ny4fn218pxmt40mowj6c].[none:ingredient_category:nk]' type='filter' />
+            <card pane-specification-id='0' param='[federated.12elyao0ny4fn218pxmt40mowj6c].[none:location_name:nk]' type='color' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{20A9357D-1152-41BA-BC6C-CEFBC4BC8919}' />
+    </window>
+    <window class='worksheet' name='Sheet 3'>
+      <cards>
+        <edge name='left'>
+          <strip size='160'>
+            <card type='pages' />
+            <card type='filters' />
+            <card type='marks' />
+          </strip>
+        </edge>
+        <edge name='top'>
+          <strip size='2147483647'>
+            <card type='columns' />
+          </strip>
+          <strip size='2147483647'>
+            <card type='rows' />
+          </strip>
+          <strip size='31'>
+            <card type='title' />
+          </strip>
+        </edge>
+      </cards>
+      <simple-id uuid='{46C8DAB3-D9F5-4FF3-B6A5-7DD1A3D2995C}' />
+    </window>
+    <window class='dashboard' name='Executive Menu Profitability KPI Overview'>
+      <viewpoints>
+        <viewpoint name='Ingredient Price Variance by Location' />
+        <viewpoint name='Menu Item Profitability' />
+      </viewpoints>
+      <active id='-1' />
+      <simple-id uuid='{DD76DB15-C97D-4692-A88F-68D140C53EB2}' />
+    </window>
+  </windows>
+</workbook>

@@ -23,7 +23,7 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- GTID state at the beginning of the backup 
 --
 
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'b148c0c6-f31b-11f0-b1b4-1cfa94f50f6a:1-94266';
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'b148c0c6-f31b-11f0-b1b4-1cfa94f50f6a:1-94405';
 
 --
 -- Temporary view structure for view `all_recipes`
@@ -215,6 +215,29 @@ CREATE TABLE `location` (
   CONSTRAINT `location_ibfk_1` FOREIGN KEY (`region_id`) REFERENCES `region` (`region_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Temporary view structure for view `location_monthly_performance`
+--
+
+DROP TABLE IF EXISTS `location_monthly_performance`;
+/*!50001 DROP VIEW IF EXISTS `location_monthly_performance`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `location_monthly_performance` AS SELECT 
+ 1 AS `location_id`,
+ 1 AS `location_name`,
+ 1 AS `month_start`,
+ 1 AS `sales_dollars`,
+ 1 AS `year_over_year_change_pct`,
+ 1 AS `average_ticket`,
+ 1 AS `theoretical_food_cost`,
+ 1 AS `theoretical_food_cost_pct`,
+ 1 AS `purchase_food_cost`,
+ 1 AS `purchase_food_cost_pct`,
+ 1 AS `cost_gap`,
+ 1 AS `cost_gap_pct`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Temporary view structure for view `location_price_variance`
@@ -1055,6 +1078,24 @@ DELIMITER ;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
+-- Final view structure for view `location_monthly_performance`
+--
+
+/*!50001 DROP VIEW IF EXISTS `location_monthly_performance`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `location_monthly_performance` AS with `quantity` as (select `s`.`location_id` AS `location_id`,`si`.`recipe_id` AS `recipe_id`,sum(`si`.`qty`) AS `total_quantity`,extract(year_month from `s`.`date_of_trans`) AS `year_and_month` from (`sales_items` `si` join `sales` `s` on((`si`.`transaction_id` = `s`.`transaction_id`))) group by `s`.`location_id`,`si`.`recipe_id`,`year_and_month`), `recipe_food_cost_by_location` as (select `recipe_cost_historical`.`location_id` AS `location_id`,`recipe_cost_historical`.`recipe_id` AS `recipe_id`,extract(year_month from `recipe_cost_historical`.`purchase_date`) AS `year_and_month`,avg(`recipe_cost_historical`.`cost_per_serving`) AS `cost_per_item` from `recipe_cost_historical` group by `recipe_cost_historical`.`location_id`,`recipe_cost_historical`.`recipe_id`,`year_and_month`), `location_sales_by_month` as (select `si`.`location_id` AS `location_id`,extract(year_month from `s`.`date_of_trans`) AS `year_and_month`,count(distinct `s`.`transaction_id`) AS `tickets`,sum(`si`.`total_per_item`) AS `sales_dollar` from (`sales_items` `si` join `sales` `s` on((`si`.`transaction_id` = `s`.`transaction_id`))) group by `si`.`location_id`,`year_and_month`), `purchase` as (select `po`.`location_id` AS `location_id`,extract(year_month from `po`.`purchase_date`) AS `year_and_month`,sum((`pl`.`unit_price_actual` * `pl`.`ingredient_quantity`)) AS `total` from (`purchase_list` `pl` join `purchase_order` `po` on((`pl`.`order_id` = `po`.`order_id`))) group by `po`.`location_id`,`year_and_month`), `sales_cost` as (select `rfc`.`location_id` AS `location_id`,`rfc`.`year_and_month` AS `year_and_month`,sum((`rfc`.`cost_per_item` * `q`.`total_quantity`)) AS `total_cost` from (`recipe_food_cost_by_location` `rfc` join `quantity` `q` on(((`rfc`.`location_id` = `q`.`location_id`) and (`rfc`.`recipe_id` = `q`.`recipe_id`) and (`rfc`.`year_and_month` = `q`.`year_and_month`)))) group by `rfc`.`location_id`,`rfc`.`year_and_month`) select `sc`.`location_id` AS `location_id`,`l`.`location_name` AS `location_name`,str_to_date(concat(`sc`.`year_and_month`,'01'),'%Y%m%d') AS `month_start`,cast(`ls`.`sales_dollar` as decimal(8,2)) AS `sales_dollars`,cast((((`ls`.`sales_dollar` / lag(`ls`.`sales_dollar`,12,NULL) OVER (PARTITION BY `sc`.`location_id` ORDER BY `sc`.`location_id`,`sc`.`year_and_month` ) ) - 1) * 100) as decimal(5,2)) AS `year_over_year_change_pct`,cast((`ls`.`sales_dollar` / `ls`.`tickets`) as decimal(8,2)) AS `average_ticket`,cast(`sc`.`total_cost` as decimal(10,2)) AS `theoretical_food_cost`,cast(((`sc`.`total_cost` / `ls`.`sales_dollar`) * 100) as decimal(5,2)) AS `theoretical_food_cost_pct`,cast(`p`.`total` as decimal(10,2)) AS `purchase_food_cost`,cast(((`p`.`total` / `ls`.`sales_dollar`) * 100) as decimal(5,2)) AS `purchase_food_cost_pct`,cast((`p`.`total` - `sc`.`total_cost`) as decimal(10,2)) AS `cost_gap`,cast((((`p`.`total` / `ls`.`sales_dollar`) * 100) - ((`sc`.`total_cost` / `ls`.`sales_dollar`) * 100)) as decimal(10,2)) AS `cost_gap_pct` from (((`sales_cost` `sc` join `location_sales_by_month` `ls` on(((`sc`.`location_id` = `ls`.`location_id`) and (`sc`.`year_and_month` = `ls`.`year_and_month`)))) join `location` `l` on((`sc`.`location_id` = `l`.`location_id`))) join `purchase` `p` on(((`sc`.`location_id` = `p`.`location_id`) and (`sc`.`year_and_month` = `p`.`year_and_month`)))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `location_price_variance`
 --
 
@@ -1208,4 +1249,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-09 17:07:31
+-- Dump completed on 2026-10-11 22:45:04

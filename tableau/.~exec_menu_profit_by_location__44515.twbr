@@ -702,7 +702,7 @@
     </dashboard>
   </dashboards>
   <windows source-height='51'>
-    <window class='dashboard' maximized='true' name='Executive Menu Profitability KPI Overview'>
+    <window class='dashboard' name='Executive Menu Profitability KPI Overview'>
       <viewpoints>
         <viewpoint name='Ingredient Price Variance by Location' />
         <viewpoint name='Sales Trends by Location'>
@@ -741,7 +741,7 @@
       </cards>
       <simple-id uuid='{20A9357D-1152-41BA-BC6C-CEFBC4BC8919}' />
     </window>
-    <window class='worksheet' name='Sales Trends by Location'>
+    <window class='worksheet' maximized='true' name='Sales Trends by Location'>
       <cards>
         <edge name='left'>
           <strip size='160'>

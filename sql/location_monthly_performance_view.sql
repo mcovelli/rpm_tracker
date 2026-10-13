@@ -61,14 +61,14 @@ SELECT
     
     CAST(sales_dollar AS DECIMAL(8,2)) AS sales_dollars,
     CAST(((sales_dollar / (LAG(sales_dollar, 12, NULL) OVER (PARTITION BY sc.location_id ORDER BY sc.location_id, sc.year_and_month)) - 1) * 100) AS DECIMAL (5,2)) AS year_over_year_change_pct,
-    CAST(sales_dollar/tickets AS DECIMAL(8,2)) AS average_ticket,
+    CAST(sales_dollar/tickets AS DECIMAL(8,2)) AS average_ticket_count,
     
-    CAST(total_cost AS DECIMAL(10,2)) AS theoretical_food_cost,
+    CAST(total_cost AS DECIMAL(10,2)) AS theoretical_food_cost_dollars,
     CAST(((total_cost/sales_dollar) * 100) AS DECIMAL(5,2)) AS theoretical_food_cost_pct,
-    CAST((total) AS DECIMAL(10,2)) purchase_food_cost, -- food cost based on purchases
+    CAST((total) AS DECIMAL(10,2)) AS purchase_food_cost_dollars, -- food cost based on purchases
     CAST(((total/sales_dollar) * 100) AS DECIMAL(5,2)) AS purchase_food_cost_pct, -- food cost percent based on purchases
     
-    CAST(total - total_cost AS DECIMAL(10,2)) AS cost_gap,
+    CAST(total - total_cost AS DECIMAL(10,2)) AS cost_gap_dollars,
     CAST(((total/sales_dollar) * 100) - ((total_cost/sales_dollar) * 100) AS DECIMAL(10,2)) AS cost_gap_pct
 FROM sales_cost sc
 JOIN location_sales_by_month ls ON sc.location_id = ls.location_id AND sc.year_and_month = ls.year_and_month

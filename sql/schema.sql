@@ -23,7 +23,7 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- GTID state at the beginning of the backup 
 --
 
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'b148c0c6-f31b-11f0-b1b4-1cfa94f50f6a:1-94565';
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'b148c0c6-f31b-11f0-b1b4-1cfa94f50f6a:1-94602';
 
 --
 -- Temporary view structure for view `all_recipes`
@@ -147,6 +147,29 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = @saved_cs_client;
 
 --
+-- Temporary view structure for view `ingredient_monthly_cost`
+--
+
+DROP TABLE IF EXISTS `ingredient_monthly_cost`;
+/*!50001 DROP VIEW IF EXISTS `ingredient_monthly_cost`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `ingredient_monthly_cost` AS SELECT 
+ 1 AS `location_id`,
+ 1 AS `ingredient_id`,
+ 1 AS `ingredient_category`,
+ 1 AS `month_start`,
+ 1 AS `quantity_purchased`,
+ 1 AS `usage_quantity`,
+ 1 AS `starting_stock`,
+ 1 AS `ending_stock`,
+ 1 AS `price_after_carry_forward`,
+ 1 AS `price_is_estimate`,
+ 1 AS `usage_dollars`,
+ 1 AS `purchase_dollars`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `inventory`
 --
 
@@ -167,6 +190,27 @@ CREATE TABLE `inventory` (
   CONSTRAINT `inventory_ibfk_3` FOREIGN KEY (`ingredient_unit`) REFERENCES `unit` (`unit_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Temporary view structure for view `inventory_monthly`
+--
+
+DROP TABLE IF EXISTS `inventory_monthly`;
+/*!50001 DROP VIEW IF EXISTS `inventory_monthly`*/;
+SET @saved_cs_client     = @@character_set_client;
+/*!50503 SET character_set_client = utf8mb4 */;
+/*!50001 CREATE VIEW `inventory_monthly` AS SELECT 
+ 1 AS `location_id`,
+ 1 AS `ingredient_id`,
+ 1 AS `ingredient_category`,
+ 1 AS `month_start`,
+ 1 AS `usage_dollars`,
+ 1 AS `ending_stock_value`,
+ 1 AS `price_is_estimate`,
+ 1 AS `months_of_supply`,
+ 1 AS `negative_usage_flag`,
+ 1 AS `zero_usage_flag`*/;
+SET character_set_client = @saved_cs_client;
 
 --
 -- Temporary view structure for view `latest_purchase_price`
@@ -232,8 +276,6 @@ SET @saved_cs_client     = @@character_set_client;
  1 AS `year_over_year_change_pct`,
  1 AS `tickets`,
  1 AS `average_ticket_count`,
- 1 AS `actual_cost_gap_dollars`,
- 1 AS `actual_cost_gap_pct`,
  1 AS `actual_food_cost_dollars`,
  1 AS `actual_food_cost_pct`,
  1 AS `theoretical_food_cost_dollars`,
@@ -242,6 +284,8 @@ SET @saved_cs_client     = @@character_set_client;
  1 AS `purchase_food_cost_pct`,
  1 AS `purchase_cost_gap_dollars`,
  1 AS `purchase_cost_gap_pct`,
+ 1 AS `actual_cost_gap_dollars`,
+ 1 AS `actual_cost_gap_pct`,
  1 AS `estimated_price_ingredient_count`*/;
 SET character_set_client = @saved_cs_client;
 
@@ -1085,6 +1129,42 @@ DELIMITER ;
 /*!50001 SET collation_connection      = @saved_col_connection */;
 
 --
+-- Final view structure for view `ingredient_monthly_cost`
+--
+
+/*!50001 DROP VIEW IF EXISTS `ingredient_monthly_cost`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `ingredient_monthly_cost` AS with `current_and_starting_inventory` as (select `i`.`location_id` AS `location_id`,`i`.`ingredient_id` AS `ingredient_id`,`ing`.`ingredient_category` AS `ingredient_category`,extract(year_month from `i`.`inventory_date`) AS `inventory_year_and_month`,`i`.`ingredient_quantity` AS `ending_stock`,lag(`i`.`ingredient_quantity`,1,NULL) OVER (PARTITION BY `i`.`location_id`,`i`.`ingredient_id` ORDER BY `i`.`inventory_date` )  AS `starting_stock` from (`inventory` `i` join `ingredient` `ing` on((`i`.`ingredient_id` = `ing`.`ingredient_id`)))), `purchases` as (select `po`.`location_id` AS `location_id`,`pl`.`ingredient_id` AS `ingredient_id`,extract(year_month from `po`.`purchase_date`) AS `purchase_year_and_month`,sum(`pl`.`ingredient_quantity`) AS `purchase_quantity`,sum((`pl`.`unit_price_actual` * `pl`.`ingredient_quantity`)) AS `purchase_dollars` from (`purchase_list` `pl` join `purchase_order` `po` on((`pl`.`order_id` = `po`.`order_id`))) group by `po`.`location_id`,`pl`.`ingredient_id`,`purchase_year_and_month`), `price` as (select `purchases`.`location_id` AS `location_id`,`purchases`.`ingredient_id` AS `ingredient_id`,`purchases`.`purchase_year_and_month` AS `purchase_year_and_month`,`purchases`.`purchase_quantity` AS `purchase_quantity`,(`purchases`.`purchase_dollars` / `purchases`.`purchase_quantity`) AS `price`,`purchases`.`purchase_dollars` AS `purchase_dollars` from `purchases`), `cost_per_location_month_ingredient` as (select `csi`.`location_id` AS `location_id`,`csi`.`ingredient_id` AS `ingredient_id`,`csi`.`inventory_year_and_month` AS `inventory_year_and_month`,`csi`.`starting_stock` AS `starting_stock`,`csi`.`ending_stock` AS `ending_stock`,((`csi`.`starting_stock` + coalesce(`p`.`purchase_quantity`,0)) - `csi`.`ending_stock`) AS `usage_quantity`,`p`.`price` AS `price`,(((`csi`.`starting_stock` + coalesce(`p`.`purchase_quantity`,0)) - `csi`.`ending_stock`) * `p`.`price`) AS `total_price` from (`current_and_starting_inventory` `csi` left join `price` `p` on(((`csi`.`location_id` = `p`.`location_id`) and (`csi`.`ingredient_id` = `p`.`ingredient_id`) and (`csi`.`inventory_year_and_month` = `p`.`purchase_year_and_month`))))), `running_total_cte` as (select `cost_per_location_month_ingredient`.`location_id` AS `location_id`,`cost_per_location_month_ingredient`.`ingredient_id` AS `ingredient_id`,`cost_per_location_month_ingredient`.`inventory_year_and_month` AS `inventory_year_and_month`,`cost_per_location_month_ingredient`.`usage_quantity` AS `usage_quantity`,`cost_per_location_month_ingredient`.`price` AS `price`,count(`cost_per_location_month_ingredient`.`price`) OVER (PARTITION BY `cost_per_location_month_ingredient`.`location_id`,`cost_per_location_month_ingredient`.`ingredient_id` ORDER BY `cost_per_location_month_ingredient`.`inventory_year_and_month` )  AS `running_total` from `cost_per_location_month_ingredient`), `carry_forward` as (select `running_total_cte`.`location_id` AS `location_id`,`running_total_cte`.`ingredient_id` AS `ingredient_id`,`running_total_cte`.`inventory_year_and_month` AS `inventory_year_and_month`,`running_total_cte`.`price` AS `price`,`running_total_cte`.`usage_quantity` AS `usage_quantity`,`running_total_cte`.`running_total` AS `running_total`,max(`running_total_cte`.`price`) OVER (PARTITION BY `running_total_cte`.`location_id`,`running_total_cte`.`ingredient_id`,`running_total_cte`.`running_total` )  AS `price_after_carry_forward` from `running_total_cte`), `actual_food_cost` as (select `carry_forward`.`location_id` AS `location_id`,`carry_forward`.`ingredient_id` AS `ingredient_id`,`carry_forward`.`inventory_year_and_month` AS `year_and_month`,`carry_forward`.`price_after_carry_forward` AS `price_after_carry_forward`,(case when ((`carry_forward`.`price` is null) and (`carry_forward`.`price_after_carry_forward` is not null)) then 1 else 0 end) AS `price_is_estimate`,`carry_forward`.`usage_quantity` AS `usage_quantity`,(`carry_forward`.`usage_quantity` * `carry_forward`.`price_after_carry_forward`) AS `usage_dollars` from `carry_forward`) select `csi`.`location_id` AS `location_id`,`csi`.`ingredient_id` AS `ingredient_id`,`csi`.`ingredient_category` AS `ingredient_category`,str_to_date(concat(`csi`.`inventory_year_and_month`,'01'),'%Y%m%d') AS `month_start`,coalesce(`p`.`purchase_quantity`,0) AS `quantity_purchased`,`afc`.`usage_quantity` AS `usage_quantity`,`csi`.`starting_stock` AS `starting_stock`,`csi`.`ending_stock` AS `ending_stock`,`afc`.`price_after_carry_forward` AS `price_after_carry_forward`,`afc`.`price_is_estimate` AS `price_is_estimate`,`afc`.`usage_dollars` AS `usage_dollars`,coalesce(`p`.`purchase_dollars`,0) AS `purchase_dollars` from ((`current_and_starting_inventory` `csi` join `actual_food_cost` `afc` on(((`csi`.`location_id` = `afc`.`location_id`) and (`csi`.`ingredient_id` = `afc`.`ingredient_id`) and (`csi`.`inventory_year_and_month` = `afc`.`year_and_month`)))) left join `purchases` `p` on(((`csi`.`location_id` = `p`.`location_id`) and (`csi`.`ingredient_id` = `p`.`ingredient_id`) and (`csi`.`inventory_year_and_month` = `p`.`purchase_year_and_month`)))) */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
+-- Final view structure for view `inventory_monthly`
+--
+
+/*!50001 DROP VIEW IF EXISTS `inventory_monthly`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8mb4 */;
+/*!50001 SET character_set_results     = utf8mb4 */;
+/*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `inventory_monthly` AS select `ingredient_monthly_cost`.`location_id` AS `location_id`,`ingredient_monthly_cost`.`ingredient_id` AS `ingredient_id`,`ingredient_monthly_cost`.`ingredient_category` AS `ingredient_category`,`ingredient_monthly_cost`.`month_start` AS `month_start`,`ingredient_monthly_cost`.`usage_dollars` AS `usage_dollars`,(`ingredient_monthly_cost`.`price_after_carry_forward` * `ingredient_monthly_cost`.`ending_stock`) AS `ending_stock_value`,`ingredient_monthly_cost`.`price_is_estimate` AS `price_is_estimate`,(case when ((`ingredient_monthly_cost`.`usage_dollars` is null) or (`ingredient_monthly_cost`.`usage_dollars` <= 0)) then NULL else ((`ingredient_monthly_cost`.`price_after_carry_forward` * `ingredient_monthly_cost`.`ending_stock`) / `ingredient_monthly_cost`.`usage_dollars`) end) AS `months_of_supply`,(case when (`ingredient_monthly_cost`.`usage_dollars` is null) then NULL when (`ingredient_monthly_cost`.`usage_dollars` < 0) then 1 else 0 end) AS `negative_usage_flag`,(case when (`ingredient_monthly_cost`.`usage_dollars` is null) then NULL when (`ingredient_monthly_cost`.`usage_dollars` = 0) then 1 else 0 end) AS `zero_usage_flag` from `ingredient_monthly_cost` */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
+
+--
 -- Final view structure for view `latest_purchase_price`
 --
 
@@ -1115,7 +1195,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `location_monthly_performance` AS with `quantity` as (select `s`.`location_id` AS `location_id`,`si`.`recipe_id` AS `recipe_id`,sum(`si`.`qty`) AS `total_quantity`,extract(year_month from `s`.`date_of_trans`) AS `year_and_month` from (`sales_items` `si` join `sales` `s` on((`si`.`transaction_id` = `s`.`transaction_id`))) group by `s`.`location_id`,`si`.`recipe_id`,`year_and_month`), `recipe_food_cost_by_location` as (select `recipe_cost_historical`.`location_id` AS `location_id`,`recipe_cost_historical`.`recipe_id` AS `recipe_id`,extract(year_month from `recipe_cost_historical`.`purchase_date`) AS `year_and_month`,avg(`recipe_cost_historical`.`cost_per_serving`) AS `cost_per_item` from `recipe_cost_historical` group by `recipe_cost_historical`.`location_id`,`recipe_cost_historical`.`recipe_id`,`year_and_month`), `location_sales_by_month` as (select `si`.`location_id` AS `location_id`,extract(year_month from `s`.`date_of_trans`) AS `year_and_month`,count(distinct `s`.`transaction_id`) AS `tickets`,sum(`si`.`total_per_item`) AS `sales_dollar` from (`sales_items` `si` join `sales` `s` on((`si`.`transaction_id` = `s`.`transaction_id`))) group by `si`.`location_id`,`year_and_month`), `purchase` as (select `po`.`location_id` AS `location_id`,extract(year_month from `po`.`purchase_date`) AS `year_and_month`,sum((`pl`.`unit_price_actual` * `pl`.`ingredient_quantity`)) AS `purchased_food_cost_dollars` from (`purchase_list` `pl` join `purchase_order` `po` on((`pl`.`order_id` = `po`.`order_id`))) group by `po`.`location_id`,`year_and_month`), `purchases` as (select `po`.`location_id` AS `location_id`,`pl`.`ingredient_id` AS `ingredient_id`,extract(year_month from `po`.`purchase_date`) AS `purchase_year_and_month`,sum(`pl`.`ingredient_quantity`) AS `purchase_quantity`,sum((`pl`.`unit_price_actual` * `pl`.`ingredient_quantity`)) AS `total_cost_dollars` from (`purchase_list` `pl` join `purchase_order` `po` on((`pl`.`order_id` = `po`.`order_id`))) group by `po`.`location_id`,`pl`.`ingredient_id`,`purchase_year_and_month`), `price` as (select `purchases`.`location_id` AS `location_id`,`purchases`.`ingredient_id` AS `ingredient_id`,`purchases`.`purchase_year_and_month` AS `purchase_year_and_month`,`purchases`.`purchase_quantity` AS `purchase_quantity`,(`purchases`.`total_cost_dollars` / `purchases`.`purchase_quantity`) AS `price`,`purchases`.`total_cost_dollars` AS `total_cost_dollars` from `purchases`), `current_and_starting_inventory` as (select `inventory`.`location_id` AS `location_id`,`inventory`.`ingredient_id` AS `ingredient_id`,extract(year_month from `inventory`.`inventory_date`) AS `inventory_year_and_month`,`inventory`.`ingredient_quantity` AS `ending_stock`,lag(`inventory`.`ingredient_quantity`,1,NULL) OVER (PARTITION BY `inventory`.`location_id`,`inventory`.`ingredient_id` ORDER BY `inventory`.`inventory_date` )  AS `starting_stock` from `inventory`), `cost_per_location_month_ingredient` as (select `csi`.`location_id` AS `location_id`,`csi`.`ingredient_id` AS `ingredient_id`,`csi`.`inventory_year_and_month` AS `inventory_year_and_month`,`csi`.`starting_stock` AS `starting_stock`,`csi`.`ending_stock` AS `ending_stock`,((`csi`.`starting_stock` + coalesce(`p`.`purchase_quantity`,0)) - `csi`.`ending_stock`) AS `usage_quantity`,`p`.`price` AS `price`,(((`csi`.`starting_stock` + coalesce(`p`.`purchase_quantity`,0)) - `csi`.`ending_stock`) * `p`.`price`) AS `total_price` from (`current_and_starting_inventory` `csi` left join `price` `p` on(((`csi`.`location_id` = `p`.`location_id`) and (`csi`.`ingredient_id` = `p`.`ingredient_id`) and (`csi`.`inventory_year_and_month` = `p`.`purchase_year_and_month`))))), `running_total_cte` as (select `cost_per_location_month_ingredient`.`location_id` AS `location_id`,`cost_per_location_month_ingredient`.`ingredient_id` AS `ingredient_id`,`cost_per_location_month_ingredient`.`inventory_year_and_month` AS `inventory_year_and_month`,`cost_per_location_month_ingredient`.`usage_quantity` AS `usage_quantity`,`cost_per_location_month_ingredient`.`price` AS `price`,count(`cost_per_location_month_ingredient`.`price`) OVER (PARTITION BY `cost_per_location_month_ingredient`.`location_id`,`cost_per_location_month_ingredient`.`ingredient_id` ORDER BY `cost_per_location_month_ingredient`.`inventory_year_and_month` )  AS `running_total` from `cost_per_location_month_ingredient`), `carry_forward` as (select `running_total_cte`.`location_id` AS `location_id`,`running_total_cte`.`ingredient_id` AS `ingredient_id`,`running_total_cte`.`inventory_year_and_month` AS `inventory_year_and_month`,`running_total_cte`.`price` AS `price`,`running_total_cte`.`usage_quantity` AS `usage_quantity`,`running_total_cte`.`running_total` AS `running_total`,max(`running_total_cte`.`price`) OVER (PARTITION BY `running_total_cte`.`location_id`,`running_total_cte`.`ingredient_id`,`running_total_cte`.`running_total` )  AS `price_after_carry_forward` from `running_total_cte`), `actual_food_cost` as (select `carry_forward`.`location_id` AS `location_id`,`carry_forward`.`inventory_year_and_month` AS `year_and_month`,count((case when ((`carry_forward`.`price` is null) and (`carry_forward`.`price_after_carry_forward` is not null)) then 1 end)) AS `estimated_price_ingredient_count`,sum((`carry_forward`.`usage_quantity` * `carry_forward`.`price_after_carry_forward`)) AS `actual_food_cost_dollars` from `carry_forward` group by `carry_forward`.`location_id`,`carry_forward`.`inventory_year_and_month`), `sales_cost` as (select `rfc`.`location_id` AS `location_id`,`rfc`.`year_and_month` AS `year_and_month`,sum((`rfc`.`cost_per_item` * `q`.`total_quantity`)) AS `total_sales_cost` from (`recipe_food_cost_by_location` `rfc` join `quantity` `q` on(((`rfc`.`location_id` = `q`.`location_id`) and (`rfc`.`recipe_id` = `q`.`recipe_id`) and (`rfc`.`year_and_month` = `q`.`year_and_month`)))) group by `rfc`.`location_id`,`rfc`.`year_and_month`) select `sc`.`location_id` AS `location_id`,`l`.`location_name` AS `location_name`,str_to_date(concat(`sc`.`year_and_month`,'01'),'%Y%m%d') AS `month_start`,cast(`ls`.`sales_dollar` as decimal(8,2)) AS `sales_dollars`,cast((((`ls`.`sales_dollar` / lag(`ls`.`sales_dollar`,12,NULL) OVER (PARTITION BY `sc`.`location_id` ORDER BY `sc`.`location_id`,`sc`.`year_and_month` ) ) - 1) * 100) as decimal(5,2)) AS `year_over_year_change_pct`,`ls`.`tickets` AS `tickets`,cast((`ls`.`sales_dollar` / `ls`.`tickets`) as decimal(8,2)) AS `average_ticket_count`,cast((`afc`.`actual_food_cost_dollars` - `sc`.`total_sales_cost`) as decimal(10,2)) AS `actual_cost_gap_dollars`,cast((((`afc`.`actual_food_cost_dollars` / `ls`.`sales_dollar`) * 100) - ((`sc`.`total_sales_cost` / `ls`.`sales_dollar`) * 100)) as decimal(10,2)) AS `actual_cost_gap_pct`,cast(`afc`.`actual_food_cost_dollars` as decimal(10,2)) AS `actual_food_cost_dollars`,cast(((`afc`.`actual_food_cost_dollars` / `ls`.`sales_dollar`) * 100) as decimal(5,2)) AS `actual_food_cost_pct`,cast(`sc`.`total_sales_cost` as decimal(10,2)) AS `theoretical_food_cost_dollars`,cast(((`sc`.`total_sales_cost` / `ls`.`sales_dollar`) * 100) as decimal(5,2)) AS `theoretical_food_cost_pct`,cast(`p`.`purchased_food_cost_dollars` as decimal(10,2)) AS `purchase_food_cost_dollars`,cast(((`p`.`purchased_food_cost_dollars` / `ls`.`sales_dollar`) * 100) as decimal(5,2)) AS `purchase_food_cost_pct`,cast((`p`.`purchased_food_cost_dollars` - `sc`.`total_sales_cost`) as decimal(10,2)) AS `purchase_cost_gap_dollars`,cast((((`p`.`purchased_food_cost_dollars` / `ls`.`sales_dollar`) * 100) - ((`sc`.`total_sales_cost` / `ls`.`sales_dollar`) * 100)) as decimal(10,2)) AS `purchase_cost_gap_pct`,`afc`.`estimated_price_ingredient_count` AS `estimated_price_ingredient_count` from ((((`sales_cost` `sc` join `location_sales_by_month` `ls` on(((`sc`.`location_id` = `ls`.`location_id`) and (`sc`.`year_and_month` = `ls`.`year_and_month`)))) join `location` `l` on((`sc`.`location_id` = `l`.`location_id`))) join `purchase` `p` on(((`sc`.`location_id` = `p`.`location_id`) and (`sc`.`year_and_month` = `p`.`year_and_month`)))) join `actual_food_cost` `afc` on(((`sc`.`location_id` = `afc`.`location_id`) and (`sc`.`year_and_month` = `afc`.`year_and_month`)))) */;
+/*!50001 VIEW `location_monthly_performance` AS with `quantity` as (select `s`.`location_id` AS `location_id`,`si`.`recipe_id` AS `recipe_id`,sum(`si`.`qty`) AS `total_quantity`,extract(year_month from `s`.`date_of_trans`) AS `year_and_month` from (`sales_items` `si` join `sales` `s` on((`si`.`transaction_id` = `s`.`transaction_id`))) group by `s`.`location_id`,`si`.`recipe_id`,`year_and_month`), `recipe_food_cost_by_location` as (select `recipe_cost_historical`.`location_id` AS `location_id`,`recipe_cost_historical`.`recipe_id` AS `recipe_id`,extract(year_month from `recipe_cost_historical`.`purchase_date`) AS `year_and_month`,avg(`recipe_cost_historical`.`cost_per_serving`) AS `cost_per_item` from `recipe_cost_historical` group by `recipe_cost_historical`.`location_id`,`recipe_cost_historical`.`recipe_id`,`year_and_month`), `location_sales_by_month` as (select `si`.`location_id` AS `location_id`,str_to_date(concat(extract(year_month from `s`.`date_of_trans`),'01'),'%Y%m%d') AS `year_and_month`,count(distinct `s`.`transaction_id`) AS `tickets`,sum(`si`.`total_per_item`) AS `sales_dollar` from (`sales_items` `si` join `sales` `s` on((`si`.`transaction_id` = `s`.`transaction_id`))) group by `si`.`location_id`,`year_and_month`), `sales_cost` as (select `rfc`.`location_id` AS `location_id`,str_to_date(concat(`rfc`.`year_and_month`,'01'),'%Y%m%d') AS `year_and_month`,sum((`rfc`.`cost_per_item` * `q`.`total_quantity`)) AS `total_sales_cost` from (`recipe_food_cost_by_location` `rfc` join `quantity` `q` on(((`rfc`.`location_id` = `q`.`location_id`) and (`rfc`.`recipe_id` = `q`.`recipe_id`) and (`rfc`.`year_and_month` = `q`.`year_and_month`)))) group by `rfc`.`location_id`,`rfc`.`year_and_month`), `ingredient_monthly_cost_location_month` as (select `ingredient_monthly_cost`.`location_id` AS `location_id`,`ingredient_monthly_cost`.`month_start` AS `month_start`,sum(`ingredient_monthly_cost`.`price_is_estimate`) AS `estimated_price_ingredient_count`,sum(`ingredient_monthly_cost`.`usage_dollars`) AS `total_usage_dollars`,sum(`ingredient_monthly_cost`.`purchase_dollars`) AS `total_purchase_dollars` from `ingredient_monthly_cost` group by `ingredient_monthly_cost`.`location_id`,`ingredient_monthly_cost`.`month_start`) select `imc`.`location_id` AS `location_id`,`l`.`location_name` AS `location_name`,`imc`.`month_start` AS `month_start`,cast(`ls`.`sales_dollar` as decimal(8,2)) AS `sales_dollars`,cast((((`ls`.`sales_dollar` / lag(`ls`.`sales_dollar`,12,NULL) OVER (PARTITION BY `sc`.`location_id` ORDER BY `sc`.`location_id`,`sc`.`year_and_month` ) ) - 1) * 100) as decimal(5,2)) AS `year_over_year_change_pct`,`ls`.`tickets` AS `tickets`,cast((`ls`.`sales_dollar` / `ls`.`tickets`) as decimal(8,2)) AS `average_ticket_count`,cast(`imc`.`total_usage_dollars` as decimal(10,2)) AS `actual_food_cost_dollars`,cast(((`imc`.`total_usage_dollars` / `ls`.`sales_dollar`) * 100) as decimal(5,2)) AS `actual_food_cost_pct`,cast(`sc`.`total_sales_cost` as decimal(10,2)) AS `theoretical_food_cost_dollars`,cast(((`sc`.`total_sales_cost` / `ls`.`sales_dollar`) * 100) as decimal(5,2)) AS `theoretical_food_cost_pct`,cast(`imc`.`total_purchase_dollars` as decimal(10,2)) AS `purchase_food_cost_dollars`,cast(((`imc`.`total_purchase_dollars` / `ls`.`sales_dollar`) * 100) as decimal(5,2)) AS `purchase_food_cost_pct`,cast((`imc`.`total_purchase_dollars` - `sc`.`total_sales_cost`) as decimal(10,2)) AS `purchase_cost_gap_dollars`,cast((((`imc`.`total_purchase_dollars` / `ls`.`sales_dollar`) * 100) - ((`sc`.`total_sales_cost` / `ls`.`sales_dollar`) * 100)) as decimal(10,2)) AS `purchase_cost_gap_pct`,cast((`imc`.`total_usage_dollars` - `sc`.`total_sales_cost`) as decimal(10,2)) AS `actual_cost_gap_dollars`,cast((((`imc`.`total_usage_dollars` / `ls`.`sales_dollar`) * 100) - ((`sc`.`total_sales_cost` / `ls`.`sales_dollar`) * 100)) as decimal(10,2)) AS `actual_cost_gap_pct`,`imc`.`estimated_price_ingredient_count` AS `estimated_price_ingredient_count` from (((`ingredient_monthly_cost_location_month` `imc` join `sales_cost` `sc` on(((`imc`.`location_id` = `sc`.`location_id`) and (`imc`.`month_start` = `sc`.`year_and_month`)))) join `location_sales_by_month` `ls` on(((`sc`.`location_id` = `ls`.`location_id`) and (`sc`.`year_and_month` = `ls`.`year_and_month`)))) join `location` `l` on((`sc`.`location_id` = `l`.`location_id`))) */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1169,7 +1249,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `order_vs_usage` AS with `current_and_starting_inventory` as (select `inventory`.`location_id` AS `location_id`,`inventory`.`ingredient_id` AS `ingredient_id`,extract(year_month from `inventory`.`inventory_date`) AS `inventory_year_and_month`,`inventory`.`ingredient_quantity` AS `ending_stock`,lag(`inventory`.`ingredient_quantity`,1,NULL) OVER (PARTITION BY `inventory`.`location_id`,`inventory`.`ingredient_id` ORDER BY `inventory`.`inventory_date` )  AS `starting_stock` from `inventory`), `purchases` as (select `po`.`location_id` AS `location_id`,`pl`.`ingredient_id` AS `ingredient_id`,extract(year_month from `po`.`purchase_date`) AS `purchase_year_and_month`,sum(`pl`.`ingredient_quantity`) AS `purchase_quantity` from (`purchase_list` `pl` join `purchase_order` `po` on((`pl`.`order_id` = `po`.`order_id`))) group by `po`.`location_id`,`pl`.`ingredient_id`,`purchase_year_and_month`) select `csi`.`location_id` AS `location_id`,`csi`.`ingredient_id` AS `ingredient_id`,str_to_date(concat(`csi`.`inventory_year_and_month`,'01'),'%Y%m%d') AS `month_start`,coalesce(`p`.`purchase_quantity`,0) AS `quantity_purchased`,((`csi`.`starting_stock` + coalesce(`p`.`purchase_quantity`,0)) - `csi`.`ending_stock`) AS `usage_quantity`,`csi`.`ending_stock` AS `ending_stock`,(coalesce(`p`.`purchase_quantity`,0) / ((`csi`.`starting_stock` + coalesce(`p`.`purchase_quantity`,0)) - `csi`.`ending_stock`)) AS `purchase_to_usage_ratio`,(coalesce(`p`.`purchase_quantity`,0) - ((`csi`.`starting_stock` + coalesce(`p`.`purchase_quantity`,0)) - `csi`.`ending_stock`)) AS `purchase_to_usage_difference` from (`current_and_starting_inventory` `csi` left join `purchases` `p` on(((`csi`.`location_id` = `p`.`location_id`) and (`csi`.`ingredient_id` = `p`.`ingredient_id`) and (`csi`.`inventory_year_and_month` = `p`.`purchase_year_and_month`)))) */;
+/*!50001 VIEW `order_vs_usage` AS select `ingredient_monthly_cost`.`location_id` AS `location_id`,`ingredient_monthly_cost`.`ingredient_id` AS `ingredient_id`,`ingredient_monthly_cost`.`month_start` AS `month_start`,`ingredient_monthly_cost`.`quantity_purchased` AS `quantity_purchased`,`ingredient_monthly_cost`.`usage_quantity` AS `usage_quantity`,`ingredient_monthly_cost`.`ending_stock` AS `ending_stock`,(case when ((`ingredient_monthly_cost`.`usage_quantity` is null) or (`ingredient_monthly_cost`.`usage_quantity` <= 0)) then NULL else (`ingredient_monthly_cost`.`quantity_purchased` / `ingredient_monthly_cost`.`usage_quantity`) end) AS `purchase_to_usage_ratio`,(`ingredient_monthly_cost`.`quantity_purchased` - `ingredient_monthly_cost`.`usage_quantity`) AS `purchase_to_usage_difference` from `ingredient_monthly_cost` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1292,4 +1372,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-13 18:33:25
+-- Dump completed on 2026-10-14 19:48:49

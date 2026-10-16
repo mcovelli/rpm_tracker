@@ -17,7 +17,7 @@ VIEW recipe_to_purchase_conversion AS
         lpp.unit_id AS purchase_unit,
         pu.unit_name AS purchase_unit_name,
         lpp.unit_price,
-        total_cost(CONVERT_INGREDIENT(ri.ingredient_id, ri.ingredient_quantity, ri.ingredient_unit, lpp.unit_id), unit_price) AS total_cost
+        ROUND(total_cost(CONVERT_INGREDIENT(ri.ingredient_id, ri.ingredient_quantity, ri.ingredient_unit, lpp.unit_id), unit_price), 2) AS total_cost
     FROM
         recipe_ingredients ri
         JOIN latest_purchase_price lpp 

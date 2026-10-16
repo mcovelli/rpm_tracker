@@ -19,7 +19,7 @@ WITH latest AS (
         u.unit_name AS unit,
         po.location_id,
         l.location_name AS location,
-        total_cost(pl.ingredient_quantity, pl.unit_price_actual) AS `total ($)`
+        ROUND(total_cost(pl.ingredient_quantity, pl.unit_price_actual), 2) AS `total ($)`
     FROM purchase_order po
     JOIN purchase_list pl ON po.order_id = pl.order_id
     JOIN supplier s ON po.supplier_id = s.supplier_id

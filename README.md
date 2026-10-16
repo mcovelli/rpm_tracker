@@ -16,6 +16,7 @@ All data in this project is fictional and was generated for demonstration.
 | View 1: `location_monthly_performance` | Built |
 | View 2: `order_vs_usage` | Built |
 | View 3: `inventory_monthly` | Built |
+| Data checks: `conversion_gaps`, `unit_mismatches`, `multi_unit_ingredients` | Built |
 | View 4: `menu_engineering` | Planned |
 | Tableau dashboards | Planned |
 
@@ -60,8 +61,8 @@ Purchasing, Pricing & Sales
 ## Core database logic
 
 The schema includes programmable logic to automate analytical workflows:
-- `convert_ingredient()`: A custom function that reads the requested unit, checks the two conversion tables and translates any volume or count into gram weight for nutritional and cost calculations.
-- Historical costing: Stored procedures like `get_recipe_cost_historical` use past purchase orders to calculate what a dish cost to produce on a specific date. The results (`recipe_cost_historical`) feed the reporting views below.
+- `convert_ingredient()`: A custom function that reads the requested unit, checks the two conversion tables and translates any volume or count into the unit asked for. It looks for a direct rate first and then the reverse rate, and returns NULL when no path exists. It carries nine decimal places so small quantities keep their precision.
+- Historical costing: Stored procedures like `get_recipe_cost_historical` use past purchase orders to calculate what a dish cost to produce on a specific date. The results (`recipe_cost_historical`) feed the reporting views below. Recipe quantities are converted to the purchase unit and divided by yield before pricing, and cost lines are not rounded.
 - Margin calculation: The `get_profit_margin` procedure compares localized active menu prices against aggregated ingredient purchase costs to output profitability.
 - Nutritional aggregation: Views like `recipe_nutritional_info` use the conversion function to scale the 100-gram baselines to actual recipe portions and output per-serving macronutrients.
 
@@ -90,7 +91,11 @@ One row per location per month. It holds sales, year-over-year change, ticket co
 | Purchase food cost | Total dollars on purchase orders placed in the month. This is a proxy, because buying more or less than the kitchen used moves it up or down |
 | Actual food cost | Usage dollars from the base view, summed across ingredients to the location-month |
 
-The gap columns show the difference in dollars and in percentage points between the cost measures. A positive gap means the cost measured is higher than theoretical. `estimated_price_count` shows how many ingredients in a location-month used a carried-forward price.
+The gap columns show the difference in dollars and in percentage points between the cost measures. A positive gap means the cost measured is higher than theoretical.
+
+Two warning columns sit at the end of the view:
+- `estimated_price_ingredient_count` shows how many ingredients in a location-month used a carried-forward price.
+- `unconverted_recipe_count` shows how many recipes sold in that location-month have at least one ingredient with no unit conversion. Those recipes are priced too low, so theoretical cost is understated and the gap to actual cost is overstated. The count should be 0. Note that it counts recipes, while the column above counts ingredients, so the two should not be added together.
 
 ### `order_vs_usage`
 
@@ -111,6 +116,20 @@ One row per location, ingredient and month, with the ingredient category as an a
 
 Ratios do not add up, so months of supply at any level above a single row is the sum of ending stock value divided by the sum of usage dollars. Both dollar columns stay in the view for that reason. The query is the same for a location, a category or both.
 
+## Data checks
+
+Recipes list quantities in kitchen units while purchases and inventory counts use purchase units, so the costing depends on every unit pair having a conversion. A missing conversion does not stop a query. The ingredient's line drops out and the recipe looks cheaper than it is. Three monitor views catch this, and each is expected to return zero rows after every data load. A row means something needs fixing.
+
+| View | What a row means |
+|---|---|
+| `conversion_gaps` | An ingredient is used in one unit in recipes and bought in another, and no conversion exists in either direction in `unit_conversion` or `ingredient_conversion` |
+| `unit_mismatches` | An ingredient's inventory unit differs from its purchase unit. Actual food cost and stock value assume the two agree |
+| `multi_unit_ingredients` | An ingredient appears in more than one unit within `purchase_list` or within `inventory`. The view shows which table it came from |
+
+Two warning columns carry the same problem into the reporting layer, so it shows up without anyone running the monitors:
+- `recipe_cost_historical.unconverted_ingredient_count` is the number of ingredients in a recipe that could not be converted. It is 0 on every row today.
+- `location_monthly_performance.unconverted_count` rolls that up to the location-month (see above).
+
 ## What the data shows
 
 These results use February 2025 through September 2026, which excludes January 2025 (no usage) and the partial October 2026. The data is fictional, so they show what the views can find, not facts about a real business.
@@ -127,22 +146,23 @@ These results use February 2025 through September 2026, which excludes January 2
 - Prices are an approximation. The price used for actual food cost and stock value is the average paid in the month, carried forward when nothing was bought. It is not FIFO costing and does not track individual lots, so it will not match what an accounting system would report.
 - January 2025 has no actual food cost. The first month has no starting stock, so usage and actual cost are NULL for every location.
 - October 2026 is incomplete. The data ends on 2026-10-08, so sales, purchases and costs for that month cover only part of it. The views still include it. Filter it out in Tableau with a data source filter, and read its year-over-year change with care because it compares a partial month with a full one.
-- Units are assumed to match. Purchase quantities and inventory counts are assumed to use the same unit for each ingredient. A formal check of this is still on the to-do list.
+- Conversions run in a single step. `convert_ingredient()` checks for a direct rate, forward or reverse, and does not chain two rates together. A unit pair that needs two steps shows up in `conversion_gaps`.
+- Actual food cost and stock value use the inventory unit and the purchase unit together, so they only work if those two agree for every ingredient. `unit_mismatches` checks this and returns no rows today.
+- The monitors check the data when someone runs them. They do not block a load. The warning columns exist so a problem still shows up downstream if a check is skipped.
 - Inventory counts carry noise. Small negative usage values appear on 9 of 9,196 rows and zero usage on 40. They pass through to the totals and are flagged in `inventory_monthly`.
 - Usage cannot separate waste from consumption. Anything that spoils or is discarded disappears from the shelf and counts as usage. Compare actual food cost with theoretical food cost to see unexplained cost.
 
 ## Next steps
 
-1. Check unit consistency. Confirm that `ingredient_unit` in `purchase_list` and `inventory` agrees for every ingredient.
-2. Build `menu_engineering`. Menu items by popularity and margin.
-3. Build the Tableau dashboards on these views.
+1. Build `menu_engineering`. Menu items by popularity and margin.
+2. Build the Tableau dashboards on these views.
    - Location performance: sales, theoretical, purchase and actual food cost over time, with the gaps by location.
    - Ordering versus usage: purchases against usage by ingredient and location.
    - Inventory: months of supply by location and category.
    - Margin trends: historical supplier price changes (for example, a spike in imported olive oil) and which active menu items fall below target margin.
    - Percent and ratio columns are built in Tableau from the dollar and quantity columns as ratios of sums, never averaged.
-4. Cost control modeling. Use the data to propose ingredient substitutions or portion changes that restore margins without raising menu prices.
-5. Regulatory reporting. Generate formatted nutritional and allergen labels for QSR, Pronto and Fresh Pasta programs from the aggregated views.
+3. Cost control modeling. Use the data to propose ingredient substitutions or portion changes that restore margins without raising menu prices.
+4. Regulatory reporting. Generate formatted nutritional and allergen labels for QSR, Pronto and Fresh Pasta programs from the aggregated views.
 
 ## Getting started (viewing the database locally)
 
@@ -153,3 +173,5 @@ Command line:
 mysql -u <your_username> -p < schema.sql
 mysql -u <your_username> -p restaurant < database.sql
 ```
+
+After loading, run the three data check views and confirm each returns zero rows.

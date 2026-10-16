@@ -1,6 +1,6 @@
 DELIMITER //
-CREATE FUNCTION convert_ingredient(p_ingredient_id smallint unsigned, p_ingredient_quantity DECIMAL(8,3), p_from_unit tinyint unsigned, p_to_unit tinyint unsigned)
-RETURNS DECIMAL(8,3)
+CREATE FUNCTION convert_ingredient(p_ingredient_id smallint unsigned, p_ingredient_quantity DECIMAL(15,9), p_from_unit tinyint unsigned, p_to_unit tinyint unsigned)
+RETURNS DECIMAL(15, 9)
 DETERMINISTIC
 BEGIN
 	DECLARE uc_rate DECIMAL(15,9);

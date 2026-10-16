@@ -22,9 +22,17 @@ converted AS (
     JOIN (SELECT DISTINCT ingredient_id, ingredient_unit FROM purchase_list) pu
       ON pu.ingredient_id = ri.ingredient_id
 ),
+
+unconverted AS (
+    SELECT 
+		recipe_id, 
+        COUNT(DISTINCT CASE WHEN qty IS NULL THEN ingredient_id END) AS unconverted_ingredient_count
+	FROM converted
+    GROUP BY recipe_id
+),
 line_cost AS (
     SELECT pe.location_id, ri.recipe_id, ri.ingredient_id, pe.purchase_date,
-           ROUND(cv.qty * pe.unit_price_actual, 2) AS line_cost
+           cv.qty * pe.unit_price_actual AS line_cost
     FROM price_events pe
     JOIN recipe_ingredients ri ON ri.ingredient_id = pe.ingredient_id
     JOIN menu m ON m.location_id = pe.location_id AND m.recipe_id = ri.recipe_id
@@ -56,9 +64,18 @@ recipe_size AS (
     FROM recipe_ingredients
     GROUP BY recipe_id
 )
-SELECT c.purchase_date, c.location_id, l.location_name, c.recipe_id, r.recipe_name,
-       r.num_servings, c.total_recipe_cost, c.total_recipe_cost / r.num_servings AS cost_per_serving
+SELECT 
+	c.purchase_date, 
+    c.location_id, 
+    l.location_name, 
+    c.recipe_id, 
+    r.recipe_name,
+	r.num_servings, 
+    c.total_recipe_cost, 
+    c.total_recipe_cost / r.num_servings AS cost_per_serving,
+    uc.unconverted_ingredient_count
 FROM running c
 JOIN recipe_size rs ON rs.recipe_id = c.recipe_id AND c.ingredients_priced = rs.n_ingredients
+JOIN unconverted uc ON rs.recipe_id = uc.recipe_id
 JOIN location l ON l.location_id = c.location_id
 JOIN recipe r ON r.recipe_id = c.recipe_id;

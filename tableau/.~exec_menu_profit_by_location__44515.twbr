@@ -680,7 +680,7 @@
       </table>
       <simple-id uuid='{1075FDE3-73A1-44B5-8428-4F15066A7906}' />
     </worksheet>
-    <worksheet name='Sales Trends by Location'>
+    <worksheet lock-updates='true' name='Sales Trends by Location'>
       <table>
         <view>
           <datasources>
@@ -715,7 +715,7 @@
             <encodings>
               <color column='[federated.0t6emma1iglx0h13udzyc0j8jqk2].[none:location_name:nk]' />
             </encodings>
-            <reference-line axis-column='[federated.0t6emma1iglx0h13udzyc0j8jqk2].[tmn:month_start:qk]' enable-instant-analytics='true' formula='constant' id='refline0' label-type='automatic' scope='per-pane' value='#2025-10-01 00:00:00#' value-column='[federated.0t6emma1iglx0h13udzyc0j8jqk2].[tmn:month_start:qk]' z-order='1' />
+            <reference-line axis-column='[federated.0t6emma1iglx0h13udzyc0j8jqk2].[tmn:month_start:qk]' enable-instant-analytics='true' formula='constant' id='refline0' label-type='value' scope='per-table' value='#2026-09-30 00:00:00#' value-column='[federated.0t6emma1iglx0h13udzyc0j8jqk2].[tmn:month_start:qk]' z-order='1' />
           </pane>
         </panes>
         <rows>[federated.0t6emma1iglx0h13udzyc0j8jqk2].[avg:sales_dollars:qk]</rows>

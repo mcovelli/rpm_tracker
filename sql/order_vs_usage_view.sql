@@ -2,7 +2,9 @@ CREATE OR REPLACE VIEW order_vs_usage AS
 
 SELECT
 	location_id,
+	location_name,
     ingredient_id,
+    ingredient_name,
     month_start,
     quantity_purchased,
     usage_quantity,

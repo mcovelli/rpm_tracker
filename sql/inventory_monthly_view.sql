@@ -2,9 +2,11 @@
 
 CREATE OR REPLACE VIEW inventory_monthly AS
 SELECT
-    location_id,
-    ingredient_id,
-    ingredient_category,
+    imc.location_id,
+    l.location_name,
+    imc.ingredient_id,
+    i.ingredient_name,
+    imc.ingredient_category,
     month_start,
     usage_dollars,
     price_after_carry_forward * ending_stock AS ending_stock_value,
@@ -23,4 +25,6 @@ SELECT
         WHEN usage_dollars = 0 THEN 1
         ELSE 0
     END) AS zero_usage_flag
-FROM ingredient_monthly_cost;
+FROM ingredient_monthly_cost imc
+JOIN location l ON imc.location_id = l.location_id
+JOIN ingredient i ON imc.ingredient_id = i.ingredient_id

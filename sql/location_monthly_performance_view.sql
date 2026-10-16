@@ -13,31 +13,13 @@ CREATE OR REPLACE VIEW location_monthly_performance AS
 	GROUP BY s.location_id, si.recipe_id, year_and_month
 	),
     
-    converted AS (
-		SELECT DISTINCT ri.recipe_id, ri.ingredient_id, pu.ingredient_unit AS purchase_unit,
-			   convert_ingredient(ri.ingredient_id, ri.ingredient_quantity / (i.yield_pct / 100),
-								  ri.ingredient_unit, pu.ingredient_unit) AS qty
-		FROM recipe_ingredients ri
-		JOIN ingredient i ON i.ingredient_id = ri.ingredient_id
-		JOIN (SELECT DISTINCT ingredient_id, ingredient_unit FROM purchase_list) pu
-		  ON pu.ingredient_id = ri.ingredient_id
-	),
-
-	unconverted AS (
-		SELECT 
-			recipe_id, 
-			COUNT(DISTINCT CASE WHEN qty IS NULL THEN ingredient_id END) AS unconverted_ingredient_count
-		FROM converted
-		GROUP BY recipe_id
-	),
-    
 	recipe_food_cost_by_location AS (
 	SELECT 
 		location_id,
 		recipe_id,
 		EXTRACT(YEAR_MONTH FROM purchase_date) AS year_and_month,
 		AVG(cost_per_serving) AS cost_per_item,
-        SUM(unconverted_ingredient_count) AS ingredient_days
+        MAX(unconverted_ingredient_count) AS unconverted_ingredient_count
 	FROM recipe_cost_historical
 	GROUP BY location_id, recipe_id, year_and_month
 	 
@@ -59,7 +41,7 @@ CREATE OR REPLACE VIEW location_monthly_performance AS
 		rfc.location_id,
 		STR_TO_DATE(CONCAT(rfc.year_and_month, '01'), '%Y%m%d') AS year_and_month,
 		SUM(cost_per_item * total_quantity) AS total_sales_cost,
-        SUM(CASE WHEN ingredient_days > 0 THEN 1 ELSE 0 END) AS unconverted_recipe_count
+        SUM(CASE WHEN unconverted_ingredient_count > 0 THEN 1 ELSE 0 END) AS unconverted_recipe_count
 	FROM recipe_food_cost_by_location rfc 
 	JOIN quantity q ON rfc.location_id = q.location_id AND rfc.recipe_id = q.recipe_id AND rfc.year_and_month = q.year_and_month
 	GROUP BY rfc.location_id, rfc.year_and_month

@@ -88,7 +88,9 @@ FROM carry_forward
 
 SELECT
 	csi.location_id,
+    l.location_name,
     csi.ingredient_id,
+    i.ingredient_name,
     csi.ingredient_category,
     STR_TO_DATE(CONCAT(inventory_year_and_month, '01'), '%Y%m%d') AS month_start,
     
@@ -102,6 +104,8 @@ SELECT
     COALESCE(purchase_dollars, 0) AS purchase_dollars
 FROM current_and_starting_inventory csi
 JOIN actual_food_cost afc ON csi.location_id = afc.location_id AND csi.ingredient_id = afc.ingredient_id AND csi.inventory_year_and_month = afc.year_and_month
+JOIN location l ON csi.location_id = l.location_id
+JOIN ingredient i ON csi.ingredient_id = i.ingredient_id
 LEFT JOIN purchases p ON 
 	csi.location_id = p.location_id 
 	AND csi.ingredient_id = p.ingredient_id 

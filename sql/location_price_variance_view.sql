@@ -2,6 +2,7 @@ CREATE OR REPLACE VIEW location_price_variance AS
 SELECT 
     l.location_id,
     l.location_name,
+    STR_TO_DATE(CONCAT(EXTRACT(year_month FROM po.purchase_date), '01'), '%Y%m%d') AS month_start,
     i.ingredient_id,
     i.ingredient_name,
     i.ingredient_category,
@@ -15,7 +16,5 @@ JOIN location l ON po.location_id = l.location_id
 JOIN ingredient i ON pl.ingredient_id = i.ingredient_id
 GROUP BY 
     l.location_id,
-    l.location_name,
     i.ingredient_id,
-    i.ingredient_name,
-    i.ingredient_category;
+    month_start;

@@ -69,7 +69,7 @@ CREATE OR REPLACE VIEW location_monthly_performance AS
 		CAST(((sales_dollar / (LAG(sales_dollar, 12, NULL) OVER (PARTITION BY sc.location_id ORDER BY sc.location_id, sc.year_and_month)) - 1) * 100) AS DECIMAL (5,2)) AS year_over_year_change_pct,
 		
 		tickets,
-		CAST(sales_dollar/tickets AS DECIMAL(8,2)) AS average_ticket_count,
+		CAST(sales_dollar/tickets AS DECIMAL(8,2)) AS average_ticket_dollars,
 				
 		CAST(total_usage_dollars AS DECIMAL(10,2)) AS actual_food_cost_dollars,
 		CAST(((total_usage_dollars/sales_dollar) * 100) AS DECIMAL(5,2)) AS actual_food_cost_pct,

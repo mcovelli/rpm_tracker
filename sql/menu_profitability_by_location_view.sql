@@ -8,9 +8,7 @@ SELECT
     m.price AS menu_price,
     rc.cost_per_serving,
     (m.price - rc.cost_per_serving) AS gross_profit_per_unit,
-    ((m.price - rc.cost_per_serving) / m.price) * 100 AS profit_margin_pct,
-    SUM(si.qty) AS total_units_sold,
-    SUM(si.qty) * (m.price - rc.cost_per_serving) AS total_gross_profit_dollars
+    ((m.price - rc.cost_per_serving) / m.price) * 100 AS profit_margin_pct
 FROM menu m
 JOIN recipe r ON m.recipe_id = r.recipe_id
 JOIN location l ON m.location_id = l.location_id

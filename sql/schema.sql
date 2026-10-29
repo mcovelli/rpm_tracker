@@ -23,7 +23,7 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 -- GTID state at the beginning of the backup 
 --
 
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'b148c0c6-f31b-11f0-b1b4-1cfa94f50f6a:1-95171';
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ 'b148c0c6-f31b-11f0-b1b4-1cfa94f50f6a:1-95318';
 
 --
 -- Temporary view structure for view `all_recipes`
@@ -404,9 +404,7 @@ SET @saved_cs_client     = @@character_set_client;
  1 AS `menu_price`,
  1 AS `cost_per_serving`,
  1 AS `gross_profit_per_unit`,
- 1 AS `profit_margin_pct`,
- 1 AS `total_units_sold`,
- 1 AS `total_gross_profit_dollars`*/;
+ 1 AS `profit_margin_pct`*/;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -1357,7 +1355,7 @@ DELIMITER ;
 /*!50001 SET collation_connection      = utf8mb4_0900_ai_ci */;
 /*!50001 CREATE ALGORITHM=UNDEFINED */
 /*!50013 DEFINER=`root`@`localhost` SQL SECURITY DEFINER */
-/*!50001 VIEW `menu_profitability_by_location` AS select `m`.`location_id` AS `location_id`,`l`.`location_name` AS `location_name`,`r`.`recipe_id` AS `recipe_id`,`r`.`recipe_name` AS `recipe_name`,`m`.`recipe_status` AS `recipe_status`,`m`.`price` AS `menu_price`,`rc`.`cost_per_serving` AS `cost_per_serving`,(`m`.`price` - `rc`.`cost_per_serving`) AS `gross_profit_per_unit`,(((`m`.`price` - `rc`.`cost_per_serving`) / `m`.`price`) * 100) AS `profit_margin_pct`,sum(`si`.`qty`) AS `total_units_sold`,(sum(`si`.`qty`) * (`m`.`price` - `rc`.`cost_per_serving`)) AS `total_gross_profit_dollars` from ((((`menu` `m` join `recipe` `r` on((`m`.`recipe_id` = `r`.`recipe_id`))) join `location` `l` on((`m`.`location_id` = `l`.`location_id`))) join `recipe_cost` `rc` on(((`m`.`recipe_id` = `rc`.`recipe_id`) and (`m`.`location_id` = `rc`.`location_id`)))) join `sales_items` `si` on(((`m`.`recipe_id` = `si`.`recipe_id`) and (`m`.`location_id` = `si`.`location_id`)))) where (`m`.`recipe_status` = 'ACTIVE') group by `m`.`location_id`,`l`.`location_name`,`r`.`recipe_id`,`r`.`recipe_name`,`m`.`price`,`rc`.`cost_per_serving` */;
+/*!50001 VIEW `menu_profitability_by_location` AS select `m`.`location_id` AS `location_id`,`l`.`location_name` AS `location_name`,`r`.`recipe_id` AS `recipe_id`,`r`.`recipe_name` AS `recipe_name`,`m`.`recipe_status` AS `recipe_status`,`m`.`price` AS `menu_price`,`rc`.`cost_per_serving` AS `cost_per_serving`,(`m`.`price` - `rc`.`cost_per_serving`) AS `gross_profit_per_unit`,(((`m`.`price` - `rc`.`cost_per_serving`) / `m`.`price`) * 100) AS `profit_margin_pct` from ((((`menu` `m` join `recipe` `r` on((`m`.`recipe_id` = `r`.`recipe_id`))) join `location` `l` on((`m`.`location_id` = `l`.`location_id`))) join `recipe_cost` `rc` on(((`m`.`recipe_id` = `rc`.`recipe_id`) and (`m`.`location_id` = `rc`.`location_id`)))) join `sales_items` `si` on(((`m`.`recipe_id` = `si`.`recipe_id`) and (`m`.`location_id` = `si`.`location_id`)))) where (`m`.`recipe_status` = 'ACTIVE') group by `m`.`location_id`,`l`.`location_name`,`r`.`recipe_id`,`r`.`recipe_name`,`m`.`price`,`rc`.`cost_per_serving` */;
 /*!50001 SET character_set_client      = @saved_cs_client */;
 /*!50001 SET character_set_results     = @saved_cs_results */;
 /*!50001 SET collation_connection      = @saved_col_connection */;
@@ -1552,4 +1550,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-10-19 13:19:26
+-- Dump completed on 2026-10-29 18:16:45
